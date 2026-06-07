@@ -1,0 +1,32 @@
+case_id: case-001-privileged-container
+artifact_type: kubernetes_yaml
+
+title: Privileged container enabled
+
+description: >
+  This benchmark case contains a Kubernetes Deployment where the container
+  securityContext has privileged set to true. This is a security misconfiguration
+  because privileged containers have elevated access to the host environment.
+
+misconfigurations:
+  - id: GT-001
+    category: PodSecurity
+    subcategory: PrivilegedContainer
+    severity: High
+
+    resource:
+      apiVersion: apps/v1
+      kind: Deployment
+      name: privileged-demo-app
+      container: demo-container
+
+    field_path: spec.template.spec.containers[0].securityContext.privileged
+    bad_value: true
+    expected_secure_value: false
+
+    rationale: >
+      Containers should not run in privileged mode unless there is a strong
+      operational reason. Privileged mode increases the risk that a compromised
+      container could affect the host or other workloads.
+
+    expected_detection: true

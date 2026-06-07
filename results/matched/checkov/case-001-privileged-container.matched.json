@@ -1,0 +1,181 @@
+{
+  "case_id": "case-001-privileged-container",
+  "tool": "checkov",
+  "artifact_type": "kubernetes_yaml",
+  "matching_mode": "review_mode",
+  "summary": {
+    "ground_truth_items_count": 1,
+    "normalised_findings_count": 20,
+    "true_positive_count": 1,
+    "false_negative_count": 0,
+    "unlabelled_extra_findings_count": 19,
+    "false_positive_count": 0
+  },
+  "true_positives": [
+    {
+      "ground_truth_id": "GT-001",
+      "scanner_rule_id": "CKV_K8S_16",
+      "scanner_rule_name": "Container should not be privileged",
+      "category": "PodSecurity",
+      "subcategory": "PrivilegedContainer",
+      "resource": "Deployment.default.privileged-demo-app",
+      "field_path": "spec.template.spec.containers[0].securityContext.privileged",
+      "match_status": "true_positive"
+    }
+  ],
+  "false_negatives": [],
+  "unlabelled_extra_findings": [
+    {
+      "scanner_rule_id": "CKV_K8S_20",
+      "scanner_rule_name": "Containers should not run with allowPrivilegeEscalation",
+      "resource": "Deployment.default.privileged-demo-app",
+      "category": "Unmapped",
+      "subcategory": "Unmapped",
+      "match_status": "unlabelled_extra_finding"
+    },
+    {
+      "scanner_rule_id": "CKV_K8S_11",
+      "scanner_rule_name": "CPU limits should be set",
+      "resource": "Deployment.default.privileged-demo-app",
+      "category": "Unmapped",
+      "subcategory": "Unmapped",
+      "match_status": "unlabelled_extra_finding"
+    },
+    {
+      "scanner_rule_id": "CKV_K8S_10",
+      "scanner_rule_name": "CPU requests should be set",
+      "resource": "Deployment.default.privileged-demo-app",
+      "category": "Unmapped",
+      "subcategory": "Unmapped",
+      "match_status": "unlabelled_extra_finding"
+    },
+    {
+      "scanner_rule_id": "CKV_K8S_21",
+      "scanner_rule_name": "The default namespace should not be used",
+      "resource": "Deployment.default.privileged-demo-app",
+      "category": "Unmapped",
+      "subcategory": "Unmapped",
+      "match_status": "unlabelled_extra_finding"
+    },
+    {
+      "scanner_rule_id": "CKV_K8S_28",
+      "scanner_rule_name": "Minimize the admission of containers with the NET_RAW capability",
+      "resource": "Deployment.default.privileged-demo-app",
+      "category": "Unmapped",
+      "subcategory": "Unmapped",
+      "match_status": "unlabelled_extra_finding"
+    },
+    {
+      "scanner_rule_id": "CKV_K8S_43",
+      "scanner_rule_name": "Image should use digest",
+      "resource": "Deployment.default.privileged-demo-app",
+      "category": "Unmapped",
+      "subcategory": "Unmapped",
+      "match_status": "unlabelled_extra_finding"
+    },
+    {
+      "scanner_rule_id": "CKV_K8S_15",
+      "scanner_rule_name": "Image Pull Policy should be Always",
+      "resource": "Deployment.default.privileged-demo-app",
+      "category": "Unmapped",
+      "subcategory": "Unmapped",
+      "match_status": "unlabelled_extra_finding"
+    },
+    {
+      "scanner_rule_id": "CKV_K8S_8",
+      "scanner_rule_name": "Liveness Probe Should be Configured",
+      "resource": "Deployment.default.privileged-demo-app",
+      "category": "Unmapped",
+      "subcategory": "Unmapped",
+      "match_status": "unlabelled_extra_finding"
+    },
+    {
+      "scanner_rule_id": "CKV_K8S_13",
+      "scanner_rule_name": "Memory limits should be set",
+      "resource": "Deployment.default.privileged-demo-app",
+      "category": "Unmapped",
+      "subcategory": "Unmapped",
+      "match_status": "unlabelled_extra_finding"
+    },
+    {
+      "scanner_rule_id": "CKV_K8S_12",
+      "scanner_rule_name": "Memory requests should be set",
+      "resource": "Deployment.default.privileged-demo-app",
+      "category": "Unmapped",
+      "subcategory": "Unmapped",
+      "match_status": "unlabelled_extra_finding"
+    },
+    {
+      "scanner_rule_id": "CKV_K8S_37",
+      "scanner_rule_name": "Minimize the admission of containers with capabilities assigned",
+      "resource": "Deployment.default.privileged-demo-app",
+      "category": "Unmapped",
+      "subcategory": "Unmapped",
+      "match_status": "unlabelled_extra_finding"
+    },
+    {
+      "scanner_rule_id": "CKV_K8S_29",
+      "scanner_rule_name": "Apply security context to your pods and containers",
+      "resource": "Deployment.default.privileged-demo-app",
+      "category": "Unmapped",
+      "subcategory": "Unmapped",
+      "match_status": "unlabelled_extra_finding"
+    },
+    {
+      "scanner_rule_id": "CKV_K8S_9",
+      "scanner_rule_name": "Readiness Probe Should be Configured",
+      "resource": "Deployment.default.privileged-demo-app",
+      "category": "Unmapped",
+      "subcategory": "Unmapped",
+      "match_status": "unlabelled_extra_finding"
+    },
+    {
+      "scanner_rule_id": "CKV_K8S_22",
+      "scanner_rule_name": "Use read-only filesystem for containers where possible",
+      "resource": "Deployment.default.privileged-demo-app",
+      "category": "Unmapped",
+      "subcategory": "Unmapped",
+      "match_status": "unlabelled_extra_finding"
+    },
+    {
+      "scanner_rule_id": "CKV_K8S_23",
+      "scanner_rule_name": "Minimize the admission of root containers",
+      "resource": "Deployment.default.privileged-demo-app",
+      "category": "Unmapped",
+      "subcategory": "Unmapped",
+      "match_status": "unlabelled_extra_finding"
+    },
+    {
+      "scanner_rule_id": "CKV_K8S_40",
+      "scanner_rule_name": "Containers should run as a high UID to avoid host conflict",
+      "resource": "Deployment.default.privileged-demo-app",
+      "category": "Unmapped",
+      "subcategory": "Unmapped",
+      "match_status": "unlabelled_extra_finding"
+    },
+    {
+      "scanner_rule_id": "CKV_K8S_31",
+      "scanner_rule_name": "Ensure that the seccomp profile is set to docker/default or runtime/default",
+      "resource": "Deployment.default.privileged-demo-app",
+      "category": "Unmapped",
+      "subcategory": "Unmapped",
+      "match_status": "unlabelled_extra_finding"
+    },
+    {
+      "scanner_rule_id": "CKV_K8S_38",
+      "scanner_rule_name": "Ensure that Service Account Tokens are only mounted where necessary",
+      "resource": "Deployment.default.privileged-demo-app",
+      "category": "Unmapped",
+      "subcategory": "Unmapped",
+      "match_status": "unlabelled_extra_finding"
+    },
+    {
+      "scanner_rule_id": "CKV2_K8S_6",
+      "scanner_rule_name": "Minimize the admission of pods which lack an associated NetworkPolicy",
+      "resource": "Pod.default.privileged-demo-app.app-privileged-demo-app",
+      "category": "Unmapped",
+      "subcategory": "Unmapped",
+      "match_status": "unlabelled_extra_finding"
+    }
+  ]
+}
