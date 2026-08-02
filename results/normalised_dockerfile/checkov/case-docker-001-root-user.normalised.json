@@ -4,7 +4,7 @@
   "tool": "checkov",
   "scanner_version": "2.5.20",
   "artifact_type": "dockerfile",
-  "generated_at": "2026-08-02T13:54:23.614697+00:00",
+  "generated_at": "2026-08-02T19:38:04.096704+00:00",
   "source_file": "results\\raw\\checkov\\case-docker-001-root-user.json",
   "summary": {
     "normalised_findings_count": 1,

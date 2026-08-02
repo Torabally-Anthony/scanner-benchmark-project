@@ -3,8 +3,8 @@
   "Trivy": {
     "Version": "0.69.3"
   },
-  "ReportID": "019fc2eb-ea99-76c0-8cc6-4e6a30262191",
-  "CreatedAt": "2026-08-02T16:41:08.7614425+02:00",
+  "ReportID": "019fc3f9-7030-7edd-ac81-a45be1771e71",
+  "CreatedAt": "2026-08-02T21:35:32.1449741+02:00",
   "ArtifactName": "corpus/helm/case-helm-001-host-network",
   "ArtifactType": "filesystem",
   "Results": [

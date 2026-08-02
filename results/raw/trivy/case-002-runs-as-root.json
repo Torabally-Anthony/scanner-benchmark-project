@@ -3,9 +3,9 @@
   "Trivy": {
     "Version": "0.69.3"
   },
-  "ReportID": "019fc1c8-2bbd-7292-bfc5-8f9950e4c3fd",
-  "CreatedAt": "2026-08-02T11:22:28.9251686+02:00",
-  "ArtifactName": "corpus/kubernetes/case-002-runs-as-root/artifact.yaml",
+  "ReportID": "019fc3f6-bcc9-785b-859f-56fef1642bce",
+  "CreatedAt": "2026-08-02T21:32:35.1455478+02:00",
+  "ArtifactName": "corpus/kubernetes/case-002-runs-as-root",
   "ArtifactType": "filesystem",
   "Results": [
     {

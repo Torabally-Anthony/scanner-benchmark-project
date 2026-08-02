@@ -3,9 +3,9 @@
   "Trivy": {
     "Version": "0.69.3"
   },
-  "ReportID": "019fc2c7-b4a0-7db2-bd5a-24ca98539c56",
-  "CreatedAt": "2026-08-02T16:01:35.6488977+02:00",
-  "ArtifactName": "corpus/dockerfiles/case-docker-002-missing-user/Dockerfile",
+  "ReportID": "019fc3f8-3dac-7d56-b8f0-f3b2da5c2425",
+  "CreatedAt": "2026-08-02T21:34:13.6768742+02:00",
+  "ArtifactName": "corpus/dockerfiles/case-docker-002-missing-user",
   "ArtifactType": "filesystem",
   "Results": [
     {

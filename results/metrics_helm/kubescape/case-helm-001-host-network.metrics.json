@@ -4,24 +4,24 @@
   "tool": "kubescape",
   "scanner_version": "Your current version is: v4.0.10\nBuild commit: f956507357091c3806777fe13ddf5e65efe36e44\nBuild date: 2026-06-30T05:17:15Z",
   "artifact_type": "helm_chart",
-  "matching_mode": "review",
-  "generated_at": "2026-08-02T15:14:34.850142+00:00",
+  "matching_mode": "strict",
+  "generated_at": "2026-08-02T19:38:27.216629+00:00",
   "source_file": "results\\matched_helm\\kubescape\\case-helm-001-host-network.matched.json",
-  "evaluation_status": "requires_manual_review",
+  "evaluation_status": "complete",
   "counts": {
     "total_normalised_findings": 6,
     "ground_truth_issue_count": 1,
     "true_positive_count": 1,
-    "false_positive_count": 0,
+    "false_positive_count": 5,
     "false_negative_count": 0,
-    "unlabelled_extra_findings_count": 5,
+    "unlabelled_extra_findings_count": 0,
     "duplicate_match_count": 0,
     "ambiguous_match_count": 0
   },
   "metrics": {
-    "precision": 1.0,
+    "precision": 0.1667,
     "recall": 1.0,
-    "f1_score": 1.0
+    "f1_score": 0.2857
   },
   "formula_used": {
     "precision": "TP / (TP + FP)",
@@ -31,7 +31,7 @@
   "metric_inputs": {
     "precision": {
       "true_positives": 1,
-      "false_positives": 0
+      "false_positives": 5
     },
     "recall": {
       "true_positives": 1,
@@ -42,7 +42,7 @@
     "precision": "Precision measures the proportion of classified positive findings that were true positives.",
     "recall": "Recall measures the proportion of ground-truth issues detected by the scanner.",
     "f1_score": "F1 is the harmonic mean of precision and recall.",
-    "precision_denominator": "TP + FP = 1",
+    "precision_denominator": "TP + FP = 6",
     "recall_denominator": "TP + FN = 1",
     "review_mode_note": "In review mode, unmapped findings are stored as unlabelled extras and are not counted as false positives.",
     "strict_mode_note": "In strict mode, unmapped findings are classified as false positives.",

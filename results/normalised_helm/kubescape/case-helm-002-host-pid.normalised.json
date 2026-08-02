@@ -4,7 +4,7 @@
   "tool": "kubescape",
   "scanner_version": "Your current version is: v4.0.10\nBuild commit: f956507357091c3806777fe13ddf5e65efe36e44\nBuild date: 2026-06-30T05:17:15Z",
   "artifact_type": "helm_chart",
-  "generated_at": "2026-08-02T16:37:29.922594+00:00",
+  "generated_at": "2026-08-02T19:42:56.873612+00:00",
   "source_file": "results\\raw\\kubescape\\case-helm-002-host-pid.json",
   "summary": {
     "normalised_findings_count": 7,

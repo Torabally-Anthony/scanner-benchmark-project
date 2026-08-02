@@ -4,8 +4,8 @@
   "tool": "checkov",
   "scanner_version": "2.5.20",
   "artifact_type": "dockerfile",
-  "matching_mode": "review",
-  "generated_at": "2026-08-02T13:54:24.156933+00:00",
+  "matching_mode": "strict",
+  "generated_at": "2026-08-02T19:38:04.382317+00:00",
   "source_file": "results\\normalised_dockerfile\\checkov\\case-docker-001-root-user.normalised.json",
   "ground_truth_source": "corpus/dockerfiles/case-docker-001-root-user/ground_truth.yaml",
   "classification_policy": {

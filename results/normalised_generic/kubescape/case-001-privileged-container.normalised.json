@@ -4,7 +4,7 @@
   "tool": "kubescape",
   "scanner_version": "Your current version is: v4.0.10\nBuild commit: f956507357091c3806777fe13ddf5e65efe36e44\nBuild date: 2026-06-30T05:17:15Z",
   "artifact_type": "kubernetes_yaml",
-  "generated_at": "2026-08-02T07:32:42.410318+00:00",
+  "generated_at": "2026-08-02T19:37:37.161566+00:00",
   "source_file": "results\\raw\\kubescape\\case-001-privileged-container.json",
   "summary": {
     "normalised_findings_count": 23,

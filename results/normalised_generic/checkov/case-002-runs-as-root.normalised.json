@@ -4,7 +4,7 @@
   "tool": "checkov",
   "scanner_version": "2.5.20",
   "artifact_type": "kubernetes_yaml",
-  "generated_at": "2026-08-02T09:35:00.573151+00:00",
+  "generated_at": "2026-08-02T19:42:39.030399+00:00",
   "source_file": "results\\raw\\checkov\\case-002-runs-as-root.json",
   "summary": {
     "normalised_findings_count": 5,

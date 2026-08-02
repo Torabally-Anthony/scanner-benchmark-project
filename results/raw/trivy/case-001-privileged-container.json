@@ -3,9 +3,9 @@
   "Trivy": {
     "Version": "0.69.3"
   },
-  "ReportID": "019f8dcf-c2c4-7417-9e85-51f1cdf80614",
-  "CreatedAt": "2026-07-23T09:10:31.1082682+02:00",
-  "ArtifactName": "C:/Users/Lenovo/Desktop/scanner-benchmark-project/corpus/kubernetes/case-001-privileged-container",
+  "ReportID": "019fc3f4-2aad-7a8e-b887-f21b5c1a3deb",
+  "CreatedAt": "2026-08-02T21:29:46.6696918+02:00",
+  "ArtifactName": "corpus/kubernetes/case-001-privileged-container",
   "ArtifactType": "filesystem",
   "Results": [
     {

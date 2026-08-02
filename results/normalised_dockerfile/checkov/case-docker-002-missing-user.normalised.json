@@ -4,7 +4,7 @@
   "tool": "checkov",
   "scanner_version": "2.5.20",
   "artifact_type": "dockerfile",
-  "generated_at": "2026-08-02T17:40:23.601048+00:00",
+  "generated_at": "2026-08-02T19:42:46.104209+00:00",
   "source_file": "results\\raw\\checkov\\case-docker-002-missing-user.json",
   "summary": {
     "normalised_findings_count": 1,

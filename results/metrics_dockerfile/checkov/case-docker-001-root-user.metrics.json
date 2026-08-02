@@ -4,8 +4,8 @@
   "tool": "checkov",
   "scanner_version": "2.5.20",
   "artifact_type": "dockerfile",
-  "matching_mode": "review",
-  "generated_at": "2026-08-02T13:54:24.557401+00:00",
+  "matching_mode": "strict",
+  "generated_at": "2026-08-02T19:38:04.700851+00:00",
   "source_file": "results\\matched_dockerfile\\checkov\\case-docker-001-root-user.matched.json",
   "evaluation_status": "complete",
   "counts": {

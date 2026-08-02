@@ -2,99 +2,1912 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Dashboard for benchmarking Checkov, Trivy, and Kubescape across Kubernetes YAML, Dockerfiles, and Helm charts."
+  >
+
   <title>Scanner Benchmark Dashboard</title>
-  <link rel="stylesheet" href="/styles.css">
+
+  <link
+    rel="stylesheet"
+    href="/styles.css"
+  >
 </head>
+
 <body>
   <div class="app">
+
+    <!-- ================================================================
+         Sidebar
+         ================================================================ -->
+
     <aside class="sidebar">
-      <div class="brand"><span>SB</span><div><strong>Scanner Benchmark</strong><small>Research platform</small></div></div>
-      <nav>
-        <button class="nav active" data-view="dashboard">▦ Dashboard</button>
-        <button class="nav" data-view="corpus">◇ Benchmark Corpus</button>
-        <button class="nav" data-view="run">▶ Run Benchmark</button>
-        <button class="nav" data-view="raw">{ } Raw Outputs</button>
-        <button class="nav" data-view="normalised">≋ Normalised Findings</button>
-        <button class="nav" data-view="matched">✓ Matching Results</button>
-        <button class="nav" data-view="metrics">% Precision / Recall / F1</button>
-        <button class="nav" data-view="reports">▤ Reports</button>
-        <button class="nav" data-view="settings">⚙ Settings</button>
+
+      <div class="brand">
+        <span>SB</span>
+
+        <div>
+          <strong>Scanner Benchmark</strong>
+          <small>Research platform</small>
+        </div>
+      </div>
+
+      <nav aria-label="Main navigation">
+
+        <button
+          class="nav active"
+          type="button"
+          data-view="dashboard"
+        >
+          <span aria-hidden="true">▦</span>
+          Dashboard
+        </button>
+
+        <button
+          class="nav"
+          type="button"
+          data-view="corpus"
+        >
+          <span aria-hidden="true">◇</span>
+          Benchmark Corpus
+        </button>
+
+        <button
+          class="nav"
+          type="button"
+          data-view="run"
+        >
+          <span aria-hidden="true">▶</span>
+          Process Benchmark
+        </button>
+
+        <button
+          class="nav"
+          type="button"
+          data-view="raw"
+        >
+          <span aria-hidden="true">{ }</span>
+          Raw Outputs
+        </button>
+
+        <button
+          class="nav"
+          type="button"
+          data-view="normalised"
+        >
+          <span aria-hidden="true">≋</span>
+          Normalised Findings
+        </button>
+
+        <button
+          class="nav"
+          type="button"
+          data-view="matched"
+        >
+          <span aria-hidden="true">✓</span>
+          Matching Results
+        </button>
+
+        <button
+          class="nav"
+          type="button"
+          data-view="metrics"
+        >
+          <span aria-hidden="true">%</span>
+          Per-Case Metrics
+        </button>
+
+        <button
+          class="nav"
+          type="button"
+          data-view="comparison"
+        >
+          <span aria-hidden="true">⇄</span>
+          Comparison Report
+        </button>
+
+        <button
+          class="nav"
+          type="button"
+          data-view="reports"
+        >
+          <span aria-hidden="true">▤</span>
+          Reports
+        </button>
+
+        <button
+          class="nav"
+          type="button"
+          data-view="settings"
+        >
+          <span aria-hidden="true">⚙</span>
+          Settings
+        </button>
+
       </nav>
-      <div class="side-status"><i id="sideDot"></i><span id="sideText">Checking backend…</span></div>
+
+      <div class="side-status">
+        <i
+          id="sideDot"
+          class="offline"
+          aria-hidden="true"
+        ></i>
+
+        <span id="sideText">
+          Checking backend…
+        </span>
+      </div>
+
     </aside>
 
+
+    <!-- ================================================================
+         Main application
+         ================================================================ -->
+
     <main>
+
+      <!-- Top bar -->
+
       <header class="topbar">
-        <div><p>KUBERNETES SECURITY EVALUATION</p><h1 id="pageTitle">Dashboard</h1></div>
-        <div class="top-actions">
-          <span id="connection" class="connection offline"><i></i><b>Backend offline</b></span>
-          <button id="refreshBtn" class="btn secondary">Refresh data</button>
+
+        <div>
+          <p>MULTI-ARTIFACT SECURITY EVALUATION</p>
+          <h1 id="pageTitle">Dashboard</h1>
         </div>
+
+        <div class="top-actions">
+
+          <span
+            id="connection"
+            class="connection offline"
+          >
+            <i aria-hidden="true"></i>
+            <b>Backend offline</b>
+          </span>
+
+          <button
+            id="refreshBtn"
+            class="btn secondary"
+            type="button"
+          >
+            Refresh data
+          </button>
+
+        </div>
+
       </header>
 
-      <div id="toast" class="toast" hidden></div>
 
-      <section id="dashboard" class="view active">
-        <div class="heading"><div><h2>Benchmark overview</h2><p>Review saved scanner results and start a controlled benchmark.</p></div><button class="btn primary goto" data-target="run">Run new benchmark</button></div>
-        <div class="metric-grid">
-          <article class="metric"><div><span>Precision</span><em>P</em></div><strong id="dashPrecision">—</strong><p>Reported findings that were correct</p><code>TP / (TP + FP)</code></article>
-          <article class="metric"><div><span>Recall</span><em>R</em></div><strong id="dashRecall">—</strong><p>Known issues successfully detected</p><code>TP / (TP + FN)</code></article>
-          <article class="metric"><div><span>F1 score</span><em>F1</em></div><strong id="dashF1">—</strong><p>Balanced precision and recall</p><code>2PR / (P + R)</code></article>
+      <!-- Notifications -->
+
+      <div
+        id="toast"
+        class="toast"
+        role="status"
+        aria-live="polite"
+        hidden
+      ></div>
+
+
+      <!-- ==============================================================
+           Dashboard
+           ============================================================== -->
+
+      <section
+        id="dashboard"
+        class="view active"
+      >
+
+        <div class="heading">
+
+          <div>
+            <h2>Benchmark overview</h2>
+
+            <p>
+              Review corpus-wide results, inspect individual scanner
+              metrics, and process configured benchmark cases.
+            </p>
+          </div>
+
+          <button
+            class="btn primary goto"
+            type="button"
+            data-target="run"
+          >
+            Process benchmark
+          </button>
+
         </div>
-        <div class="two-col">
-          <article class="panel"><div class="panel-head"><div><h3>Latest benchmark</h3><p>Most recently loaded or completed run</p></div><span id="latestStatus" class="pill neutral">No run</span></div><dl class="summary"><div><dt>Case</dt><dd id="latestCase">—</dd></div><div><dt>Scanner</dt><dd id="latestScanner">—</dd></div><div><dt>Matching mode</dt><dd id="latestMode">Review</dd></div><div><dt>Updated</dt><dd id="latestUpdated">—</dd></div></dl></article>
-          <article class="panel"><div class="panel-head"><div><h3>Quick actions</h3><p>Move directly to the benchmark workflow</p></div></div><div class="quick"><button class="goto" data-target="corpus"><b>◇</b><span><strong>Review corpus</strong><small>Inspect artifacts and ground truth</small></span></button><button class="goto" data-target="run"><b>▶</b><span><strong>Execute scanners</strong><small>Run Checkov, Trivy, or Kubescape</small></span></button><button class="goto" data-target="reports"><b>▤</b><span><strong>Open reports</strong><small>Read generated summaries</small></span></button></div></article>
-        </div>
-        <article class="panel"><div class="panel-head"><div><h3>Scanner comparison</h3><p>Saved metrics for the selected case</p></div><select id="dashboardCase"></select></div><div class="table-wrap"><table><thead><tr><th>Scanner</th><th>Status</th><th>TP</th><th>FP</th><th>FN</th><th>Extras</th><th>Precision</th><th>Recall</th><th>F1</th></tr></thead><tbody id="dashboardTable"><tr><td colspan="9" class="empty">No metrics loaded.</td></tr></tbody></table></div></article>
-      </section>
 
-      <section id="corpus" class="view">
-        <div class="heading"><div><h2>Benchmark corpus</h2><p>Controlled artifacts and labelled ground-truth definitions.</p></div><button id="reloadCases" class="btn secondary">Reload cases</button></div>
-        <article class="panel"><div class="table-wrap"><table><thead><tr><th>Case ID</th><th>Artifact type</th><th>Artifact</th><th>Ground truth</th><th>Severity</th><th>Validation</th></tr></thead><tbody id="corpusTable"><tr><td colspan="6" class="empty">Loading corpus…</td></tr></tbody></table></div></article>
-      </section>
 
-      <section id="run" class="view">
-        <div class="heading"><div><h2>Run benchmark</h2><p>Select a case, scanners, and matching mode.</p></div></div>
-        <div class="run-grid">
-          <article class="panel"><div class="panel-head"><div><h3>Execution configuration</h3><p>Choose what the pipeline should run.</p></div></div>
-            <form id="runForm">
-              <label class="field"><span>Benchmark case</span><select id="caseSelect"></select></label>
-              <fieldset><legend>Security scanners</legend>
-                <label class="scanner"><input type="checkbox" name="scanner" value="checkov" checked><span><strong>Checkov</strong><small>Policy-as-code scanner</small></span></label>
-                <label class="scanner"><input type="checkbox" name="scanner" value="trivy"><span><strong>Trivy</strong><small>Cloud-native scanner</small></span></label>
-                <label class="scanner"><input type="checkbox" name="scanner" value="kubescape"><span><strong>Kubescape</strong><small>Kubernetes controls scanner</small></span></label>
-              </fieldset>
-              <label class="field"><span>Matching mode</span><select id="modeSelect"><option value="review">Review mode</option><option value="strict">Strict mode</option></select><small>Review mode keeps unmapped findings as unlabelled extras.</small></label>
-              <div class="actions"><button id="runBtn" class="btn primary" type="submit">Run selected scanners</button><button id="loadSavedBtn" class="btn secondary" type="button">Load saved results</button></div>
-            </form>
+        <!-- Corpus summary -->
+
+        <div class="overview-grid">
+
+          <article class="overview-card">
+            <span>Total cases</span>
+            <strong id="dashboardTotalCases">—</strong>
+            <p>Configured benchmark cases</p>
           </article>
-          <article class="panel"><div class="panel-head"><div><h3>Execution console</h3><p>Messages returned by the backend pipeline.</p></div><button id="clearConsole" class="text-btn">Clear</button></div><div class="progress"><span id="progressBar"></span></div><pre id="console">Ready to run a benchmark.</pre></article>
+
+          <article class="overview-card">
+            <span>Kubernetes YAML</span>
+            <strong id="dashboardKubernetesCases">—</strong>
+            <p>Manifest-based cases</p>
+          </article>
+
+          <article class="overview-card">
+            <span>Dockerfiles</span>
+            <strong id="dashboardDockerfileCases">—</strong>
+            <p>Container build cases</p>
+          </article>
+
+          <article class="overview-card">
+            <span>Helm charts</span>
+            <strong id="dashboardHelmCases">—</strong>
+            <p>Chart-based cases</p>
+          </article>
+
+          <article class="overview-card">
+            <span>Scanner-case results</span>
+            <strong id="dashboardScannerRuns">—</strong>
+            <p>Applicable evaluated combinations</p>
+          </article>
+
         </div>
+
+
+        <!-- Selected metric cards -->
+
+        <div class="metric-grid">
+
+          <article class="metric">
+
+            <div>
+              <span>Precision</span>
+              <em>P</em>
+            </div>
+
+            <strong id="dashPrecision">—</strong>
+
+            <p>
+              Proportion of labelled findings classified as correct
+            </p>
+
+            <code>TP / (TP + FP)</code>
+
+          </article>
+
+
+          <article class="metric">
+
+            <div>
+              <span>Recall</span>
+              <em>R</em>
+            </div>
+
+            <strong id="dashRecall">—</strong>
+
+            <p>
+              Proportion of known issues successfully detected
+            </p>
+
+            <code>TP / (TP + FN)</code>
+
+          </article>
+
+
+          <article class="metric">
+
+            <div>
+              <span>F1 score</span>
+              <em>F1</em>
+            </div>
+
+            <strong id="dashF1">—</strong>
+
+            <p>
+              Balanced measure combining precision and recall
+            </p>
+
+            <code>2PR / (P + R)</code>
+
+          </article>
+
+        </div>
+
+
+        <div class="two-col">
+
+          <!-- Latest benchmark -->
+
+          <article class="panel">
+
+            <div class="panel-head">
+
+              <div>
+                <h3>Latest loaded result</h3>
+
+                <p>
+                  Most recently loaded or processed scanner result
+                </p>
+              </div>
+
+              <span
+                id="latestStatus"
+                class="pill neutral"
+              >
+                No result
+              </span>
+
+            </div>
+
+            <dl class="summary">
+
+              <div>
+                <dt>Case</dt>
+                <dd id="latestCase">—</dd>
+              </div>
+
+              <div>
+                <dt>Artifact family</dt>
+                <dd id="latestArtifact">—</dd>
+              </div>
+
+              <div>
+                <dt>Scanner</dt>
+                <dd id="latestScanner">—</dd>
+              </div>
+
+              <div>
+                <dt>Matching mode</dt>
+                <dd id="latestMode">Review</dd>
+              </div>
+
+              <div>
+                <dt>Updated</dt>
+                <dd id="latestUpdated">—</dd>
+              </div>
+
+            </dl>
+
+          </article>
+
+
+          <!-- Quick actions -->
+
+          <article class="panel">
+
+            <div class="panel-head">
+
+              <div>
+                <h3>Quick actions</h3>
+
+                <p>
+                  Move directly to a benchmark workflow
+                </p>
+              </div>
+
+            </div>
+
+            <div class="quick">
+
+              <button
+                class="goto"
+                type="button"
+                data-target="corpus"
+              >
+                <b aria-hidden="true">◇</b>
+
+                <span>
+                  <strong>Review corpus</strong>
+
+                  <small>
+                    Inspect artifacts and labelled ground truth
+                  </small>
+                </span>
+              </button>
+
+
+              <button
+                class="goto"
+                type="button"
+                data-target="run"
+              >
+                <b aria-hidden="true">▶</b>
+
+                <span>
+                  <strong>Process results</strong>
+
+                  <small>
+                    Run normalisation, matching, metrics, and reporting
+                  </small>
+                </span>
+              </button>
+
+
+              <button
+                class="goto"
+                type="button"
+                data-target="comparison"
+              >
+                <b aria-hidden="true">⇄</b>
+
+                <span>
+                  <strong>Open comparison</strong>
+
+                  <small>
+                    Review corpus-wide scanner effectiveness
+                  </small>
+                </span>
+              </button>
+
+
+              <button
+                class="goto"
+                type="button"
+                data-target="reports"
+              >
+                <b aria-hidden="true">▤</b>
+
+                <span>
+                  <strong>Open reports</strong>
+
+                  <small>
+                    Read generated Markdown reports
+                  </small>
+                </span>
+              </button>
+
+            </div>
+
+          </article>
+
+        </div>
+
+
+        <!-- Selected-case comparison -->
+
+        <article class="panel">
+
+          <div class="panel-head">
+
+            <div>
+              <h3>Selected-case scanner comparison</h3>
+
+              <p>
+                Saved metrics for the selected benchmark case
+              </p>
+            </div>
+
+            <label class="inline-field">
+              <span class="sr-only">Dashboard benchmark case</span>
+
+              <select
+                id="dashboardCase"
+                aria-label="Dashboard benchmark case"
+              ></select>
+            </label>
+
+          </div>
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Scanner</th>
+                  <th>Status</th>
+                  <th>TP</th>
+                  <th>FP</th>
+                  <th>FN</th>
+                  <th>Extras</th>
+                  <th>Precision</th>
+                  <th>Recall</th>
+                  <th>F1</th>
+                </tr>
+              </thead>
+
+              <tbody id="dashboardTable">
+
+                <tr>
+                  <td
+                    colspan="9"
+                    class="empty"
+                  >
+                    No metrics loaded.
+                  </td>
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </article>
+
       </section>
 
-      <section id="output" class="view">
-        <div class="heading"><div><h2 id="outputTitle">Raw scanner outputs</h2><p id="outputDesc">Inspect the original machine-readable scanner output.</p></div><button id="loadOutputBtn" class="btn secondary">Load output</button></div>
-        <article class="panel"><div class="filters"><label class="field"><span>Case</span><select id="outputCase"></select></label><label class="field"><span>Scanner</span><select id="outputScanner"><option value="checkov">Checkov</option><option value="trivy">Trivy</option><option value="kubescape">Kubescape</option></select></label><label class="field"><span>Stage</span><select id="outputStage"><option value="raw">Raw</option><option value="normalised">Normalised</option><option value="matched">Matched</option><option value="metrics">Metrics</option></select></label></div><pre id="outputViewer" class="viewer">Select an output and click “Load output”.</pre></article>
+
+      <!-- ==============================================================
+           Benchmark corpus
+           ============================================================== -->
+
+      <section
+        id="corpus"
+        class="view"
+      >
+
+        <div class="heading">
+
+          <div>
+            <h2>Benchmark corpus</h2>
+
+            <p>
+              Controlled Kubernetes YAML, Dockerfile, and Helm cases
+              with independently defined ground truth.
+            </p>
+          </div>
+
+          <button
+            id="reloadCases"
+            class="btn secondary"
+            type="button"
+          >
+            Reload cases
+          </button>
+
+        </div>
+
+        <article class="panel">
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Case ID</th>
+                  <th>Artifact family</th>
+                  <th>Ground-truth ID</th>
+                  <th>Misconfiguration</th>
+                  <th>Severity</th>
+                  <th>Applicable scanners</th>
+                  <th>Validation</th>
+                </tr>
+              </thead>
+
+              <tbody id="corpusTable">
+
+                <tr>
+                  <td
+                    colspan="7"
+                    class="empty"
+                  >
+                    Loading benchmark corpus…
+                  </td>
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </article>
+
       </section>
 
-      <section id="metrics" class="view">
-        <div class="heading"><div><h2>Precision, Recall and F1</h2><p>Compare scanner correctness and detection completeness.</p></div><button id="reloadMetrics" class="btn secondary">Reload metrics</button></div>
-        <div class="metric-grid"><article class="metric"><div><span>Selected precision</span><em>P</em></div><strong id="metricPrecision">—</strong><p id="precisionCounts">TP — · FP —</p></article><article class="metric"><div><span>Selected recall</span><em>R</em></div><strong id="metricRecall">—</strong><p id="recallCounts">TP — · FN —</p></article><article class="metric"><div><span>Selected F1 score</span><em>F1</em></div><strong id="metricF1">—</strong><p>Balanced scanner effectiveness</p></article></div>
-        <article class="panel"><div class="panel-head"><div><h3>Metrics comparison</h3><p>Click a scanner row to update the cards.</p></div><select id="metricsCase"></select></div><div class="table-wrap"><table><thead><tr><th>Scanner</th><th>TP</th><th>FP</th><th>FN</th><th>Extras</th><th>Precision</th><th>Recall</th><th>F1</th></tr></thead><tbody id="metricsTable"><tr><td colspan="8" class="empty">No metrics loaded.</td></tr></tbody></table></div></article>
+
+      <!-- ==============================================================
+           Process benchmark
+           ============================================================== -->
+
+      <section
+        id="run"
+        class="view"
+      >
+
+        <div class="heading">
+
+          <div>
+            <h2>Process benchmark</h2>
+
+            <p>
+              Process existing raw scanner outputs through the correct
+              artifact-specific pipeline.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="run-grid">
+
+          <!-- Configuration -->
+
+          <article class="panel">
+
+            <div class="panel-head">
+
+              <div>
+                <h3>Processing configuration</h3>
+
+                <p>
+                  Select a configured case, applicable scanners, and
+                  matching mode.
+                </p>
+              </div>
+
+            </div>
+
+
+            <form id="runForm">
+
+              <label class="field">
+
+                <span>Benchmark case</span>
+
+                <select
+                  id="caseSelect"
+                  required
+                ></select>
+
+              </label>
+
+
+              <fieldset>
+
+                <legend>Security scanners</legend>
+
+
+                <label class="scanner">
+
+                  <input
+                    type="checkbox"
+                    name="scanner"
+                    value="checkov"
+                    checked
+                  >
+
+                  <span>
+                    <strong>Checkov</strong>
+
+                    <small>
+                      Policy-as-code scanner for infrastructure files
+                    </small>
+                  </span>
+
+                </label>
+
+
+                <label class="scanner">
+
+                  <input
+                    type="checkbox"
+                    name="scanner"
+                    value="trivy"
+                  >
+
+                  <span>
+                    <strong>Trivy</strong>
+
+                    <small>
+                      Cloud-native configuration scanner
+                    </small>
+                  </span>
+
+                </label>
+
+
+                <label class="scanner">
+
+                  <input
+                    type="checkbox"
+                    name="scanner"
+                    value="kubescape"
+                  >
+
+                  <span>
+                    <strong>Kubescape</strong>
+
+                    <small>
+                      Kubernetes and Helm security controls scanner
+                    </small>
+                  </span>
+
+                </label>
+
+              </fieldset>
+
+
+              <label class="field">
+
+                <span>Matching mode</span>
+
+                <select id="modeSelect">
+
+                  <option value="review">
+                    Review mode
+                  </option>
+
+                  <option value="strict">
+                    Strict mode
+                  </option>
+
+                </select>
+
+                <small>
+                  Review mode records unmapped scanner findings as
+                  unlabelled extras rather than automatic false positives.
+                </small>
+
+              </label>
+
+
+              <div class="notice">
+
+                <strong>Processing scope</strong>
+
+                <p>
+                  This action processes existing raw JSON outputs. It runs
+                  normalisation, ground-truth matching, metric calculation,
+                  and report generation.
+                </p>
+
+              </div>
+
+
+              <div class="actions">
+
+                <button
+                  id="runBtn"
+                  class="btn primary"
+                  type="submit"
+                >
+                  Process selected scanners
+                </button>
+
+                <button
+                  id="loadSavedBtn"
+                  class="btn secondary"
+                  type="button"
+                >
+                  Load saved results
+                </button>
+
+              </div>
+
+            </form>
+
+          </article>
+
+
+          <!-- Console -->
+
+          <article class="panel">
+
+            <div class="panel-head">
+
+              <div>
+                <h3>Processing console</h3>
+
+                <p>
+                  Messages returned by the artifact-specific pipeline
+                </p>
+              </div>
+
+              <button
+                id="clearConsole"
+                class="text-btn"
+                type="button"
+              >
+                Clear
+              </button>
+
+            </div>
+
+            <div
+              class="progress"
+              aria-label="Pipeline progress"
+            >
+              <span id="progressBar"></span>
+            </div>
+
+            <pre id="console">Ready to run a benchmark.</pre>
+
+          </article>
+
+        </div>
+
       </section>
 
-      <section id="reports" class="view">
-        <div class="heading"><div><h2>Generated reports</h2><p>Open Markdown reports produced by the pipelines.</p></div><button id="reloadReports" class="btn secondary">Reload reports</button></div>
-        <div class="report-grid"><article class="panel"><div class="panel-head"><div><h3>Available reports</h3><p>Choose a report to read it.</p></div></div><div id="reportList" class="report-list"><p class="empty">Loading reports…</p></div></article><article class="panel"><div class="panel-head"><div><h3 id="reportTitle">Report preview</h3><p>Markdown content is displayed below.</p></div></div><pre id="reportViewer" class="report-viewer">Select a report.</pre></article></div>
+
+      <!-- ==============================================================
+           Output viewer
+           ============================================================== -->
+
+      <section
+        id="output"
+        class="view"
+      >
+
+        <div class="heading">
+
+          <div>
+            <h2 id="outputTitle">
+              Raw scanner outputs
+            </h2>
+
+            <p id="outputDesc">
+              Inspect the original machine-readable scanner output.
+            </p>
+          </div>
+
+          <button
+            id="loadOutputBtn"
+            class="btn secondary"
+            type="button"
+          >
+            Load output
+          </button>
+
+        </div>
+
+
+        <article class="panel">
+
+          <div class="filters">
+
+            <label class="field">
+
+              <span>Case</span>
+
+              <select id="outputCase"></select>
+
+            </label>
+
+
+            <label class="field">
+
+              <span>Scanner</span>
+
+              <select id="outputScanner">
+
+                <option value="checkov">
+                  Checkov
+                </option>
+
+                <option value="trivy">
+                  Trivy
+                </option>
+
+                <option value="kubescape">
+                  Kubescape
+                </option>
+
+              </select>
+
+            </label>
+
+
+            <label class="field">
+
+              <span>Stage</span>
+
+              <select id="outputStage">
+
+                <option value="raw">
+                  Raw
+                </option>
+
+                <option value="normalised">
+                  Normalised
+                </option>
+
+                <option value="matched">
+                  Matched
+                </option>
+
+                <option value="metrics">
+                  Metrics
+                </option>
+
+              </select>
+
+            </label>
+
+          </div>
+
+
+          <pre
+            id="outputViewer"
+            class="viewer"
+          >Select an output and click “Load output”.</pre>
+
+        </article>
+
       </section>
 
-      <section id="settings" class="view">
-        <div class="heading"><div><h2>Settings</h2><p>Configure the local API connection and inspect project paths.</p></div></div>
-        <div class="two-col"><article class="panel"><div class="panel-head"><div><h3>Backend connection</h3><p>Leave blank when FastAPI serves the frontend.</p></div></div><label class="field"><span>API base URL</span><input id="apiInput" type="url" placeholder="http://127.0.0.1:8000"></label><div class="actions"><button id="saveApi" class="btn primary">Save settings</button><button id="testApi" class="btn secondary">Test connection</button></div></article><article class="panel"><div class="panel-head"><div><h3>Expected project paths</h3><p>The backend reads and writes these folders.</p></div></div><dl class="summary paths"><div><dt>Corpus</dt><dd>corpus/</dd></div><div><dt>Raw</dt><dd>results/raw/</dd></div><div><dt>Normalised</dt><dd>results/normalised/</dd></div><div><dt>Matched</dt><dd>results/matched/</dd></div><div><dt>Metrics</dt><dd>results/metrics/</dd></div><div><dt>Reports</dt><dd>results/reports/</dd></div></dl></article></div>
+
+      <!-- ==============================================================
+           Per-case metrics
+           ============================================================== -->
+
+      <section
+        id="metrics"
+        class="view"
+      >
+
+        <div class="heading">
+
+          <div>
+            <h2>Per-case metrics</h2>
+
+            <p>
+              Compare scanner precision, recall, F1, and review burden
+              for an individual benchmark case.
+            </p>
+          </div>
+
+          <button
+            id="reloadMetrics"
+            class="btn secondary"
+            type="button"
+          >
+            Reload metrics
+          </button>
+
+        </div>
+
+
+        <div class="metric-grid">
+
+          <article class="metric">
+
+            <div>
+              <span>Selected precision</span>
+              <em>P</em>
+            </div>
+
+            <strong id="metricPrecision">—</strong>
+
+            <p id="precisionCounts">
+              TP — · FP —
+            </p>
+
+          </article>
+
+
+          <article class="metric">
+
+            <div>
+              <span>Selected recall</span>
+              <em>R</em>
+            </div>
+
+            <strong id="metricRecall">—</strong>
+
+            <p id="recallCounts">
+              TP — · FN —
+            </p>
+
+          </article>
+
+
+          <article class="metric">
+
+            <div>
+              <span>Selected F1 score</span>
+              <em>F1</em>
+            </div>
+
+            <strong id="metricF1">—</strong>
+
+            <p>
+              Balanced scanner effectiveness
+            </p>
+
+          </article>
+
+        </div>
+
+
+        <article class="panel">
+
+          <div class="panel-head">
+
+            <div>
+              <h3>Scanner metrics comparison</h3>
+
+              <p>
+                Click an available scanner row to update the metric cards.
+              </p>
+            </div>
+
+            <label class="inline-field">
+
+              <span class="sr-only">
+                Metrics benchmark case
+              </span>
+
+              <select
+                id="metricsCase"
+                aria-label="Metrics benchmark case"
+              ></select>
+
+            </label>
+
+          </div>
+
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Scanner</th>
+                  <th>TP</th>
+                  <th>FP</th>
+                  <th>FN</th>
+                  <th>Extras</th>
+                  <th>Precision</th>
+                  <th>Recall</th>
+                  <th>F1</th>
+                </tr>
+              </thead>
+
+              <tbody id="metricsTable">
+
+                <tr>
+                  <td
+                    colspan="8"
+                    class="empty"
+                  >
+                    No metrics loaded.
+                  </td>
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </article>
+
       </section>
+
+
+      <!-- ==============================================================
+           Combined comparison report
+           ============================================================== -->
+
+      <section
+        id="comparison"
+        class="view"
+      >
+
+        <div class="heading">
+
+          <div>
+            <h2>Combined comparison report</h2>
+
+            <p>
+              Review corpus-wide effectiveness while respecting scanner
+              applicability for each artifact family.
+            </p>
+          </div>
+
+          <div class="actions">
+
+            <button
+              id="reloadComparison"
+              class="btn secondary"
+              type="button"
+            >
+              Reload comparison
+            </button>
+
+            <button
+              id="generateComparisonBtn"
+              class="btn primary"
+              type="button"
+            >
+              Generate comparison
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <article class="panel comparison-intro">
+
+          <div class="panel-head">
+
+            <div>
+              <h3>Comparison status</h3>
+
+              <p id="comparisonStatus">
+                Loading comparison report…
+              </p>
+            </div>
+
+            <span class="comparison-updated">
+              Updated:
+              <strong id="comparisonUpdated">—</strong>
+            </span>
+
+          </div>
+
+          <p>
+            Metrics include only scanner–artifact combinations that are
+            applicable. Kubescape is therefore marked as not applicable
+            for Dockerfile cases rather than being assigned false
+            negatives.
+          </p>
+
+        </article>
+
+
+        <!-- Overall scanner summary -->
+
+        <article class="panel">
+
+          <div class="panel-head">
+
+            <div>
+              <h3>Overall scanner summary</h3>
+
+              <p>
+                Micro and macro metrics across all applicable cases
+              </p>
+            </div>
+
+          </div>
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Scanner</th>
+                  <th>Applicable</th>
+                  <th>N/A</th>
+                  <th>TP</th>
+                  <th>FP</th>
+                  <th>FN</th>
+                  <th>Extras</th>
+                  <th>Micro P</th>
+                  <th>Micro R</th>
+                  <th>Micro F1</th>
+                  <th>Macro F1</th>
+                </tr>
+              </thead>
+
+              <tbody id="overallScannerTable">
+
+                <tr>
+                  <td
+                    colspan="11"
+                    class="empty"
+                  >
+                    No comparison report loaded.
+                  </td>
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </article>
+
+
+        <!-- Coverage matrix -->
+
+        <article class="panel">
+
+          <div class="panel-head">
+
+            <div>
+              <h3>Scanner coverage matrix</h3>
+
+              <p>
+                Detection status for every configured case and scanner
+              </p>
+            </div>
+
+          </div>
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Case</th>
+                  <th>Artifact</th>
+                  <th>Checkov</th>
+                  <th>Trivy</th>
+                  <th>Kubescape</th>
+                </tr>
+              </thead>
+
+              <tbody id="comparisonCoverageTable">
+
+                <tr>
+                  <td
+                    colspan="5"
+                    class="empty"
+                  >
+                    No coverage data loaded.
+                  </td>
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </article>
+
+
+        <!-- Artifact-family summary -->
+
+        <article class="panel">
+
+          <div class="panel-head">
+
+            <div>
+              <h3>Results by artifact family</h3>
+
+              <p>
+                Scanner effectiveness separated by Kubernetes YAML,
+                Dockerfile, and Helm chart.
+              </p>
+            </div>
+
+          </div>
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Artifact family</th>
+                  <th>Scanner</th>
+                  <th>Cases</th>
+                  <th>TP</th>
+                  <th>FP</th>
+                  <th>FN</th>
+                  <th>Extras</th>
+                  <th>Micro P</th>
+                  <th>Micro R</th>
+                  <th>Micro F1</th>
+                  <th>Macro F1</th>
+                </tr>
+              </thead>
+
+              <tbody id="comparisonArtifactTable">
+
+                <tr>
+                  <td
+                    colspan="11"
+                    class="empty"
+                  >
+                    No artifact-family results loaded.
+                  </td>
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </article>
+
+
+        <!-- Per-case comparison -->
+
+        <article class="panel">
+
+          <div class="panel-head">
+
+            <div>
+              <h3>Per-case comparison</h3>
+
+              <p>
+                Detailed result for each applicable scanner-case
+                combination
+              </p>
+            </div>
+
+          </div>
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Case</th>
+                  <th>Artifact</th>
+                  <th>Scanner</th>
+                  <th>TP</th>
+                  <th>FP</th>
+                  <th>FN</th>
+                  <th>Extras</th>
+                  <th>Precision</th>
+                  <th>Recall</th>
+                  <th>F1</th>
+                </tr>
+              </thead>
+
+              <tbody id="comparisonCaseTable">
+
+                <tr>
+                  <td
+                    colspan="10"
+                    class="empty"
+                  >
+                    No per-case comparison loaded.
+                  </td>
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </article>
+
+
+        <!-- Comparison generation console -->
+
+        <article class="panel">
+
+          <div class="panel-head">
+
+            <div>
+              <h3>Comparison generation console</h3>
+
+              <p>
+                Output returned by generate_comparison_report.py
+              </p>
+            </div>
+
+          </div>
+
+          <pre id="comparisonConsole">No comparison generation has been run from the interface.</pre>
+
+        </article>
+
+
+        <!-- Markdown preview -->
+
+        <article class="panel">
+
+          <div class="panel-head">
+
+            <div>
+              <h3>Markdown report preview</h3>
+
+              <p>
+                Generated benchmark-comparison.md content
+              </p>
+            </div>
+
+          </div>
+
+          <pre
+            id="comparisonMarkdown"
+            class="report-viewer"
+          >Loading comparison report…</pre>
+
+        </article>
+
+      </section>
+
+
+      <!-- ==============================================================
+           Reports
+           ============================================================== -->
+
+      <section
+        id="reports"
+        class="view"
+      >
+
+        <div class="heading">
+
+          <div>
+            <h2>Generated reports</h2>
+
+            <p>
+              Open reports generated for Kubernetes YAML, Dockerfile,
+              Helm, and combined comparison results.
+            </p>
+          </div>
+
+          <button
+            id="reloadReports"
+            class="btn secondary"
+            type="button"
+          >
+            Reload reports
+          </button>
+
+        </div>
+
+
+        <div class="report-grid">
+
+          <article class="panel">
+
+            <div class="panel-head">
+
+              <div>
+                <h3>Available reports</h3>
+
+                <p>
+                  Choose a Markdown report to open it
+                </p>
+              </div>
+
+            </div>
+
+            <div
+              id="reportList"
+              class="report-list"
+            >
+              <p class="empty">
+                Loading reports…
+              </p>
+            </div>
+
+          </article>
+
+
+          <article class="panel">
+
+            <div class="panel-head">
+
+              <div>
+                <h3 id="reportTitle">
+                  Report preview
+                </h3>
+
+                <p>
+                  Markdown content is displayed below
+                </p>
+              </div>
+
+            </div>
+
+            <pre
+              id="reportViewer"
+              class="report-viewer"
+            >Select a report.</pre>
+
+          </article>
+
+        </div>
+
+      </section>
+
+
+      <!-- ==============================================================
+           Settings
+           ============================================================== -->
+
+      <section
+        id="settings"
+        class="view"
+      >
+
+        <div class="heading">
+
+          <div>
+            <h2>Settings</h2>
+
+            <p>
+              Configure the local API connection and inspect the revised
+              artifact-specific project structure.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="two-col">
+
+          <!-- API settings -->
+
+          <article class="panel">
+
+            <div class="panel-head">
+
+              <div>
+                <h3>Backend connection</h3>
+
+                <p>
+                  Leave the default value when FastAPI serves the frontend.
+                </p>
+              </div>
+
+            </div>
+
+
+            <label class="field">
+
+              <span>API base URL</span>
+
+              <input
+                id="apiInput"
+                type="url"
+                placeholder="http://127.0.0.1:8000"
+              >
+
+            </label>
+
+
+            <div class="actions">
+
+              <button
+                id="saveApi"
+                class="btn primary"
+                type="button"
+              >
+                Save settings
+              </button>
+
+              <button
+                id="testApi"
+                class="btn secondary"
+                type="button"
+              >
+                Test connection
+              </button>
+
+            </div>
+
+
+            <dl class="summary">
+
+              <div>
+                <dt>API version</dt>
+                <dd id="apiVersion">—</dd>
+              </div>
+
+              <div>
+                <dt>Project root</dt>
+                <dd id="settingsProjectRoot">—</dd>
+              </div>
+
+              <div>
+                <dt>Configuration</dt>
+                <dd id="settingsConfigPath">—</dd>
+              </div>
+
+              <div>
+                <dt>Raw output root</dt>
+                <dd id="settingsRawRoot">—</dd>
+              </div>
+
+              <div>
+                <dt>Comparison root</dt>
+                <dd id="settingsComparisonRoot">—</dd>
+              </div>
+
+            </dl>
+
+          </article>
+
+
+          <!-- Scanner applicability -->
+
+          <article class="panel">
+
+            <div class="panel-head">
+
+              <div>
+                <h3>Scanner applicability</h3>
+
+                <p>
+                  Supported scanners for each artifact family
+                </p>
+              </div>
+
+            </div>
+
+
+            <dl class="summary">
+
+              <div>
+                <dt>Kubernetes YAML</dt>
+
+                <dd
+                  data-setting-path="artifact_types.kubernetes_yaml.applicable_scanners"
+                >
+                  Checkov, Trivy, Kubescape
+                </dd>
+              </div>
+
+              <div>
+                <dt>Dockerfile</dt>
+
+                <dd
+                  data-setting-path="artifact_types.dockerfile.applicable_scanners"
+                >
+                  Checkov, Trivy
+                </dd>
+              </div>
+
+              <div>
+                <dt>Helm chart</dt>
+
+                <dd
+                  data-setting-path="artifact_types.helm_chart.applicable_scanners"
+                >
+                  Checkov, Trivy, Kubescape
+                </dd>
+              </div>
+
+            </dl>
+
+          </article>
+
+        </div>
+
+
+        <!-- Pipeline and result paths -->
+
+        <div class="settings-grid">
+
+          <article class="panel">
+
+            <div class="panel-head">
+
+              <div>
+                <h3>Kubernetes YAML pipeline</h3>
+
+                <p>
+                  Generic manifest processing paths
+                </p>
+              </div>
+
+            </div>
+
+            <dl class="summary paths">
+
+              <div>
+                <dt>Runner</dt>
+
+                <dd
+                  data-setting-path="artifact_types.kubernetes_yaml.runner"
+                >
+                  scripts/run_benchmark.py
+                </dd>
+              </div>
+
+              <div>
+                <dt>Normalised</dt>
+
+                <dd
+                  data-setting-path="artifact_types.kubernetes_yaml.normalised_root"
+                >
+                  results/normalised_generic
+                </dd>
+              </div>
+
+              <div>
+                <dt>Matched</dt>
+
+                <dd
+                  data-setting-path="artifact_types.kubernetes_yaml.matched_root"
+                >
+                  results/matched_generic
+                </dd>
+              </div>
+
+              <div>
+                <dt>Metrics</dt>
+
+                <dd
+                  data-setting-path="artifact_types.kubernetes_yaml.metrics_root"
+                >
+                  results/metrics_generic
+                </dd>
+              </div>
+
+              <div>
+                <dt>Reports</dt>
+
+                <dd
+                  data-setting-path="artifact_types.kubernetes_yaml.reports_root"
+                >
+                  results/reports_generic
+                </dd>
+              </div>
+
+            </dl>
+
+          </article>
+
+
+          <article class="panel">
+
+            <div class="panel-head">
+
+              <div>
+                <h3>Dockerfile pipeline</h3>
+
+                <p>
+                  Container build-file processing paths
+                </p>
+              </div>
+
+            </div>
+
+            <dl class="summary paths">
+
+              <div>
+                <dt>Runner</dt>
+
+                <dd
+                  data-setting-path="artifact_types.dockerfile.runner"
+                >
+                  scripts/run_dockerfile_benchmark.py
+                </dd>
+              </div>
+
+              <div>
+                <dt>Normalised</dt>
+
+                <dd
+                  data-setting-path="artifact_types.dockerfile.normalised_root"
+                >
+                  results/normalised_dockerfile
+                </dd>
+              </div>
+
+              <div>
+                <dt>Matched</dt>
+
+                <dd
+                  data-setting-path="artifact_types.dockerfile.matched_root"
+                >
+                  results/matched_dockerfile
+                </dd>
+              </div>
+
+              <div>
+                <dt>Metrics</dt>
+
+                <dd
+                  data-setting-path="artifact_types.dockerfile.metrics_root"
+                >
+                  results/metrics_dockerfile
+                </dd>
+              </div>
+
+              <div>
+                <dt>Reports</dt>
+
+                <dd
+                  data-setting-path="artifact_types.dockerfile.reports_root"
+                >
+                  results/reports_dockerfile
+                </dd>
+              </div>
+
+            </dl>
+
+          </article>
+
+
+          <article class="panel">
+
+            <div class="panel-head">
+
+              <div>
+                <h3>Helm pipeline</h3>
+
+                <p>
+                  Helm chart processing paths
+                </p>
+              </div>
+
+            </div>
+
+            <dl class="summary paths">
+
+              <div>
+                <dt>Runner</dt>
+
+                <dd
+                  data-setting-path="artifact_types.helm_chart.runner"
+                >
+                  scripts/run_helm_benchmark.py
+                </dd>
+              </div>
+
+              <div>
+                <dt>Normalised</dt>
+
+                <dd
+                  data-setting-path="artifact_types.helm_chart.normalised_root"
+                >
+                  results/normalised_helm
+                </dd>
+              </div>
+
+              <div>
+                <dt>Matched</dt>
+
+                <dd
+                  data-setting-path="artifact_types.helm_chart.matched_root"
+                >
+                  results/matched_helm
+                </dd>
+              </div>
+
+              <div>
+                <dt>Metrics</dt>
+
+                <dd
+                  data-setting-path="artifact_types.helm_chart.metrics_root"
+                >
+                  results/metrics_helm
+                </dd>
+              </div>
+
+              <div>
+                <dt>Reports</dt>
+
+                <dd
+                  data-setting-path="artifact_types.helm_chart.reports_root"
+                >
+                  results/reports_helm
+                </dd>
+              </div>
+
+            </dl>
+
+          </article>
+
+        </div>
+
+      </section>
+
     </main>
+
   </div>
-  <script src="/app.js" defer></script>
+
+
+  <script
+    src="/app.js"
+    defer
+  ></script>
+
 </body>
 </html>

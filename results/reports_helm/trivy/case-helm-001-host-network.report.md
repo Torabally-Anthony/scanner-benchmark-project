@@ -9,22 +9,14 @@
 | Case ID | case-helm-001-host-network |
 | Scanner | Trivy |
 | Artifact type | helm_chart |
-| Matching mode | review |
+| Matching mode | strict |
 | Evaluation status | complete |
-| Report generated | 2026-08-02T15:14:33.555662+00:00 |
+| Report generated | 2026-08-02T19:38:26.032877+00:00 |
 
 ### Scanner version
 
 ```text
-Version: 0.69.3
-Vulnerability DB:
-  Version: 2
-  UpdatedAt: 2026-04-06 12:43:27.029798302 +0000 UTC
-  NextUpdate: 2026-04-07 12:43:27.02979735 +0000 UTC
-  DownloadedAt: 2026-04-06 18:21:27.0765915 +0000 UTC
-Check Bundle:
-  Digest: sha256:1583562f8b90ed2a071b99f0e5ffff6b57e4ceb6ca3e4796577b4e6a339eb74c
-  DownloadedAt: 2026-07-23 05:42:39.3164487 +0000 UTC
+Unknown
 ```
 
 ## Results summary
@@ -99,7 +91,7 @@ No findings were recorded in this category.
 - **Precision:** Precision measures the proportion of classified positive findings that were true positives.
 - **Recall:** Recall measures the proportion of ground-truth issues detected by the scanner.
 - **F1 score:** F1 is the harmonic mean of precision and recall.
-- **Review-mode policy:** Unmapped findings are retained as unlabelled extras. They are not counted as false positives until they have been manually reviewed.
+- **Strict-mode policy:** Unmapped findings are counted as false positives.
 - **Duplicate policy:** Only the first valid finding mapped to a ground-truth issue is counted as a true positive. Additional detections of the same issue are stored as duplicate matches.
 - **Ambiguous findings:** Ambiguous matches are reported separately and are excluded from the precision, recall and F1 calculations.
 
@@ -107,8 +99,8 @@ No findings were recorded in this category.
 
 | Input | Path | Generated at |
 | --- | --- | --- |
-| Matched findings | results\matched_helm\trivy\case-helm-001-host-network.matched.json | 2026-08-02T15:14:32.949917+00:00 |
-| Metrics | results\metrics_helm\trivy\case-helm-001-host-network.metrics.json | 2026-08-02T15:14:33.258696+00:00 |
+| Matched findings | results\matched_helm\trivy\case-helm-001-host-network.matched.json | 2026-08-02T19:38:25.192336+00:00 |
+| Metrics | results\metrics_helm\trivy\case-helm-001-host-network.metrics.json | 2026-08-02T19:38:25.620573+00:00 |
 
 ---
 

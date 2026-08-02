@@ -11,7 +11,7 @@
 | Artifact type | kubernetes_yaml |
 | Matching mode | strict |
 | Evaluation status | complete |
-| Report generated | 2026-08-02T09:35:01.420512+00:00 |
+| Report generated | 2026-08-02T19:42:40.038569+00:00 |
 
 ### Scanner version
 
@@ -104,8 +104,8 @@ No findings were recorded in this category.
 
 | Input | Path | Generated at |
 | --- | --- | --- |
-| Matched findings | results\matched_generic\checkov\case-002-runs-as-root.matched.json | 2026-08-02T09:35:00.884828+00:00 |
-| Metrics | results\metrics_generic\checkov\case-002-runs-as-root.metrics.json | 2026-08-02T09:35:01.138688+00:00 |
+| Matched findings | results\matched_generic\checkov\case-002-runs-as-root.matched.json | 2026-08-02T19:42:39.305888+00:00 |
+| Metrics | results\metrics_generic\checkov\case-002-runs-as-root.metrics.json | 2026-08-02T19:42:39.679010+00:00 |
 
 ---
 

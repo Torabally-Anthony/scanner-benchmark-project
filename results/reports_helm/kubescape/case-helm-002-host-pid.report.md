@@ -9,9 +9,9 @@
 | Case ID | case-helm-002-host-pid |
 | Scanner | Kubescape |
 | Artifact type | helm_chart |
-| Matching mode | review |
-| Evaluation status | requires_manual_review |
-| Report generated | 2026-08-02T16:37:30.602083+00:00 |
+| Matching mode | strict |
+| Evaluation status | complete |
+| Report generated | 2026-08-02T19:42:58.318623+00:00 |
 
 ### Scanner version
 
@@ -28,9 +28,9 @@ Build date: 2026-06-30T05:17:15Z
 | Normalised findings | 7 |
 | Ground-truth issues | 1 |
 | True positives | 1 |
-| False positives | 0 |
+| False positives | 6 |
 | False negatives | 0 |
-| Unlabelled extras | 6 |
+| Unlabelled extras | 0 |
 | Duplicate matches | 0 |
 | Ambiguous matches | 0 |
 
@@ -38,9 +38,9 @@ Build date: 2026-06-30T05:17:15Z
 
 | Metric | Formula | Result |
 | --- | --- | --- |
-| Precision | TP / (TP + FP) | 1 |
+| Precision | TP / (TP + FP) | 0.1429 |
 | Recall | TP / (TP + FN) | 1 |
-| F1 score | 2 * (Precision * Recall) / (Precision + Recall) | 1 |
+| F1 score | 2 * (Precision * Recall) / (Precision + Recall) | 0.25 |
 
 ## Ground-truth evaluation
 
@@ -62,7 +62,14 @@ These findings correctly matched a known ground-truth issue.
 
 These findings were classified as incorrect according to the selected matching policy.
 
-No findings were recorded in this category.
+| Finding | Rule | Rule name | Severity | Resource | Reason |
+| --- | --- | --- | --- | --- | --- |
+| kubescape-case-helm-002-host-pid-0001 | C-0030 | Ingress and Egress blocked | Medium | Unknown | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
+| kubescape-case-helm-002-host-pid-0003 | C-0077 | K8s common labels usage | Low | Unknown | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
+| kubescape-case-helm-002-host-pid-0004 | C-0211 | Apply Security Context to Your Pods and Containers | High | Unknown | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
+| kubescape-case-helm-002-host-pid-0005 | C-0237 | Check if signature exists | High | Unknown | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
+| kubescape-case-helm-002-host-pid-0006 | C-0260 | Missing network policy | Medium | Unknown | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
+| kubescape-case-helm-002-host-pid-0007 | C-0275 | Minimize the admission of containers wishing to share the host process ID namespace | Medium | Unknown | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
 
 ## False negatives
 
@@ -74,14 +81,7 @@ No findings were recorded in this category.
 
 These scanner findings do not yet have an approved mapping to the benchmark ground truth.
 
-| Finding | Rule | Rule name | Severity | Original category | Original subcategory | Resource |
-| --- | --- | --- | --- | --- | --- | --- |
-| kubescape-case-helm-002-host-pid-0001 | C-0030 | Ingress and Egress blocked | Medium | Network | — | Unknown |
-| kubescape-case-helm-002-host-pid-0003 | C-0077 | K8s common labels usage | Low | Workload | — | Unknown |
-| kubescape-case-helm-002-host-pid-0004 | C-0211 | Apply Security Context to Your Pods and Containers | High | Workload | — | Unknown |
-| kubescape-case-helm-002-host-pid-0005 | C-0237 | Check if signature exists | High | Workload | Supply chain | Unknown |
-| kubescape-case-helm-002-host-pid-0006 | C-0260 | Missing network policy | Medium | Network | — | Unknown |
-| kubescape-case-helm-002-host-pid-0007 | C-0275 | Minimize the admission of containers wishing to share the host process ID namespace | Medium | Workload | — | Unknown |
+No findings were recorded in this category.
 
 ## Duplicate matches
 
@@ -100,17 +100,16 @@ No findings were recorded in this category.
 - **Precision:** Precision measures the proportion of classified positive findings that were true positives.
 - **Recall:** Recall measures the proportion of ground-truth issues detected by the scanner.
 - **F1 score:** F1 is the harmonic mean of precision and recall.
-- **Review-mode policy:** Unmapped findings are retained as unlabelled extras. They are not counted as false positives until they have been manually reviewed.
+- **Strict-mode policy:** Unmapped findings are counted as false positives.
 - **Duplicate policy:** Only the first valid finding mapped to a ground-truth issue is counted as a true positive. Additional detections of the same issue are stored as duplicate matches.
 - **Ambiguous findings:** Ambiguous matches are reported separately and are excluded from the precision, recall and F1 calculations.
-- **Current limitation:** The scanner reported 6 unlabelled extra finding(s). Therefore, the reported precision only reflects the currently labelled portion of the benchmark results.
 
 ## Input provenance
 
 | Input | Path | Generated at |
 | --- | --- | --- |
-| Matched findings | results\matched_helm\kubescape\case-helm-002-host-pid.matched.json | 2026-08-02T16:37:30.131231+00:00 |
-| Metrics | results\metrics_helm\kubescape\case-helm-002-host-pid.metrics.json | 2026-08-02T16:37:30.363836+00:00 |
+| Matched findings | results\matched_helm\kubescape\case-helm-002-host-pid.matched.json | 2026-08-02T19:42:57.448354+00:00 |
+| Metrics | results\metrics_helm\kubescape\case-helm-002-host-pid.metrics.json | 2026-08-02T19:42:57.865473+00:00 |
 
 ---
 

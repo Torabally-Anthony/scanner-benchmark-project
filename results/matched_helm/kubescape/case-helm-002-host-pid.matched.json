@@ -4,8 +4,8 @@
   "tool": "kubescape",
   "scanner_version": "Your current version is: v4.0.10\nBuild commit: f956507357091c3806777fe13ddf5e65efe36e44\nBuild date: 2026-06-30T05:17:15Z",
   "artifact_type": "helm_chart",
-  "matching_mode": "review",
-  "generated_at": "2026-08-02T16:37:30.131231+00:00",
+  "matching_mode": "strict",
+  "generated_at": "2026-08-02T19:42:57.448354+00:00",
   "source_file": "results\\normalised_helm\\kubescape\\case-helm-002-host-pid.normalised.json",
   "ground_truth_source": "corpus/helm/case-helm-002-host-pid/ground_truth.yaml",
   "classification_policy": {
@@ -20,9 +20,9 @@
     "total_normalised_findings": 7,
     "ground_truth_issue_count": 1,
     "true_positive_count": 1,
-    "false_positive_count": 0,
+    "false_positive_count": 6,
     "false_negative_count": 0,
-    "unlabelled_extra_findings_count": 6,
+    "unlabelled_extra_findings_count": 0,
     "duplicate_match_count": 0,
     "ambiguous_match_count": 0
   },
@@ -66,9 +66,7 @@
       "classification_reason": "The scanner rule correctly matched ground-truth issue 'GT-HELM-002'."
     }
   ],
-  "false_positives": [],
-  "false_negatives": [],
-  "unlabelled_extras": [
+  "false_positives": [
     {
       "finding_id": "kubescape-case-helm-002-host-pid-0001",
       "tool": "kubescape",
@@ -100,8 +98,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "unlabelled_extra",
-      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
+      "classification": "false_positive",
+      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
     },
     {
       "finding_id": "kubescape-case-helm-002-host-pid-0003",
@@ -134,8 +132,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "unlabelled_extra",
-      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
+      "classification": "false_positive",
+      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
     },
     {
       "finding_id": "kubescape-case-helm-002-host-pid-0004",
@@ -168,8 +166,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "unlabelled_extra",
-      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
+      "classification": "false_positive",
+      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
     },
     {
       "finding_id": "kubescape-case-helm-002-host-pid-0005",
@@ -202,8 +200,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "unlabelled_extra",
-      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
+      "classification": "false_positive",
+      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
     },
     {
       "finding_id": "kubescape-case-helm-002-host-pid-0006",
@@ -236,8 +234,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "unlabelled_extra",
-      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
+      "classification": "false_positive",
+      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
     },
     {
       "finding_id": "kubescape-case-helm-002-host-pid-0007",
@@ -270,10 +268,12 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "unlabelled_extra",
-      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
+      "classification": "false_positive",
+      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
     }
   ],
+  "false_negatives": [],
+  "unlabelled_extras": [],
   "duplicate_matches": [],
   "ambiguous_matches": []
 }
