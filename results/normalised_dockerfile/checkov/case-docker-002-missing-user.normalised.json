@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "case_id": "case-docker-002-missing-user",
+  "tool": "checkov",
+  "scanner_version": "2.5.20",
+  "artifact_type": "dockerfile",
+  "generated_at": "2026-08-02T17:40:23.601048+00:00",
+  "source_file": "results\\raw\\checkov\\case-docker-002-missing-user.json",
+  "summary": {
+    "normalised_findings_count": 1,
+    "mapped_findings_count": 1,
+    "unmapped_findings_count": 0
+  },
+  "findings": [
+    {
+      "finding_id": "checkov-case-docker-002-missing-user-0001",
+      "tool": "checkov",
+      "case_id": "case-docker-002-missing-user",
+      "artifact_type": "dockerfile",
+      "rule_id": "CKV_DOCKER_3",
+      "rule_name": "Ensure that a user for the container has been created",
+      "status": "FAILED",
+      "message": "Ensure that a user for the container has been created",
+      "category": "ContainerSecurity",
+      "subcategory": "MissingUserInstruction",
+      "severity": "High",
+      "resource": "Dockerfile.default.Dockerfile",
+      "container": null,
+      "field_path": "instructions.USER.final",
+      "bad_value": "absent",
+      "expected_secure_value": "non-root-user",
+      "ground_truth_id": "GT-DOCKER-002",
+      "mapping_status": "mapped",
+      "original_category": null,
+      "original_subcategory": null,
+      "original_severity": null,
+      "original_resource": ".\\corpus\\dockerfiles\\case-docker-002-missing-user\\Dockerfile.",
+      "source_file": "/corpus/dockerfiles/case-docker-002-missing-user/Dockerfile",
+      "line_start": 1,
+      "line_end": 25,
+      "failed_resources": null,
+      "passed_resources": null,
+      "skipped_resources": null,
+      "score": null,
+      "compliance_score": null
+    }
+  ]
+}

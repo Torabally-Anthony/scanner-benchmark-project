@@ -1,0 +1,148 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.69.3"
+  },
+  "ReportID": "019fc2eb-ea99-76c0-8cc6-4e6a30262191",
+  "CreatedAt": "2026-08-02T16:41:08.7614425+02:00",
+  "ArtifactName": "corpus/helm/case-helm-001-host-network",
+  "ArtifactType": "filesystem",
+  "Results": [
+    {
+      "Target": "templates/deployment.yaml",
+      "Class": "config",
+      "Type": "helm",
+      "MisconfSummary": {
+        "Successes": 97,
+        "Failures": 1
+      },
+      "Misconfigurations": [
+        {
+          "Type": "Helm Security Check",
+          "ID": "KSV-0009",
+          "Title": "Access to host network",
+          "Description": "Sharing the host’s network namespace permits processes in the pod to communicate with processes bound to the host’s loopback adapter.",
+          "Message": "Deployment 'helm-host-network-demo-app' should not set 'spec.template.spec.hostNetwork' to true",
+          "Namespace": "builtin.kubernetes.KSV009",
+          "Query": "data.builtin.kubernetes.KSV009.deny",
+          "Resolution": "Do not set 'spec.template.spec.hostNetwork' to true.",
+          "Severity": "HIGH",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0009",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#baseline",
+            "https://avd.aquasec.com/misconfig/ksv-0009"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 12,
+            "EndLine": 83,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 12,
+                  "Content": "spec:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 13,
+                  "Content": "  replicas: 1",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mreplicas\u001b[0m: \u001b[38;5;37m1",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 14,
+                  "Content": "",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 15,
+                  "Content": "  selector:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mselector\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 16,
+                  "Content": "    matchLabels:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    \u001b[38;5;33mmatchLabels\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 17,
+                  "Content": "      app: helm-host-network-demo-app",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: helm-host-network-demo-app",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 18,
+                  "Content": "",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 19,
+                  "Content": "  template:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mtemplate\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 20,
+                  "Content": "    metadata:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    \u001b[38;5;33mmetadata\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 21,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

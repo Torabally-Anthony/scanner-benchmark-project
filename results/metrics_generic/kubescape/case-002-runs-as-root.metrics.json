@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "case_id": "case-002-runs-as-root",
+  "tool": "kubescape",
+  "scanner_version": "Your current version is: v4.0.10\nBuild commit: f956507357091c3806777fe13ddf5e65efe36e44\nBuild date: 2026-06-30T05:17:15Z",
+  "artifact_type": "kubernetes_yaml",
+  "matching_mode": "strict",
+  "generated_at": "2026-08-02T09:35:03.269724+00:00",
+  "source_file": "results\\matched_generic\\kubescape\\case-002-runs-as-root.matched.json",
+  "evaluation_status": "complete",
+  "counts": {
+    "total_normalised_findings": 6,
+    "ground_truth_issue_count": 1,
+    "true_positive_count": 1,
+    "false_positive_count": 5,
+    "false_negative_count": 0,
+    "unlabelled_extra_findings_count": 0,
+    "duplicate_match_count": 0,
+    "ambiguous_match_count": 0
+  },
+  "metrics": {
+    "precision": 0.1667,
+    "recall": 1.0,
+    "f1_score": 0.2857
+  },
+  "formula_used": {
+    "precision": "TP / (TP + FP)",
+    "recall": "TP / (TP + FN)",
+    "f1_score": "2 * (Precision * Recall) / (Precision + Recall)"
+  },
+  "metric_inputs": {
+    "precision": {
+      "true_positives": 1,
+      "false_positives": 5
+    },
+    "recall": {
+      "true_positives": 1,
+      "false_negatives": 0
+    }
+  },
+  "interpretation": {
+    "precision": "Precision measures the proportion of classified positive findings that were true positives.",
+    "recall": "Recall measures the proportion of ground-truth issues detected by the scanner.",
+    "f1_score": "F1 is the harmonic mean of precision and recall.",
+    "precision_denominator": "TP + FP = 6",
+    "recall_denominator": "TP + FN = 1",
+    "review_mode_note": "In review mode, unmapped findings are stored as unlabelled extras and are not counted as false positives.",
+    "strict_mode_note": "In strict mode, unmapped findings are classified as false positives.",
+    "duplicate_note": "Duplicate matches are reported separately and are not counted as additional true positives or false positives.",
+    "ambiguous_note": "Ambiguous matches are reported separately and are not included in precision, recall or F1 calculations."
+  }
+}

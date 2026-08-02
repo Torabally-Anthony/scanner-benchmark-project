@@ -1,0 +1,152 @@
+﻿{
+    "check_type": "dockerfile",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_DOCKER_3",
+                "bc_check_id": "BC_DKR_3",
+                "check_name": "Ensure that a user for the container has been created",
+                "check_result": {
+                    "result": "FAILED",
+                    "results_configuration": null
+                },
+                "code_block": [
+                    [
+                        1,
+                        "FROM alpine:3.20\n"
+                    ],
+                    [
+                        2,
+                        "\n"
+                    ],
+                    [
+                        3,
+                        "WORKDIR /app\n"
+                    ],
+                    [
+                        4,
+                        "\n"
+                    ],
+                    [
+                        5,
+                        "RUN addgroup -S appgroup \\\n"
+                    ],
+                    [
+                        6,
+                        "    && adduser -S appuser -G appgroup \\\n"
+                    ],
+                    [
+                        7,
+                        "    && apk add --no-cache curl \\\n"
+                    ],
+                    [
+                        8,
+                        "    && printf '#!/bin/sh\\nwhile true; do echo \"Application running\"; sleep 30; done\\n' \\\n"
+                    ],
+                    [
+                        9,
+                        "       > /app/start.sh \\\n"
+                    ],
+                    [
+                        10,
+                        "    && chmod +x /app/start.sh\n"
+                    ],
+                    [
+                        11,
+                        "\n"
+                    ],
+                    [
+                        12,
+                        "EXPOSE 8080\n"
+                    ],
+                    [
+                        13,
+                        "\n"
+                    ],
+                    [
+                        14,
+                        "HEALTHCHECK \\\n"
+                    ],
+                    [
+                        15,
+                        "    --interval=30s \\\n"
+                    ],
+                    [
+                        16,
+                        "    --timeout=5s \\\n"
+                    ],
+                    [
+                        17,
+                        "    --start-period=5s \\\n"
+                    ],
+                    [
+                        18,
+                        "    --retries=3 \\\n"
+                    ],
+                    [
+                        19,
+                        "    CMD pgrep -f start.sh || exit 1\n"
+                    ],
+                    [
+                        20,
+                        "\n"
+                    ],
+                    [
+                        21,
+                        "# Deliberate benchmark misconfiguration:\n"
+                    ],
+                    [
+                        22,
+                        "# No USER instruction is declared.\n"
+                    ],
+                    [
+                        23,
+                        "# The container therefore uses the default root user.\n"
+                    ],
+                    [
+                        24,
+                        "\n"
+                    ],
+                    [
+                        25,
+                        "CMD [\"/app/start.sh\"]"
+                    ]
+                ],
+                "file_path": ".\\corpus\\dockerfiles\\case-docker-002-missing-user\\Dockerfile",
+                "file_abs_path": "C:\\Users\\Lenovo\\Desktop\\scanner-benchmark-project\\corpus\\dockerfiles\\case-docker-002-missing-user\\Dockerfile",
+                "repo_file_path": "/corpus/dockerfiles/case-docker-002-missing-user/Dockerfile",
+                "file_line_range": [
+                    1,
+                    25
+                ],
+                "resource": ".\\corpus\\dockerfiles\\case-docker-002-missing-user\\Dockerfile.",
+                "evaluations": null,
+                "check_class": "checkov.dockerfile.checks.UserExists",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-a-user-for-the-container-has-been-created",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": null
+            }
+        ]
+    },
+    "summary": {
+        "passed": 24,
+        "failed": 1,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 1,
+        "checkov_version": "2.5.20"
+    }
+}

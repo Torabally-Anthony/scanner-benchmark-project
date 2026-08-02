@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "case_id": "case-helm-002-host-pid",
+  "tool": "checkov",
+  "scanner_version": "2.5.20",
+  "artifact_type": "helm_chart",
+  "matching_mode": "review",
+  "generated_at": "2026-08-02T16:37:28.103423+00:00",
+  "source_file": "results\\matched_helm\\checkov\\case-helm-002-host-pid.matched.json",
+  "evaluation_status": "requires_manual_review",
+  "counts": {
+    "total_normalised_findings": 4,
+    "ground_truth_issue_count": 1,
+    "true_positive_count": 1,
+    "false_positive_count": 0,
+    "false_negative_count": 0,
+    "unlabelled_extra_findings_count": 3,
+    "duplicate_match_count": 0,
+    "ambiguous_match_count": 0
+  },
+  "metrics": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1_score": 1.0
+  },
+  "formula_used": {
+    "precision": "TP / (TP + FP)",
+    "recall": "TP / (TP + FN)",
+    "f1_score": "2 * (Precision * Recall) / (Precision + Recall)"
+  },
+  "metric_inputs": {
+    "precision": {
+      "true_positives": 1,
+      "false_positives": 0
+    },
+    "recall": {
+      "true_positives": 1,
+      "false_negatives": 0
+    }
+  },
+  "interpretation": {
+    "precision": "Precision measures the proportion of classified positive findings that were true positives.",
+    "recall": "Recall measures the proportion of ground-truth issues detected by the scanner.",
+    "f1_score": "F1 is the harmonic mean of precision and recall.",
+    "precision_denominator": "TP + FP = 1",
+    "recall_denominator": "TP + FN = 1",
+    "review_mode_note": "In review mode, unmapped findings are stored as unlabelled extras and are not counted as false positives.",
+    "strict_mode_note": "In strict mode, unmapped findings are classified as false positives.",
+    "duplicate_note": "Duplicate matches are reported separately and are not counted as additional true positives or false positives.",
+    "ambiguous_note": "Ambiguous matches are reported separately and are not included in precision, recall or F1 calculations."
+  }
+}

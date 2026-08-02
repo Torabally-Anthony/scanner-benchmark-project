@@ -1,0 +1,22 @@
+{
+  "case_id": "case-001-privileged-container",
+  "tool": "trivy",
+  "source_file": "results\\matched\\trivy\\case-001-privileged-container.matched.json",
+  "counts": {
+    "true_positive_count": 1,
+    "false_positive_count": 0,
+    "false_negative_count": 0,
+    "unlabelled_extra_findings_count": 17
+  },
+  "metrics": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1_score": 1.0
+  },
+  "interpretation": {
+    "precision": "Measures how many reported findings were correct.",
+    "recall": "Measures how many ground-truth issues were detected.",
+    "f1_score": "Balances precision and recall into one effectiveness score.",
+    "review_mode_note": "Unmapped findings are stored as unlabelled extras and are not counted as false positives yet."
+  }
+}

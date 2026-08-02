@@ -1,0 +1,20 @@
+case_id: case-002-runs-as-root
+artifact_type: kubernetes_yaml
+
+misconfigurations:
+  - id: GT-002
+
+    category: PodSecurity
+    subcategory: RunsAsRoot
+    severity: High
+
+    resource:
+      kind: Deployment
+      namespace: scanner-benchmark
+      name: runs-as-root-demo-app
+      container: demo-container
+
+    field_path: spec.template.spec.containers[0].securityContext.runAsNonRoot
+
+    bad_value: false
+    expected_secure_value: true

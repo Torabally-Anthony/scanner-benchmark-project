@@ -1,0 +1,19 @@
+case_id: case-docker-001-root-user
+artifact_type: dockerfile
+
+misconfigurations:
+  - id: GT-DOCKER-001
+
+    category: ContainerSecurity
+    subcategory: RootUser
+    severity: High
+
+    resource:
+      type: Dockerfile
+      name: Dockerfile
+      stage: final
+
+    field_path: instructions.USER.final
+
+    bad_value: root
+    expected_secure_value: non-root-user
