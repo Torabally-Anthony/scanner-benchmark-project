@@ -1,0 +1,64 @@
+﻿{
+    "check_type": "dockerfile",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_DOCKER_8",
+                "bc_check_id": "BC_DKR_8",
+                "check_name": "Ensure the last USER is not root",
+                "check_result": {
+                    "result": "FAILED",
+                    "results_configuration": [
+                        {
+                            "instruction": "USER",
+                            "startline": 21,
+                            "endline": 21,
+                            "content": "USER root\n",
+                            "value": "root"
+                        }
+                    ]
+                },
+                "code_block": [
+                    [
+                        22,
+                        "USER root\n"
+                    ]
+                ],
+                "file_path": ".\\corpus\\dockerfiles\\case-docker-001-root-user\\Dockerfile",
+                "file_abs_path": "C:\\Users\\Lenovo\\Desktop\\scanner-benchmark-project\\corpus\\dockerfiles\\case-docker-001-root-user\\Dockerfile",
+                "repo_file_path": "/corpus/dockerfiles/case-docker-001-root-user/Dockerfile",
+                "file_line_range": [
+                    22,
+                    22
+                ],
+                "resource": ".\\corpus\\dockerfiles\\case-docker-001-root-user\\Dockerfile.USER",
+                "evaluations": null,
+                "check_class": "checkov.dockerfile.checks.RootUser",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-the-last-user-is-not-root",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": null
+            }
+        ]
+    },
+    "summary": {
+        "passed": 25,
+        "failed": 1,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 1,
+        "checkov_version": "2.5.20"
+    }
+}

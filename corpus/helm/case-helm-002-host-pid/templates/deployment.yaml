@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: helm-host-pid-demo-app
+  namespace: scanner-benchmark
+
+  labels:
+    app: helm-host-pid-demo-app
+
+spec:
+  replicas: {{ .Values.replicaCount }}
+
+  selector:
+    matchLabels:
+      app: helm-host-pid-demo-app
+
+  template:
+    metadata:
+      labels:
+        app: helm-host-pid-demo-app
+
+    spec:
+      automountServiceAccountToken: false
+
+      # Deliberate benchmark misconfiguration:
+      hostPID: {{ .Values.podSecurity.hostPID }}
+
+      hostNetwork: false
+      hostIPC: false
+
+      securityContext:
+        runAsNonRoot: {{ .Values.podSecurity.runAsNonRoot }}
+        runAsUser: {{ .Values.podSecurity.runAsUser }}
+        runAsGroup: {{ .Values.podSecurity.runAsGroup }}
+
+        seccompProfile:
+          type: RuntimeDefault
+
+      containers:
+        - name: {{ .Values.container.name }}
+
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+          ports:
+            - name: http
+              containerPort: {{ .Values.container.port }}
+              protocol: TCP
+
+          securityContext:
+            privileged: {{ .Values.containerSecurity.privileged }}
+            allowPrivilegeEscalation: {{ .Values.containerSecurity.allowPrivilegeEscalation }}
+            readOnlyRootFilesystem: {{ .Values.containerSecurity.readOnlyRootFilesystem }}
+
+            capabilities:
+              drop:
+                - ALL
+
+          resources:
+            requests:
+              cpu: {{ .Values.resources.requests.cpu }}
+              memory: {{ .Values.resources.requests.memory }}
+
+            limits:
+              cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+
+            initialDelaySeconds: 10
+            periodSeconds: 20

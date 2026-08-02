@@ -1,0 +1,272 @@
+{
+  "case_id": "case-001-privileged-container",
+  "tool": "kubescape",
+  "source_file": "results\\normalised\\kubescape\\case-001-privileged-container.normalised.json",
+  "summary": {
+    "ground_truth_items_count": 1,
+    "normalised_findings_count": 23,
+    "mapped_findings_count": 1,
+    "unmapped_findings_count": 22,
+    "true_positive_count": 1,
+    "false_negative_count": 0,
+    "unlabelled_extra_findings_count": 22,
+    "false_positive_count": 0
+  },
+  "true_positives": [
+    {
+      "match_status": "TRUE_POSITIVE",
+      "ground_truth_id": "GT-001",
+      "scanner_rule_id": "C-0057",
+      "scanner_rule_name": "Privileged container",
+      "resource": "Deployment.default.privileged-demo-app",
+      "container": "demo-container",
+      "field_path": "spec.template.spec.containers[0].securityContext.privileged",
+      "evidence_message": "Kubescape control C-0057 failed: Privileged container"
+    }
+  ],
+  "false_negatives": [],
+  "unlabelled_extra_findings": [
+    {
+      "match_status": "UNLABELLED_EXTRA",
+      "scanner_rule_id": "C-0004",
+      "scanner_rule_name": "Resources memory limit and request",
+      "severity": "High",
+      "category": "Workload",
+      "subcategory": "Resource management",
+      "resource": "Unknown",
+      "container": "Unknown",
+      "message": "Kubescape control C-0004 failed: Resources memory limit and request"
+    },
+    {
+      "match_status": "UNLABELLED_EXTRA",
+      "scanner_rule_id": "C-0009",
+      "scanner_rule_name": "Resource limits",
+      "severity": "High",
+      "category": "Workload",
+      "subcategory": null,
+      "resource": "Unknown",
+      "container": "Unknown",
+      "message": "Kubescape control C-0009 failed: Resource limits"
+    },
+    {
+      "match_status": "UNLABELLED_EXTRA",
+      "scanner_rule_id": "C-0013",
+      "scanner_rule_name": "Non-root containers",
+      "severity": "Medium",
+      "category": "Workload",
+      "subcategory": "Node escape",
+      "resource": "Unknown",
+      "container": "Unknown",
+      "message": "Kubescape control C-0013 failed: Non-root containers"
+    },
+    {
+      "match_status": "UNLABELLED_EXTRA",
+      "scanner_rule_id": "C-0016",
+      "scanner_rule_name": "Allow privilege escalation",
+      "severity": "Medium",
+      "category": "Workload",
+      "subcategory": "Node escape",
+      "resource": "Unknown",
+      "container": "Unknown",
+      "message": "Kubescape control C-0016 failed: Allow privilege escalation"
+    },
+    {
+      "match_status": "UNLABELLED_EXTRA",
+      "scanner_rule_id": "C-0017",
+      "scanner_rule_name": "Immutable container filesystem",
+      "severity": "Low",
+      "category": "Workload",
+      "subcategory": "Node escape",
+      "resource": "Unknown",
+      "container": "Unknown",
+      "message": "Kubescape control C-0017 failed: Immutable container filesystem"
+    },
+    {
+      "match_status": "UNLABELLED_EXTRA",
+      "scanner_rule_id": "C-0018",
+      "scanner_rule_name": "Configured readiness probe",
+      "severity": "Low",
+      "category": "Workload",
+      "subcategory": null,
+      "resource": "Unknown",
+      "container": "Unknown",
+      "message": "Kubescape control C-0018 failed: Configured readiness probe"
+    },
+    {
+      "match_status": "UNLABELLED_EXTRA",
+      "scanner_rule_id": "C-0030",
+      "scanner_rule_name": "Ingress and Egress blocked",
+      "severity": "Medium",
+      "category": "Network",
+      "subcategory": null,
+      "resource": "Unknown",
+      "container": "Unknown",
+      "message": "Kubescape control C-0030 failed: Ingress and Egress blocked"
+    },
+    {
+      "match_status": "UNLABELLED_EXTRA",
+      "scanner_rule_id": "C-0034",
+      "scanner_rule_name": "Automatic mapping of service account",
+      "severity": "Medium",
+      "category": "Secrets",
+      "subcategory": null,
+      "resource": "Unknown",
+      "container": "Unknown",
+      "message": "Kubescape control C-0034 failed: Automatic mapping of service account"
+    },
+    {
+      "match_status": "UNLABELLED_EXTRA",
+      "scanner_rule_id": "C-0050",
+      "scanner_rule_name": "Resources CPU limit and request",
+      "severity": "High",
+      "category": "Workload",
+      "subcategory": "Resource management",
+      "resource": "Unknown",
+      "container": "Unknown",
+      "message": "Kubescape control C-0050 failed: Resources CPU limit and request"
+    },
+    {
+      "match_status": "UNLABELLED_EXTRA",
+      "scanner_rule_id": "C-0055",
+      "scanner_rule_name": "Linux hardening",
+      "severity": "Medium",
+      "category": "Workload",
+      "subcategory": "Node escape",
+      "resource": "Unknown",
+      "container": "Unknown",
+      "message": "Kubescape control C-0055 failed: Linux hardening"
+    },
+    {
+      "match_status": "UNLABELLED_EXTRA",
+      "scanner_rule_id": "C-0056",
+      "scanner_rule_name": "Configured liveness probe",
+      "severity": "Medium",
+      "category": "Workload",
+      "subcategory": null,
+      "resource": "Unknown",
+      "container": "Unknown",
+      "message": "Kubescape control C-0056 failed: Configured liveness probe"
+    },
+    {
+      "match_status": "UNLABELLED_EXTRA",
+      "scanner_rule_id": "C-0061",
+      "scanner_rule_name": "Pods in default namespace",
+      "severity": "Low",
+      "category": "Workload",
+      "subcategory": null,
+      "resource": "Unknown",
+      "container": "Unknown",
+      "message": "Kubescape control C-0061 failed: Pods in default namespace"
+    },
+    {
+      "match_status": "UNLABELLED_EXTRA",
+      "scanner_rule_id": "C-0077",
+      "scanner_rule_name": "K8s common labels usage",
+      "severity": "Low",
+      "category": "Workload",
+      "subcategory": null,
+      "resource": "Unknown",
+      "container": "Unknown",
+      "message": "Kubescape control C-0077 failed: K8s common labels usage"
+    },
+    {
+      "match_status": "UNLABELLED_EXTRA",
+      "scanner_rule_id": "C-0190",
+      "scanner_rule_name": "Ensure that Service Account Tokens are only mounted where necessary",
+      "severity": "Medium",
+      "category": "Workload",
+      "subcategory": null,
+      "resource": "Unknown",
+      "container": "Unknown",
+      "message": "Kubescape control C-0190 failed: Ensure that Service Account Tokens are only mounted where necessary"
+    },
+    {
+      "match_status": "UNLABELLED_EXTRA",
+      "scanner_rule_id": "C-0210",
+      "scanner_rule_name": "Ensure that the seccomp profile is set to docker/default in your pod definitions",
+      "severity": "Medium",
+      "category": "Workload",
+      "subcategory": null,
+      "resource": "Unknown",
+      "container": "Unknown",
+      "message": "Kubescape control C-0210 failed: Ensure that the seccomp profile is set to docker/default in your pod definitions"
+    },
+    {
+      "match_status": "UNLABELLED_EXTRA",
+      "scanner_rule_id": "C-0211",
+      "scanner_rule_name": "Apply Security Context to Your Pods and Containers",
+      "severity": "High",
+      "category": "Workload",
+      "subcategory": null,
+      "resource": "Unknown",
+      "container": "Unknown",
+      "message": "Kubescape control C-0211 failed: Apply Security Context to Your Pods and Containers"
+    },
+    {
+      "match_status": "UNLABELLED_EXTRA",
+      "scanner_rule_id": "C-0237",
+      "scanner_rule_name": "Check if signature exists",
+      "severity": "High",
+      "category": "Workload",
+      "subcategory": "Supply chain",
+      "resource": "Unknown",
+      "container": "Unknown",
+      "message": "Kubescape control C-0237 failed: Check if signature exists"
+    },
+    {
+      "match_status": "UNLABELLED_EXTRA",
+      "scanner_rule_id": "C-0260",
+      "scanner_rule_name": "Missing network policy",
+      "severity": "Medium",
+      "category": "Network",
+      "subcategory": null,
+      "resource": "Unknown",
+      "container": "Unknown",
+      "message": "Kubescape control C-0260 failed: Missing network policy"
+    },
+    {
+      "match_status": "UNLABELLED_EXTRA",
+      "scanner_rule_id": "C-0268",
+      "scanner_rule_name": "Ensure CPU requests are set",
+      "severity": "Low",
+      "category": "Workload",
+      "subcategory": "Resource management",
+      "resource": "Unknown",
+      "container": "Unknown",
+      "message": "Kubescape control C-0268 failed: Ensure CPU requests are set"
+    },
+    {
+      "match_status": "UNLABELLED_EXTRA",
+      "scanner_rule_id": "C-0269",
+      "scanner_rule_name": "Ensure memory requests are set",
+      "severity": "Low",
+      "category": "Workload",
+      "subcategory": "Resource management",
+      "resource": "Unknown",
+      "container": "Unknown",
+      "message": "Kubescape control C-0269 failed: Ensure memory requests are set"
+    },
+    {
+      "match_status": "UNLABELLED_EXTRA",
+      "scanner_rule_id": "C-0270",
+      "scanner_rule_name": "Ensure CPU limits are set",
+      "severity": "High",
+      "category": "Workload",
+      "subcategory": "Resource management",
+      "resource": "Unknown",
+      "container": "Unknown",
+      "message": "Kubescape control C-0270 failed: Ensure CPU limits are set"
+    },
+    {
+      "match_status": "UNLABELLED_EXTRA",
+      "scanner_rule_id": "C-0271",
+      "scanner_rule_name": "Ensure memory limits are set",
+      "severity": "High",
+      "category": "Workload",
+      "subcategory": "Resource management",
+      "resource": "Unknown",
+      "container": "Unknown",
+      "message": "Kubescape control C-0271 failed: Ensure memory limits are set"
+    }
+  ]
+}

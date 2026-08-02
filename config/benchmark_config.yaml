@@ -1,0 +1,106 @@
+schema_version: "1.0"
+
+defaults:
+  matching_mode: review
+
+  scanners:
+    - checkov
+    - trivy
+    - kubescape
+
+paths:
+  corpus_root: corpus
+  results_root: results
+  reports_root: results/reports
+
+cases:
+  case-001-privileged-container:
+    artifact_type: kubernetes_yaml
+    artifact_path: corpus/kubernetes/case-001-privileged-container/artifact.yaml
+    ground_truth_path: corpus/kubernetes/case-001-privileged-container/ground_truth.yaml
+
+    rule_mappings:
+      GT-001:
+        checkov:
+          - CKV_K8S_16
+
+        trivy:
+          - KSV-0017
+
+        kubescape:
+          - C-0057
+
+  case-002-runs-as-root:
+    artifact_type: kubernetes_yaml
+    artifact_path: corpus/kubernetes/case-002-runs-as-root/artifact.yaml
+    ground_truth_path: corpus/kubernetes/case-002-runs-as-root/ground_truth.yaml
+
+    rule_mappings:
+      GT-002:
+        checkov:
+          - CKV_K8S_23
+        
+        trivy:
+          - KSV-0012
+
+        kubescape:
+          - C-0013
+
+  case-docker-001-root-user:
+    artifact_type: dockerfile
+    artifact_path: corpus/dockerfiles/case-docker-001-root-user/Dockerfile
+    ground_truth_path: corpus/dockerfiles/case-docker-001-root-user/ground_truth.yaml
+
+    rule_mappings:
+      GT-DOCKER-001:
+        checkov:
+          - CKV_DOCKER_8
+
+        trivy:
+          - DS-0002
+
+  case-docker-002-missing-user:
+    artifact_type: dockerfile
+    artifact_path: corpus/dockerfiles/case-docker-002-missing-user/Dockerfile
+    ground_truth_path: corpus/dockerfiles/case-docker-002-missing-user/ground_truth.yaml
+
+    rule_mappings:
+      GT-DOCKER-002:
+        checkov:
+          - CKV_DOCKER_3
+
+        trivy:
+          - DS-0002
+  
+  case-helm-001-host-network:
+    artifact_type: helm_chart
+    artifact_path: corpus/helm/case-helm-001-host-network
+    rendered_artifact_path: results/rendered/helm/case-helm-001-host-network.yaml
+    ground_truth_path: corpus/helm/case-helm-001-host-network/ground_truth.yaml
+
+    rule_mappings:
+      GT-HELM-001:
+        checkov:
+          - CKV_K8S_19
+
+        trivy:
+          - KSV-0009
+
+        kubescape:
+          - C-0041
+
+  case-helm-002-host-pid:
+    artifact_type: helm_chart
+    artifact_path: corpus/helm/case-helm-002-host-pid
+    ground_truth_path: corpus/helm/case-helm-002-host-pid/ground_truth.yaml
+
+    rule_mappings:
+      GT-HELM-002:
+        checkov:
+          - CKV_K8S_17
+
+        trivy:
+          - KSV-0010
+
+        kubescape:
+          - C-0038

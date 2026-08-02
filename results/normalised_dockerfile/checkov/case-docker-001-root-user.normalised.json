@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "case_id": "case-docker-001-root-user",
+  "tool": "checkov",
+  "scanner_version": "2.5.20",
+  "artifact_type": "dockerfile",
+  "generated_at": "2026-08-02T13:54:23.614697+00:00",
+  "source_file": "results\\raw\\checkov\\case-docker-001-root-user.json",
+  "summary": {
+    "normalised_findings_count": 1,
+    "mapped_findings_count": 1,
+    "unmapped_findings_count": 0
+  },
+  "findings": [
+    {
+      "finding_id": "checkov-case-docker-001-root-user-0001",
+      "tool": "checkov",
+      "case_id": "case-docker-001-root-user",
+      "artifact_type": "dockerfile",
+      "rule_id": "CKV_DOCKER_8",
+      "rule_name": "Ensure the last USER is not root",
+      "status": "FAILED",
+      "message": "Ensure the last USER is not root",
+      "category": "ContainerSecurity",
+      "subcategory": "RootUser",
+      "severity": "High",
+      "resource": "default.Dockerfile",
+      "container": null,
+      "field_path": "instructions.USER.final",
+      "bad_value": "root",
+      "expected_secure_value": "non-root-user",
+      "ground_truth_id": "GT-DOCKER-001",
+      "mapping_status": "mapped",
+      "original_category": null,
+      "original_subcategory": null,
+      "original_severity": null,
+      "original_resource": ".\\corpus\\dockerfiles\\case-docker-001-root-user\\Dockerfile.USER",
+      "source_file": "/corpus/dockerfiles/case-docker-001-root-user/Dockerfile",
+      "line_start": 22,
+      "line_end": 22,
+      "failed_resources": null,
+      "passed_resources": null,
+      "skipped_resources": null,
+      "score": null,
+      "compliance_score": null
+    }
+  ]
+}

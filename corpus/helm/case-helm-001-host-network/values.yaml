@@ -1,0 +1,32 @@
+replicaCount: 1
+
+image:
+  repository: nginx
+  tag: "1.25"
+  pullPolicy: IfNotPresent
+
+container:
+  name: demo-container
+  port: 8080
+
+podSecurity:
+  # Deliberate benchmark misconfiguration:
+  hostNetwork: true
+
+  runAsNonRoot: true
+  runAsUser: 10001
+  runAsGroup: 10001
+
+containerSecurity:
+  privileged: false
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+  limits:
+    cpu: 250m
+    memory: 256Mi

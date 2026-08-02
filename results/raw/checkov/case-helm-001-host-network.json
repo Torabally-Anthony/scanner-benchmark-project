@@ -1,0 +1,2778 @@
+﻿{
+    "check_type": "helm",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_K8S_43",
+                "bc_check_id": "BC_K8S_39",
+                "check_name": "Image should use digest",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/template/spec/containers/[0]/image"
+                    ]
+                },
+                "code_block": [
+                    [
+                        5,
+                        "apiVersion: apps/v1\n"
+                    ],
+                    [
+                        6,
+                        "\n"
+                    ],
+                    [
+                        7,
+                        "kind: Deployment\n"
+                    ],
+                    [
+                        8,
+                        "\n"
+                    ],
+                    [
+                        9,
+                        "\n"
+                    ],
+                    [
+                        10,
+                        "\n"
+                    ],
+                    [
+                        11,
+                        "metadata:\n"
+                    ],
+                    [
+                        12,
+                        "\n"
+                    ],
+                    [
+                        13,
+                        "  name: helm-host-network-demo-app\n"
+                    ],
+                    [
+                        14,
+                        "\n"
+                    ],
+                    [
+                        15,
+                        "  namespace: scanner-benchmark\n"
+                    ],
+                    [
+                        16,
+                        "\n"
+                    ],
+                    [
+                        17,
+                        "\n"
+                    ],
+                    [
+                        18,
+                        "\n"
+                    ],
+                    [
+                        19,
+                        "  labels:\n"
+                    ],
+                    [
+                        20,
+                        "\n"
+                    ],
+                    [
+                        21,
+                        "    app: helm-host-network-demo-app\n"
+                    ],
+                    [
+                        22,
+                        "\n"
+                    ],
+                    [
+                        23,
+                        "\n"
+                    ],
+                    [
+                        24,
+                        "\n"
+                    ],
+                    [
+                        25,
+                        "spec:\n"
+                    ],
+                    [
+                        26,
+                        "\n"
+                    ],
+                    [
+                        27,
+                        "  replicas: 1\n"
+                    ],
+                    [
+                        28,
+                        "\n"
+                    ],
+                    [
+                        29,
+                        "\n"
+                    ],
+                    [
+                        30,
+                        "\n"
+                    ],
+                    [
+                        31,
+                        "  selector:\n"
+                    ],
+                    [
+                        32,
+                        "\n"
+                    ],
+                    [
+                        33,
+                        "    matchLabels:\n"
+                    ],
+                    [
+                        34,
+                        "\n"
+                    ],
+                    [
+                        35,
+                        "      app: helm-host-network-demo-app\n"
+                    ],
+                    [
+                        36,
+                        "\n"
+                    ],
+                    [
+                        37,
+                        "\n"
+                    ],
+                    [
+                        38,
+                        "\n"
+                    ],
+                    [
+                        39,
+                        "  template:\n"
+                    ],
+                    [
+                        40,
+                        "\n"
+                    ],
+                    [
+                        41,
+                        "    metadata:\n"
+                    ],
+                    [
+                        42,
+                        "\n"
+                    ],
+                    [
+                        43,
+                        "      labels:\n"
+                    ],
+                    [
+                        44,
+                        "\n"
+                    ],
+                    [
+                        45,
+                        "        app: helm-host-network-demo-app\n"
+                    ],
+                    [
+                        46,
+                        "\n"
+                    ],
+                    [
+                        47,
+                        "\n"
+                    ],
+                    [
+                        48,
+                        "\n"
+                    ],
+                    [
+                        49,
+                        "    spec:\n"
+                    ],
+                    [
+                        50,
+                        "\n"
+                    ],
+                    [
+                        51,
+                        "      automountServiceAccountToken: false\n"
+                    ],
+                    [
+                        52,
+                        "\n"
+                    ],
+                    [
+                        53,
+                        "\n"
+                    ],
+                    [
+                        54,
+                        "\n"
+                    ],
+                    [
+                        55,
+                        "      # Deliberate benchmark misconfiguration:\n"
+                    ],
+                    [
+                        56,
+                        "\n"
+                    ],
+                    [
+                        57,
+                        "      hostNetwork: true\n"
+                    ],
+                    [
+                        58,
+                        "\n"
+                    ],
+                    [
+                        59,
+                        "\n"
+                    ],
+                    [
+                        60,
+                        "\n"
+                    ],
+                    [
+                        61,
+                        "      dnsPolicy: ClusterFirstWithHostNet\n"
+                    ],
+                    [
+                        62,
+                        "\n"
+                    ],
+                    [
+                        63,
+                        "\n"
+                    ],
+                    [
+                        64,
+                        "\n"
+                    ],
+                    [
+                        65,
+                        "      securityContext:\n"
+                    ],
+                    [
+                        66,
+                        "\n"
+                    ],
+                    [
+                        67,
+                        "        runAsNonRoot: true\n"
+                    ],
+                    [
+                        68,
+                        "\n"
+                    ],
+                    [
+                        69,
+                        "        runAsUser: 10001\n"
+                    ],
+                    [
+                        70,
+                        "\n"
+                    ],
+                    [
+                        71,
+                        "        runAsGroup: 10001\n"
+                    ],
+                    [
+                        72,
+                        "\n"
+                    ],
+                    [
+                        73,
+                        "\n"
+                    ],
+                    [
+                        74,
+                        "\n"
+                    ],
+                    [
+                        75,
+                        "        seccompProfile:\n"
+                    ],
+                    [
+                        76,
+                        "\n"
+                    ],
+                    [
+                        77,
+                        "          type: RuntimeDefault\n"
+                    ],
+                    [
+                        78,
+                        "\n"
+                    ],
+                    [
+                        79,
+                        "\n"
+                    ],
+                    [
+                        80,
+                        "\n"
+                    ],
+                    [
+                        81,
+                        "      containers:\n"
+                    ],
+                    [
+                        82,
+                        "\n"
+                    ],
+                    [
+                        83,
+                        "        - name: demo-container\n"
+                    ],
+                    [
+                        84,
+                        "\n"
+                    ],
+                    [
+                        85,
+                        "\n"
+                    ],
+                    [
+                        86,
+                        "\n"
+                    ],
+                    [
+                        87,
+                        "          image: \"nginx:1.25\"\n"
+                    ],
+                    [
+                        88,
+                        "\n"
+                    ],
+                    [
+                        89,
+                        "          imagePullPolicy: IfNotPresent\n"
+                    ],
+                    [
+                        90,
+                        "\n"
+                    ],
+                    [
+                        91,
+                        "\n"
+                    ],
+                    [
+                        92,
+                        "\n"
+                    ],
+                    [
+                        93,
+                        "          ports:\n"
+                    ],
+                    [
+                        94,
+                        "\n"
+                    ],
+                    [
+                        95,
+                        "            - name: http\n"
+                    ],
+                    [
+                        96,
+                        "\n"
+                    ],
+                    [
+                        97,
+                        "              containerPort: 8080\n"
+                    ],
+                    [
+                        98,
+                        "\n"
+                    ],
+                    [
+                        99,
+                        "              protocol: TCP\n"
+                    ],
+                    [
+                        100,
+                        "\n"
+                    ],
+                    [
+                        101,
+                        "\n"
+                    ],
+                    [
+                        102,
+                        "\n"
+                    ],
+                    [
+                        103,
+                        "          securityContext:\n"
+                    ],
+                    [
+                        104,
+                        "\n"
+                    ],
+                    [
+                        105,
+                        "            privileged: false\n"
+                    ],
+                    [
+                        106,
+                        "\n"
+                    ],
+                    [
+                        107,
+                        "            allowPrivilegeEscalation: false\n"
+                    ],
+                    [
+                        108,
+                        "\n"
+                    ],
+                    [
+                        109,
+                        "            readOnlyRootFilesystem: true\n"
+                    ],
+                    [
+                        110,
+                        "\n"
+                    ],
+                    [
+                        111,
+                        "\n"
+                    ],
+                    [
+                        112,
+                        "\n"
+                    ],
+                    [
+                        113,
+                        "            capabilities:\n"
+                    ],
+                    [
+                        114,
+                        "\n"
+                    ],
+                    [
+                        115,
+                        "              drop:\n"
+                    ],
+                    [
+                        116,
+                        "\n"
+                    ],
+                    [
+                        117,
+                        "                - ALL\n"
+                    ],
+                    [
+                        118,
+                        "\n"
+                    ],
+                    [
+                        119,
+                        "\n"
+                    ],
+                    [
+                        120,
+                        "\n"
+                    ],
+                    [
+                        121,
+                        "          resources:\n"
+                    ],
+                    [
+                        122,
+                        "\n"
+                    ],
+                    [
+                        123,
+                        "            requests:\n"
+                    ],
+                    [
+                        124,
+                        "\n"
+                    ],
+                    [
+                        125,
+                        "              cpu: 100m\n"
+                    ],
+                    [
+                        126,
+                        "\n"
+                    ],
+                    [
+                        127,
+                        "              memory: 128Mi\n"
+                    ],
+                    [
+                        128,
+                        "\n"
+                    ],
+                    [
+                        129,
+                        "\n"
+                    ],
+                    [
+                        130,
+                        "\n"
+                    ],
+                    [
+                        131,
+                        "            limits:\n"
+                    ],
+                    [
+                        132,
+                        "\n"
+                    ],
+                    [
+                        133,
+                        "              cpu: 250m\n"
+                    ],
+                    [
+                        134,
+                        "\n"
+                    ],
+                    [
+                        135,
+                        "              memory: 256Mi\n"
+                    ],
+                    [
+                        136,
+                        "\n"
+                    ],
+                    [
+                        137,
+                        "\n"
+                    ],
+                    [
+                        138,
+                        "\n"
+                    ],
+                    [
+                        139,
+                        "          readinessProbe:\n"
+                    ],
+                    [
+                        140,
+                        "\n"
+                    ],
+                    [
+                        141,
+                        "            httpGet:\n"
+                    ],
+                    [
+                        142,
+                        "\n"
+                    ],
+                    [
+                        143,
+                        "              path: /\n"
+                    ],
+                    [
+                        144,
+                        "\n"
+                    ],
+                    [
+                        145,
+                        "              port: http\n"
+                    ],
+                    [
+                        146,
+                        "\n"
+                    ],
+                    [
+                        147,
+                        "\n"
+                    ],
+                    [
+                        148,
+                        "\n"
+                    ],
+                    [
+                        149,
+                        "            initialDelaySeconds: 5\n"
+                    ],
+                    [
+                        150,
+                        "\n"
+                    ],
+                    [
+                        151,
+                        "            periodSeconds: 10\n"
+                    ],
+                    [
+                        152,
+                        "\n"
+                    ],
+                    [
+                        153,
+                        "\n"
+                    ],
+                    [
+                        154,
+                        "\n"
+                    ],
+                    [
+                        155,
+                        "          livenessProbe:\n"
+                    ],
+                    [
+                        156,
+                        "\n"
+                    ],
+                    [
+                        157,
+                        "            httpGet:\n"
+                    ],
+                    [
+                        158,
+                        "\n"
+                    ],
+                    [
+                        159,
+                        "              path: /\n"
+                    ],
+                    [
+                        160,
+                        "\n"
+                    ],
+                    [
+                        161,
+                        "              port: http\n"
+                    ],
+                    [
+                        162,
+                        "\n"
+                    ],
+                    [
+                        163,
+                        "\n"
+                    ],
+                    [
+                        164,
+                        "\n"
+                    ],
+                    [
+                        165,
+                        "            initialDelaySeconds: 10\n"
+                    ],
+                    [
+                        166,
+                        "\n"
+                    ],
+                    [
+                        167,
+                        "            periodSeconds: 20\n"
+                    ]
+                ],
+                "file_path": "/host-network-demo\\templates\\deployment.yaml",
+                "file_abs_path": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\tmpy4ipuc4a\\host-network-demo\\templates\\deployment.yaml",
+                "repo_file_path": "/AppData/Local/Temp/tmpy4ipuc4a/host-network-demo/templates/deployment.yaml",
+                "file_line_range": [
+                    5,
+                    167
+                ],
+                "resource": "Deployment.scanner-benchmark.helm-host-network-demo-app",
+                "evaluations": {},
+                "check_class": "checkov.kubernetes.checks.resource.k8s.ImageDigest",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-39",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": null
+            },
+            {
+                "check_id": "CKV_K8S_15",
+                "bc_check_id": "BC_K8S_14",
+                "check_name": "Image Pull Policy should be Always",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/template/spec/containers/[0]/image",
+                        "spec/template/spec/containers/[0]/imagePullPolicy"
+                    ]
+                },
+                "code_block": [
+                    [
+                        5,
+                        "apiVersion: apps/v1\n"
+                    ],
+                    [
+                        6,
+                        "\n"
+                    ],
+                    [
+                        7,
+                        "kind: Deployment\n"
+                    ],
+                    [
+                        8,
+                        "\n"
+                    ],
+                    [
+                        9,
+                        "\n"
+                    ],
+                    [
+                        10,
+                        "\n"
+                    ],
+                    [
+                        11,
+                        "metadata:\n"
+                    ],
+                    [
+                        12,
+                        "\n"
+                    ],
+                    [
+                        13,
+                        "  name: helm-host-network-demo-app\n"
+                    ],
+                    [
+                        14,
+                        "\n"
+                    ],
+                    [
+                        15,
+                        "  namespace: scanner-benchmark\n"
+                    ],
+                    [
+                        16,
+                        "\n"
+                    ],
+                    [
+                        17,
+                        "\n"
+                    ],
+                    [
+                        18,
+                        "\n"
+                    ],
+                    [
+                        19,
+                        "  labels:\n"
+                    ],
+                    [
+                        20,
+                        "\n"
+                    ],
+                    [
+                        21,
+                        "    app: helm-host-network-demo-app\n"
+                    ],
+                    [
+                        22,
+                        "\n"
+                    ],
+                    [
+                        23,
+                        "\n"
+                    ],
+                    [
+                        24,
+                        "\n"
+                    ],
+                    [
+                        25,
+                        "spec:\n"
+                    ],
+                    [
+                        26,
+                        "\n"
+                    ],
+                    [
+                        27,
+                        "  replicas: 1\n"
+                    ],
+                    [
+                        28,
+                        "\n"
+                    ],
+                    [
+                        29,
+                        "\n"
+                    ],
+                    [
+                        30,
+                        "\n"
+                    ],
+                    [
+                        31,
+                        "  selector:\n"
+                    ],
+                    [
+                        32,
+                        "\n"
+                    ],
+                    [
+                        33,
+                        "    matchLabels:\n"
+                    ],
+                    [
+                        34,
+                        "\n"
+                    ],
+                    [
+                        35,
+                        "      app: helm-host-network-demo-app\n"
+                    ],
+                    [
+                        36,
+                        "\n"
+                    ],
+                    [
+                        37,
+                        "\n"
+                    ],
+                    [
+                        38,
+                        "\n"
+                    ],
+                    [
+                        39,
+                        "  template:\n"
+                    ],
+                    [
+                        40,
+                        "\n"
+                    ],
+                    [
+                        41,
+                        "    metadata:\n"
+                    ],
+                    [
+                        42,
+                        "\n"
+                    ],
+                    [
+                        43,
+                        "      labels:\n"
+                    ],
+                    [
+                        44,
+                        "\n"
+                    ],
+                    [
+                        45,
+                        "        app: helm-host-network-demo-app\n"
+                    ],
+                    [
+                        46,
+                        "\n"
+                    ],
+                    [
+                        47,
+                        "\n"
+                    ],
+                    [
+                        48,
+                        "\n"
+                    ],
+                    [
+                        49,
+                        "    spec:\n"
+                    ],
+                    [
+                        50,
+                        "\n"
+                    ],
+                    [
+                        51,
+                        "      automountServiceAccountToken: false\n"
+                    ],
+                    [
+                        52,
+                        "\n"
+                    ],
+                    [
+                        53,
+                        "\n"
+                    ],
+                    [
+                        54,
+                        "\n"
+                    ],
+                    [
+                        55,
+                        "      # Deliberate benchmark misconfiguration:\n"
+                    ],
+                    [
+                        56,
+                        "\n"
+                    ],
+                    [
+                        57,
+                        "      hostNetwork: true\n"
+                    ],
+                    [
+                        58,
+                        "\n"
+                    ],
+                    [
+                        59,
+                        "\n"
+                    ],
+                    [
+                        60,
+                        "\n"
+                    ],
+                    [
+                        61,
+                        "      dnsPolicy: ClusterFirstWithHostNet\n"
+                    ],
+                    [
+                        62,
+                        "\n"
+                    ],
+                    [
+                        63,
+                        "\n"
+                    ],
+                    [
+                        64,
+                        "\n"
+                    ],
+                    [
+                        65,
+                        "      securityContext:\n"
+                    ],
+                    [
+                        66,
+                        "\n"
+                    ],
+                    [
+                        67,
+                        "        runAsNonRoot: true\n"
+                    ],
+                    [
+                        68,
+                        "\n"
+                    ],
+                    [
+                        69,
+                        "        runAsUser: 10001\n"
+                    ],
+                    [
+                        70,
+                        "\n"
+                    ],
+                    [
+                        71,
+                        "        runAsGroup: 10001\n"
+                    ],
+                    [
+                        72,
+                        "\n"
+                    ],
+                    [
+                        73,
+                        "\n"
+                    ],
+                    [
+                        74,
+                        "\n"
+                    ],
+                    [
+                        75,
+                        "        seccompProfile:\n"
+                    ],
+                    [
+                        76,
+                        "\n"
+                    ],
+                    [
+                        77,
+                        "          type: RuntimeDefault\n"
+                    ],
+                    [
+                        78,
+                        "\n"
+                    ],
+                    [
+                        79,
+                        "\n"
+                    ],
+                    [
+                        80,
+                        "\n"
+                    ],
+                    [
+                        81,
+                        "      containers:\n"
+                    ],
+                    [
+                        82,
+                        "\n"
+                    ],
+                    [
+                        83,
+                        "        - name: demo-container\n"
+                    ],
+                    [
+                        84,
+                        "\n"
+                    ],
+                    [
+                        85,
+                        "\n"
+                    ],
+                    [
+                        86,
+                        "\n"
+                    ],
+                    [
+                        87,
+                        "          image: \"nginx:1.25\"\n"
+                    ],
+                    [
+                        88,
+                        "\n"
+                    ],
+                    [
+                        89,
+                        "          imagePullPolicy: IfNotPresent\n"
+                    ],
+                    [
+                        90,
+                        "\n"
+                    ],
+                    [
+                        91,
+                        "\n"
+                    ],
+                    [
+                        92,
+                        "\n"
+                    ],
+                    [
+                        93,
+                        "          ports:\n"
+                    ],
+                    [
+                        94,
+                        "\n"
+                    ],
+                    [
+                        95,
+                        "            - name: http\n"
+                    ],
+                    [
+                        96,
+                        "\n"
+                    ],
+                    [
+                        97,
+                        "              containerPort: 8080\n"
+                    ],
+                    [
+                        98,
+                        "\n"
+                    ],
+                    [
+                        99,
+                        "              protocol: TCP\n"
+                    ],
+                    [
+                        100,
+                        "\n"
+                    ],
+                    [
+                        101,
+                        "\n"
+                    ],
+                    [
+                        102,
+                        "\n"
+                    ],
+                    [
+                        103,
+                        "          securityContext:\n"
+                    ],
+                    [
+                        104,
+                        "\n"
+                    ],
+                    [
+                        105,
+                        "            privileged: false\n"
+                    ],
+                    [
+                        106,
+                        "\n"
+                    ],
+                    [
+                        107,
+                        "            allowPrivilegeEscalation: false\n"
+                    ],
+                    [
+                        108,
+                        "\n"
+                    ],
+                    [
+                        109,
+                        "            readOnlyRootFilesystem: true\n"
+                    ],
+                    [
+                        110,
+                        "\n"
+                    ],
+                    [
+                        111,
+                        "\n"
+                    ],
+                    [
+                        112,
+                        "\n"
+                    ],
+                    [
+                        113,
+                        "            capabilities:\n"
+                    ],
+                    [
+                        114,
+                        "\n"
+                    ],
+                    [
+                        115,
+                        "              drop:\n"
+                    ],
+                    [
+                        116,
+                        "\n"
+                    ],
+                    [
+                        117,
+                        "                - ALL\n"
+                    ],
+                    [
+                        118,
+                        "\n"
+                    ],
+                    [
+                        119,
+                        "\n"
+                    ],
+                    [
+                        120,
+                        "\n"
+                    ],
+                    [
+                        121,
+                        "          resources:\n"
+                    ],
+                    [
+                        122,
+                        "\n"
+                    ],
+                    [
+                        123,
+                        "            requests:\n"
+                    ],
+                    [
+                        124,
+                        "\n"
+                    ],
+                    [
+                        125,
+                        "              cpu: 100m\n"
+                    ],
+                    [
+                        126,
+                        "\n"
+                    ],
+                    [
+                        127,
+                        "              memory: 128Mi\n"
+                    ],
+                    [
+                        128,
+                        "\n"
+                    ],
+                    [
+                        129,
+                        "\n"
+                    ],
+                    [
+                        130,
+                        "\n"
+                    ],
+                    [
+                        131,
+                        "            limits:\n"
+                    ],
+                    [
+                        132,
+                        "\n"
+                    ],
+                    [
+                        133,
+                        "              cpu: 250m\n"
+                    ],
+                    [
+                        134,
+                        "\n"
+                    ],
+                    [
+                        135,
+                        "              memory: 256Mi\n"
+                    ],
+                    [
+                        136,
+                        "\n"
+                    ],
+                    [
+                        137,
+                        "\n"
+                    ],
+                    [
+                        138,
+                        "\n"
+                    ],
+                    [
+                        139,
+                        "          readinessProbe:\n"
+                    ],
+                    [
+                        140,
+                        "\n"
+                    ],
+                    [
+                        141,
+                        "            httpGet:\n"
+                    ],
+                    [
+                        142,
+                        "\n"
+                    ],
+                    [
+                        143,
+                        "              path: /\n"
+                    ],
+                    [
+                        144,
+                        "\n"
+                    ],
+                    [
+                        145,
+                        "              port: http\n"
+                    ],
+                    [
+                        146,
+                        "\n"
+                    ],
+                    [
+                        147,
+                        "\n"
+                    ],
+                    [
+                        148,
+                        "\n"
+                    ],
+                    [
+                        149,
+                        "            initialDelaySeconds: 5\n"
+                    ],
+                    [
+                        150,
+                        "\n"
+                    ],
+                    [
+                        151,
+                        "            periodSeconds: 10\n"
+                    ],
+                    [
+                        152,
+                        "\n"
+                    ],
+                    [
+                        153,
+                        "\n"
+                    ],
+                    [
+                        154,
+                        "\n"
+                    ],
+                    [
+                        155,
+                        "          livenessProbe:\n"
+                    ],
+                    [
+                        156,
+                        "\n"
+                    ],
+                    [
+                        157,
+                        "            httpGet:\n"
+                    ],
+                    [
+                        158,
+                        "\n"
+                    ],
+                    [
+                        159,
+                        "              path: /\n"
+                    ],
+                    [
+                        160,
+                        "\n"
+                    ],
+                    [
+                        161,
+                        "              port: http\n"
+                    ],
+                    [
+                        162,
+                        "\n"
+                    ],
+                    [
+                        163,
+                        "\n"
+                    ],
+                    [
+                        164,
+                        "\n"
+                    ],
+                    [
+                        165,
+                        "            initialDelaySeconds: 10\n"
+                    ],
+                    [
+                        166,
+                        "\n"
+                    ],
+                    [
+                        167,
+                        "            periodSeconds: 20\n"
+                    ]
+                ],
+                "file_path": "/host-network-demo\\templates\\deployment.yaml",
+                "file_abs_path": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\tmpy4ipuc4a\\host-network-demo\\templates\\deployment.yaml",
+                "repo_file_path": "/AppData/Local/Temp/tmpy4ipuc4a/host-network-demo/templates/deployment.yaml",
+                "file_line_range": [
+                    5,
+                    167
+                ],
+                "resource": "Deployment.scanner-benchmark.helm-host-network-demo-app",
+                "evaluations": {},
+                "check_class": "checkov.kubernetes.checks.resource.k8s.ImagePullPolicyAlways",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-14",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": null
+            },
+            {
+                "check_id": "CKV_K8S_19",
+                "bc_check_id": "BC_K8S_18",
+                "check_name": "Containers should not share the host network namespace",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": [
+                    [
+                        5,
+                        "apiVersion: apps/v1\n"
+                    ],
+                    [
+                        6,
+                        "\n"
+                    ],
+                    [
+                        7,
+                        "kind: Deployment\n"
+                    ],
+                    [
+                        8,
+                        "\n"
+                    ],
+                    [
+                        9,
+                        "\n"
+                    ],
+                    [
+                        10,
+                        "\n"
+                    ],
+                    [
+                        11,
+                        "metadata:\n"
+                    ],
+                    [
+                        12,
+                        "\n"
+                    ],
+                    [
+                        13,
+                        "  name: helm-host-network-demo-app\n"
+                    ],
+                    [
+                        14,
+                        "\n"
+                    ],
+                    [
+                        15,
+                        "  namespace: scanner-benchmark\n"
+                    ],
+                    [
+                        16,
+                        "\n"
+                    ],
+                    [
+                        17,
+                        "\n"
+                    ],
+                    [
+                        18,
+                        "\n"
+                    ],
+                    [
+                        19,
+                        "  labels:\n"
+                    ],
+                    [
+                        20,
+                        "\n"
+                    ],
+                    [
+                        21,
+                        "    app: helm-host-network-demo-app\n"
+                    ],
+                    [
+                        22,
+                        "\n"
+                    ],
+                    [
+                        23,
+                        "\n"
+                    ],
+                    [
+                        24,
+                        "\n"
+                    ],
+                    [
+                        25,
+                        "spec:\n"
+                    ],
+                    [
+                        26,
+                        "\n"
+                    ],
+                    [
+                        27,
+                        "  replicas: 1\n"
+                    ],
+                    [
+                        28,
+                        "\n"
+                    ],
+                    [
+                        29,
+                        "\n"
+                    ],
+                    [
+                        30,
+                        "\n"
+                    ],
+                    [
+                        31,
+                        "  selector:\n"
+                    ],
+                    [
+                        32,
+                        "\n"
+                    ],
+                    [
+                        33,
+                        "    matchLabels:\n"
+                    ],
+                    [
+                        34,
+                        "\n"
+                    ],
+                    [
+                        35,
+                        "      app: helm-host-network-demo-app\n"
+                    ],
+                    [
+                        36,
+                        "\n"
+                    ],
+                    [
+                        37,
+                        "\n"
+                    ],
+                    [
+                        38,
+                        "\n"
+                    ],
+                    [
+                        39,
+                        "  template:\n"
+                    ],
+                    [
+                        40,
+                        "\n"
+                    ],
+                    [
+                        41,
+                        "    metadata:\n"
+                    ],
+                    [
+                        42,
+                        "\n"
+                    ],
+                    [
+                        43,
+                        "      labels:\n"
+                    ],
+                    [
+                        44,
+                        "\n"
+                    ],
+                    [
+                        45,
+                        "        app: helm-host-network-demo-app\n"
+                    ],
+                    [
+                        46,
+                        "\n"
+                    ],
+                    [
+                        47,
+                        "\n"
+                    ],
+                    [
+                        48,
+                        "\n"
+                    ],
+                    [
+                        49,
+                        "    spec:\n"
+                    ],
+                    [
+                        50,
+                        "\n"
+                    ],
+                    [
+                        51,
+                        "      automountServiceAccountToken: false\n"
+                    ],
+                    [
+                        52,
+                        "\n"
+                    ],
+                    [
+                        53,
+                        "\n"
+                    ],
+                    [
+                        54,
+                        "\n"
+                    ],
+                    [
+                        55,
+                        "      # Deliberate benchmark misconfiguration:\n"
+                    ],
+                    [
+                        56,
+                        "\n"
+                    ],
+                    [
+                        57,
+                        "      hostNetwork: true\n"
+                    ],
+                    [
+                        58,
+                        "\n"
+                    ],
+                    [
+                        59,
+                        "\n"
+                    ],
+                    [
+                        60,
+                        "\n"
+                    ],
+                    [
+                        61,
+                        "      dnsPolicy: ClusterFirstWithHostNet\n"
+                    ],
+                    [
+                        62,
+                        "\n"
+                    ],
+                    [
+                        63,
+                        "\n"
+                    ],
+                    [
+                        64,
+                        "\n"
+                    ],
+                    [
+                        65,
+                        "      securityContext:\n"
+                    ],
+                    [
+                        66,
+                        "\n"
+                    ],
+                    [
+                        67,
+                        "        runAsNonRoot: true\n"
+                    ],
+                    [
+                        68,
+                        "\n"
+                    ],
+                    [
+                        69,
+                        "        runAsUser: 10001\n"
+                    ],
+                    [
+                        70,
+                        "\n"
+                    ],
+                    [
+                        71,
+                        "        runAsGroup: 10001\n"
+                    ],
+                    [
+                        72,
+                        "\n"
+                    ],
+                    [
+                        73,
+                        "\n"
+                    ],
+                    [
+                        74,
+                        "\n"
+                    ],
+                    [
+                        75,
+                        "        seccompProfile:\n"
+                    ],
+                    [
+                        76,
+                        "\n"
+                    ],
+                    [
+                        77,
+                        "          type: RuntimeDefault\n"
+                    ],
+                    [
+                        78,
+                        "\n"
+                    ],
+                    [
+                        79,
+                        "\n"
+                    ],
+                    [
+                        80,
+                        "\n"
+                    ],
+                    [
+                        81,
+                        "      containers:\n"
+                    ],
+                    [
+                        82,
+                        "\n"
+                    ],
+                    [
+                        83,
+                        "        - name: demo-container\n"
+                    ],
+                    [
+                        84,
+                        "\n"
+                    ],
+                    [
+                        85,
+                        "\n"
+                    ],
+                    [
+                        86,
+                        "\n"
+                    ],
+                    [
+                        87,
+                        "          image: \"nginx:1.25\"\n"
+                    ],
+                    [
+                        88,
+                        "\n"
+                    ],
+                    [
+                        89,
+                        "          imagePullPolicy: IfNotPresent\n"
+                    ],
+                    [
+                        90,
+                        "\n"
+                    ],
+                    [
+                        91,
+                        "\n"
+                    ],
+                    [
+                        92,
+                        "\n"
+                    ],
+                    [
+                        93,
+                        "          ports:\n"
+                    ],
+                    [
+                        94,
+                        "\n"
+                    ],
+                    [
+                        95,
+                        "            - name: http\n"
+                    ],
+                    [
+                        96,
+                        "\n"
+                    ],
+                    [
+                        97,
+                        "              containerPort: 8080\n"
+                    ],
+                    [
+                        98,
+                        "\n"
+                    ],
+                    [
+                        99,
+                        "              protocol: TCP\n"
+                    ],
+                    [
+                        100,
+                        "\n"
+                    ],
+                    [
+                        101,
+                        "\n"
+                    ],
+                    [
+                        102,
+                        "\n"
+                    ],
+                    [
+                        103,
+                        "          securityContext:\n"
+                    ],
+                    [
+                        104,
+                        "\n"
+                    ],
+                    [
+                        105,
+                        "            privileged: false\n"
+                    ],
+                    [
+                        106,
+                        "\n"
+                    ],
+                    [
+                        107,
+                        "            allowPrivilegeEscalation: false\n"
+                    ],
+                    [
+                        108,
+                        "\n"
+                    ],
+                    [
+                        109,
+                        "            readOnlyRootFilesystem: true\n"
+                    ],
+                    [
+                        110,
+                        "\n"
+                    ],
+                    [
+                        111,
+                        "\n"
+                    ],
+                    [
+                        112,
+                        "\n"
+                    ],
+                    [
+                        113,
+                        "            capabilities:\n"
+                    ],
+                    [
+                        114,
+                        "\n"
+                    ],
+                    [
+                        115,
+                        "              drop:\n"
+                    ],
+                    [
+                        116,
+                        "\n"
+                    ],
+                    [
+                        117,
+                        "                - ALL\n"
+                    ],
+                    [
+                        118,
+                        "\n"
+                    ],
+                    [
+                        119,
+                        "\n"
+                    ],
+                    [
+                        120,
+                        "\n"
+                    ],
+                    [
+                        121,
+                        "          resources:\n"
+                    ],
+                    [
+                        122,
+                        "\n"
+                    ],
+                    [
+                        123,
+                        "            requests:\n"
+                    ],
+                    [
+                        124,
+                        "\n"
+                    ],
+                    [
+                        125,
+                        "              cpu: 100m\n"
+                    ],
+                    [
+                        126,
+                        "\n"
+                    ],
+                    [
+                        127,
+                        "              memory: 128Mi\n"
+                    ],
+                    [
+                        128,
+                        "\n"
+                    ],
+                    [
+                        129,
+                        "\n"
+                    ],
+                    [
+                        130,
+                        "\n"
+                    ],
+                    [
+                        131,
+                        "            limits:\n"
+                    ],
+                    [
+                        132,
+                        "\n"
+                    ],
+                    [
+                        133,
+                        "              cpu: 250m\n"
+                    ],
+                    [
+                        134,
+                        "\n"
+                    ],
+                    [
+                        135,
+                        "              memory: 256Mi\n"
+                    ],
+                    [
+                        136,
+                        "\n"
+                    ],
+                    [
+                        137,
+                        "\n"
+                    ],
+                    [
+                        138,
+                        "\n"
+                    ],
+                    [
+                        139,
+                        "          readinessProbe:\n"
+                    ],
+                    [
+                        140,
+                        "\n"
+                    ],
+                    [
+                        141,
+                        "            httpGet:\n"
+                    ],
+                    [
+                        142,
+                        "\n"
+                    ],
+                    [
+                        143,
+                        "              path: /\n"
+                    ],
+                    [
+                        144,
+                        "\n"
+                    ],
+                    [
+                        145,
+                        "              port: http\n"
+                    ],
+                    [
+                        146,
+                        "\n"
+                    ],
+                    [
+                        147,
+                        "\n"
+                    ],
+                    [
+                        148,
+                        "\n"
+                    ],
+                    [
+                        149,
+                        "            initialDelaySeconds: 5\n"
+                    ],
+                    [
+                        150,
+                        "\n"
+                    ],
+                    [
+                        151,
+                        "            periodSeconds: 10\n"
+                    ],
+                    [
+                        152,
+                        "\n"
+                    ],
+                    [
+                        153,
+                        "\n"
+                    ],
+                    [
+                        154,
+                        "\n"
+                    ],
+                    [
+                        155,
+                        "          livenessProbe:\n"
+                    ],
+                    [
+                        156,
+                        "\n"
+                    ],
+                    [
+                        157,
+                        "            httpGet:\n"
+                    ],
+                    [
+                        158,
+                        "\n"
+                    ],
+                    [
+                        159,
+                        "              path: /\n"
+                    ],
+                    [
+                        160,
+                        "\n"
+                    ],
+                    [
+                        161,
+                        "              port: http\n"
+                    ],
+                    [
+                        162,
+                        "\n"
+                    ],
+                    [
+                        163,
+                        "\n"
+                    ],
+                    [
+                        164,
+                        "\n"
+                    ],
+                    [
+                        165,
+                        "            initialDelaySeconds: 10\n"
+                    ],
+                    [
+                        166,
+                        "\n"
+                    ],
+                    [
+                        167,
+                        "            periodSeconds: 20\n"
+                    ]
+                ],
+                "file_path": "/host-network-demo\\templates\\deployment.yaml",
+                "file_abs_path": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\tmpy4ipuc4a\\host-network-demo\\templates\\deployment.yaml",
+                "repo_file_path": "/AppData/Local/Temp/tmpy4ipuc4a/host-network-demo/templates/deployment.yaml",
+                "file_line_range": [
+                    5,
+                    167
+                ],
+                "resource": "Deployment.scanner-benchmark.helm-host-network-demo-app",
+                "evaluations": {},
+                "check_class": "checkov.kubernetes.checks.resource.k8s.SharedHostNetworkNamespace",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-18",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": null
+            },
+            {
+                "check_id": "CKV2_K8S_6",
+                "bc_check_id": null,
+                "check_name": "Minimize the admission of pods which lack an associated NetworkPolicy",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "resource_type"
+                    ]
+                },
+                "code_block": [
+                    [
+                        5,
+                        "apiVersion: apps/v1\n"
+                    ],
+                    [
+                        6,
+                        "\n"
+                    ],
+                    [
+                        7,
+                        "kind: Deployment\n"
+                    ],
+                    [
+                        8,
+                        "\n"
+                    ],
+                    [
+                        9,
+                        "\n"
+                    ],
+                    [
+                        10,
+                        "\n"
+                    ],
+                    [
+                        11,
+                        "metadata:\n"
+                    ],
+                    [
+                        12,
+                        "\n"
+                    ],
+                    [
+                        13,
+                        "  name: helm-host-network-demo-app\n"
+                    ],
+                    [
+                        14,
+                        "\n"
+                    ],
+                    [
+                        15,
+                        "  namespace: scanner-benchmark\n"
+                    ],
+                    [
+                        16,
+                        "\n"
+                    ],
+                    [
+                        17,
+                        "\n"
+                    ],
+                    [
+                        18,
+                        "\n"
+                    ],
+                    [
+                        19,
+                        "  labels:\n"
+                    ],
+                    [
+                        20,
+                        "\n"
+                    ],
+                    [
+                        21,
+                        "    app: helm-host-network-demo-app\n"
+                    ],
+                    [
+                        22,
+                        "\n"
+                    ],
+                    [
+                        23,
+                        "\n"
+                    ],
+                    [
+                        24,
+                        "\n"
+                    ],
+                    [
+                        25,
+                        "spec:\n"
+                    ],
+                    [
+                        26,
+                        "\n"
+                    ],
+                    [
+                        27,
+                        "  replicas: 1\n"
+                    ],
+                    [
+                        28,
+                        "\n"
+                    ],
+                    [
+                        29,
+                        "\n"
+                    ],
+                    [
+                        30,
+                        "\n"
+                    ],
+                    [
+                        31,
+                        "  selector:\n"
+                    ],
+                    [
+                        32,
+                        "\n"
+                    ],
+                    [
+                        33,
+                        "    matchLabels:\n"
+                    ],
+                    [
+                        34,
+                        "\n"
+                    ],
+                    [
+                        35,
+                        "      app: helm-host-network-demo-app\n"
+                    ],
+                    [
+                        36,
+                        "\n"
+                    ],
+                    [
+                        37,
+                        "\n"
+                    ],
+                    [
+                        38,
+                        "\n"
+                    ],
+                    [
+                        39,
+                        "  template:\n"
+                    ],
+                    [
+                        40,
+                        "\n"
+                    ],
+                    [
+                        41,
+                        "    metadata:\n"
+                    ],
+                    [
+                        42,
+                        "\n"
+                    ],
+                    [
+                        43,
+                        "      labels:\n"
+                    ],
+                    [
+                        44,
+                        "\n"
+                    ],
+                    [
+                        45,
+                        "        app: helm-host-network-demo-app\n"
+                    ],
+                    [
+                        46,
+                        "\n"
+                    ],
+                    [
+                        47,
+                        "\n"
+                    ],
+                    [
+                        48,
+                        "\n"
+                    ],
+                    [
+                        49,
+                        "    spec:\n"
+                    ],
+                    [
+                        50,
+                        "\n"
+                    ],
+                    [
+                        51,
+                        "      automountServiceAccountToken: false\n"
+                    ],
+                    [
+                        52,
+                        "\n"
+                    ],
+                    [
+                        53,
+                        "\n"
+                    ],
+                    [
+                        54,
+                        "\n"
+                    ],
+                    [
+                        55,
+                        "      # Deliberate benchmark misconfiguration:\n"
+                    ],
+                    [
+                        56,
+                        "\n"
+                    ],
+                    [
+                        57,
+                        "      hostNetwork: true\n"
+                    ],
+                    [
+                        58,
+                        "\n"
+                    ],
+                    [
+                        59,
+                        "\n"
+                    ],
+                    [
+                        60,
+                        "\n"
+                    ],
+                    [
+                        61,
+                        "      dnsPolicy: ClusterFirstWithHostNet\n"
+                    ],
+                    [
+                        62,
+                        "\n"
+                    ],
+                    [
+                        63,
+                        "\n"
+                    ],
+                    [
+                        64,
+                        "\n"
+                    ],
+                    [
+                        65,
+                        "      securityContext:\n"
+                    ],
+                    [
+                        66,
+                        "\n"
+                    ],
+                    [
+                        67,
+                        "        runAsNonRoot: true\n"
+                    ],
+                    [
+                        68,
+                        "\n"
+                    ],
+                    [
+                        69,
+                        "        runAsUser: 10001\n"
+                    ],
+                    [
+                        70,
+                        "\n"
+                    ],
+                    [
+                        71,
+                        "        runAsGroup: 10001\n"
+                    ],
+                    [
+                        72,
+                        "\n"
+                    ],
+                    [
+                        73,
+                        "\n"
+                    ],
+                    [
+                        74,
+                        "\n"
+                    ],
+                    [
+                        75,
+                        "        seccompProfile:\n"
+                    ],
+                    [
+                        76,
+                        "\n"
+                    ],
+                    [
+                        77,
+                        "          type: RuntimeDefault\n"
+                    ],
+                    [
+                        78,
+                        "\n"
+                    ],
+                    [
+                        79,
+                        "\n"
+                    ],
+                    [
+                        80,
+                        "\n"
+                    ],
+                    [
+                        81,
+                        "      containers:\n"
+                    ],
+                    [
+                        82,
+                        "\n"
+                    ],
+                    [
+                        83,
+                        "        - name: demo-container\n"
+                    ],
+                    [
+                        84,
+                        "\n"
+                    ],
+                    [
+                        85,
+                        "\n"
+                    ],
+                    [
+                        86,
+                        "\n"
+                    ],
+                    [
+                        87,
+                        "          image: \"nginx:1.25\"\n"
+                    ],
+                    [
+                        88,
+                        "\n"
+                    ],
+                    [
+                        89,
+                        "          imagePullPolicy: IfNotPresent\n"
+                    ],
+                    [
+                        90,
+                        "\n"
+                    ],
+                    [
+                        91,
+                        "\n"
+                    ],
+                    [
+                        92,
+                        "\n"
+                    ],
+                    [
+                        93,
+                        "          ports:\n"
+                    ],
+                    [
+                        94,
+                        "\n"
+                    ],
+                    [
+                        95,
+                        "            - name: http\n"
+                    ],
+                    [
+                        96,
+                        "\n"
+                    ],
+                    [
+                        97,
+                        "              containerPort: 8080\n"
+                    ],
+                    [
+                        98,
+                        "\n"
+                    ],
+                    [
+                        99,
+                        "              protocol: TCP\n"
+                    ],
+                    [
+                        100,
+                        "\n"
+                    ],
+                    [
+                        101,
+                        "\n"
+                    ],
+                    [
+                        102,
+                        "\n"
+                    ],
+                    [
+                        103,
+                        "          securityContext:\n"
+                    ],
+                    [
+                        104,
+                        "\n"
+                    ],
+                    [
+                        105,
+                        "            privileged: false\n"
+                    ],
+                    [
+                        106,
+                        "\n"
+                    ],
+                    [
+                        107,
+                        "            allowPrivilegeEscalation: false\n"
+                    ],
+                    [
+                        108,
+                        "\n"
+                    ],
+                    [
+                        109,
+                        "            readOnlyRootFilesystem: true\n"
+                    ],
+                    [
+                        110,
+                        "\n"
+                    ],
+                    [
+                        111,
+                        "\n"
+                    ],
+                    [
+                        112,
+                        "\n"
+                    ],
+                    [
+                        113,
+                        "            capabilities:\n"
+                    ],
+                    [
+                        114,
+                        "\n"
+                    ],
+                    [
+                        115,
+                        "              drop:\n"
+                    ],
+                    [
+                        116,
+                        "\n"
+                    ],
+                    [
+                        117,
+                        "                - ALL\n"
+                    ],
+                    [
+                        118,
+                        "\n"
+                    ],
+                    [
+                        119,
+                        "\n"
+                    ],
+                    [
+                        120,
+                        "\n"
+                    ],
+                    [
+                        121,
+                        "          resources:\n"
+                    ],
+                    [
+                        122,
+                        "\n"
+                    ],
+                    [
+                        123,
+                        "            requests:\n"
+                    ],
+                    [
+                        124,
+                        "\n"
+                    ],
+                    [
+                        125,
+                        "              cpu: 100m\n"
+                    ],
+                    [
+                        126,
+                        "\n"
+                    ],
+                    [
+                        127,
+                        "              memory: 128Mi\n"
+                    ],
+                    [
+                        128,
+                        "\n"
+                    ],
+                    [
+                        129,
+                        "\n"
+                    ],
+                    [
+                        130,
+                        "\n"
+                    ],
+                    [
+                        131,
+                        "            limits:\n"
+                    ],
+                    [
+                        132,
+                        "\n"
+                    ],
+                    [
+                        133,
+                        "              cpu: 250m\n"
+                    ],
+                    [
+                        134,
+                        "\n"
+                    ],
+                    [
+                        135,
+                        "              memory: 256Mi\n"
+                    ],
+                    [
+                        136,
+                        "\n"
+                    ],
+                    [
+                        137,
+                        "\n"
+                    ],
+                    [
+                        138,
+                        "\n"
+                    ],
+                    [
+                        139,
+                        "          readinessProbe:\n"
+                    ],
+                    [
+                        140,
+                        "\n"
+                    ],
+                    [
+                        141,
+                        "            httpGet:\n"
+                    ],
+                    [
+                        142,
+                        "\n"
+                    ],
+                    [
+                        143,
+                        "              path: /\n"
+                    ],
+                    [
+                        144,
+                        "\n"
+                    ],
+                    [
+                        145,
+                        "              port: http\n"
+                    ],
+                    [
+                        146,
+                        "\n"
+                    ],
+                    [
+                        147,
+                        "\n"
+                    ],
+                    [
+                        148,
+                        "\n"
+                    ],
+                    [
+                        149,
+                        "            initialDelaySeconds: 5\n"
+                    ],
+                    [
+                        150,
+                        "\n"
+                    ],
+                    [
+                        151,
+                        "            periodSeconds: 10\n"
+                    ],
+                    [
+                        152,
+                        "\n"
+                    ],
+                    [
+                        153,
+                        "\n"
+                    ],
+                    [
+                        154,
+                        "\n"
+                    ],
+                    [
+                        155,
+                        "          livenessProbe:\n"
+                    ],
+                    [
+                        156,
+                        "\n"
+                    ],
+                    [
+                        157,
+                        "            httpGet:\n"
+                    ],
+                    [
+                        158,
+                        "\n"
+                    ],
+                    [
+                        159,
+                        "              path: /\n"
+                    ],
+                    [
+                        160,
+                        "\n"
+                    ],
+                    [
+                        161,
+                        "              port: http\n"
+                    ],
+                    [
+                        162,
+                        "\n"
+                    ],
+                    [
+                        163,
+                        "\n"
+                    ],
+                    [
+                        164,
+                        "\n"
+                    ],
+                    [
+                        165,
+                        "            initialDelaySeconds: 10\n"
+                    ],
+                    [
+                        166,
+                        "\n"
+                    ],
+                    [
+                        167,
+                        "            periodSeconds: 20\n"
+                    ]
+                ],
+                "file_path": "/host-network-demo\\templates\\deployment.yaml",
+                "file_abs_path": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\tmpy4ipuc4a\\host-network-demo\\templates\\deployment.yaml",
+                "repo_file_path": "/AppData/Local/Temp/tmpy4ipuc4a/host-network-demo/templates/deployment.yaml",
+                "file_line_range": [
+                    5,
+                    167
+                ],
+                "resource": "Pod.scanner-benchmark.helm-host-network-demo-app.app-helm-host-network-demo-app",
+                "evaluations": {},
+                "check_class": "checkov.common.graph.checks_infra.base_check",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": null,
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": null
+            }
+        ]
+    },
+    "summary": {
+        "passed": 85,
+        "failed": 4,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 2,
+        "checkov_version": "3.3.9"
+    }
+}

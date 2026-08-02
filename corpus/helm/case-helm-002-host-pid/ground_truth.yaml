@@ -1,0 +1,20 @@
+case_id: case-helm-002-host-pid
+artifact_type: helm_chart
+
+misconfigurations:
+  - id: GT-HELM-002
+
+    category: PodSecurity
+    subcategory: HostPID
+    severity: High
+
+    resource:
+      kind: Deployment
+      namespace: scanner-benchmark
+      name: helm-host-pid-demo-app
+      container: null
+
+    field_path: spec.template.spec.hostPID
+
+    bad_value: true
+    expected_secure_value: false

@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: runs-as-root-demo-app
+  namespace: scanner-benchmark
+  labels:
+    app: runs-as-root-demo-app
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: runs-as-root-demo-app
+
+  template:
+    metadata:
+      labels:
+        app: runs-as-root-demo-app
+
+    spec:
+      automountServiceAccountToken: false
+
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+
+      containers:
+        - name: demo-container
+          image: nginx:1.25
+
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+
+          securityContext:
+            # Deliberate benchmark misconfiguration:
+            runAsNonRoot: false
+
+            privileged: false
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+
+            capabilities:
+              drop:
+                - ALL
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+
+            limits:
+              cpu: 250m
+              memory: 256Mi
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+
+            initialDelaySeconds: 10
+            periodSeconds: 20

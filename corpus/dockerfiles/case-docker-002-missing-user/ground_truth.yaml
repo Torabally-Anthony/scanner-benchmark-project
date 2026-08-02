@@ -1,0 +1,19 @@
+case_id: case-docker-002-missing-user
+artifact_type: dockerfile
+
+misconfigurations:
+  - id: GT-DOCKER-002
+
+    category: ContainerSecurity
+    subcategory: MissingUserInstruction
+    severity: High
+
+    resource:
+      kind: Dockerfile
+      name: Dockerfile
+      stage: final
+
+    field_path: instructions.USER.final
+
+    bad_value: absent
+    expected_secure_value: non-root-user

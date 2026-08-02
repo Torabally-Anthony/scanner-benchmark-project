@@ -1,0 +1,1667 @@
+﻿{
+    "check_type": "kubernetes",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_K8S_43",
+                "bc_check_id": "BC_K8S_39",
+                "check_name": "Image should use digest",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/template/spec/containers/[0]/image"
+                    ]
+                },
+                "code_block": [
+                    [
+                        1,
+                        "apiVersion: apps/v1\n"
+                    ],
+                    [
+                        2,
+                        "kind: Deployment\n"
+                    ],
+                    [
+                        3,
+                        "\n"
+                    ],
+                    [
+                        4,
+                        "metadata:\n"
+                    ],
+                    [
+                        5,
+                        "  name: runs-as-root-demo-app\n"
+                    ],
+                    [
+                        6,
+                        "  namespace: scanner-benchmark\n"
+                    ],
+                    [
+                        7,
+                        "  labels:\n"
+                    ],
+                    [
+                        8,
+                        "    app: runs-as-root-demo-app\n"
+                    ],
+                    [
+                        9,
+                        "\n"
+                    ],
+                    [
+                        10,
+                        "spec:\n"
+                    ],
+                    [
+                        11,
+                        "  replicas: 1\n"
+                    ],
+                    [
+                        12,
+                        "\n"
+                    ],
+                    [
+                        13,
+                        "  selector:\n"
+                    ],
+                    [
+                        14,
+                        "    matchLabels:\n"
+                    ],
+                    [
+                        15,
+                        "      app: runs-as-root-demo-app\n"
+                    ],
+                    [
+                        16,
+                        "\n"
+                    ],
+                    [
+                        17,
+                        "  template:\n"
+                    ],
+                    [
+                        18,
+                        "    metadata:\n"
+                    ],
+                    [
+                        19,
+                        "      labels:\n"
+                    ],
+                    [
+                        20,
+                        "        app: runs-as-root-demo-app\n"
+                    ],
+                    [
+                        21,
+                        "\n"
+                    ],
+                    [
+                        22,
+                        "    spec:\n"
+                    ],
+                    [
+                        23,
+                        "      automountServiceAccountToken: false\n"
+                    ],
+                    [
+                        24,
+                        "\n"
+                    ],
+                    [
+                        25,
+                        "      securityContext:\n"
+                    ],
+                    [
+                        26,
+                        "        seccompProfile:\n"
+                    ],
+                    [
+                        27,
+                        "          type: RuntimeDefault\n"
+                    ],
+                    [
+                        28,
+                        "\n"
+                    ],
+                    [
+                        29,
+                        "      containers:\n"
+                    ],
+                    [
+                        30,
+                        "        - name: demo-container\n"
+                    ],
+                    [
+                        31,
+                        "          image: nginx:1.25\n"
+                    ],
+                    [
+                        32,
+                        "\n"
+                    ],
+                    [
+                        33,
+                        "          ports:\n"
+                    ],
+                    [
+                        34,
+                        "            - name: http\n"
+                    ],
+                    [
+                        35,
+                        "              containerPort: 80\n"
+                    ],
+                    [
+                        36,
+                        "              protocol: TCP\n"
+                    ],
+                    [
+                        37,
+                        "\n"
+                    ],
+                    [
+                        38,
+                        "          securityContext:\n"
+                    ],
+                    [
+                        39,
+                        "            # Deliberate benchmark misconfiguration:\n"
+                    ],
+                    [
+                        40,
+                        "            runAsNonRoot: false\n"
+                    ],
+                    [
+                        41,
+                        "\n"
+                    ],
+                    [
+                        42,
+                        "            privileged: false\n"
+                    ],
+                    [
+                        43,
+                        "            allowPrivilegeEscalation: false\n"
+                    ],
+                    [
+                        44,
+                        "            readOnlyRootFilesystem: true\n"
+                    ],
+                    [
+                        45,
+                        "\n"
+                    ],
+                    [
+                        46,
+                        "            capabilities:\n"
+                    ],
+                    [
+                        47,
+                        "              drop:\n"
+                    ],
+                    [
+                        48,
+                        "                - ALL\n"
+                    ],
+                    [
+                        49,
+                        "\n"
+                    ],
+                    [
+                        50,
+                        "          resources:\n"
+                    ],
+                    [
+                        51,
+                        "            requests:\n"
+                    ],
+                    [
+                        52,
+                        "              cpu: 100m\n"
+                    ],
+                    [
+                        53,
+                        "              memory: 128Mi\n"
+                    ],
+                    [
+                        54,
+                        "\n"
+                    ],
+                    [
+                        55,
+                        "            limits:\n"
+                    ],
+                    [
+                        56,
+                        "              cpu: 250m\n"
+                    ],
+                    [
+                        57,
+                        "              memory: 256Mi\n"
+                    ],
+                    [
+                        58,
+                        "\n"
+                    ],
+                    [
+                        59,
+                        "          readinessProbe:\n"
+                    ],
+                    [
+                        60,
+                        "            httpGet:\n"
+                    ],
+                    [
+                        61,
+                        "              path: /\n"
+                    ],
+                    [
+                        62,
+                        "              port: http\n"
+                    ],
+                    [
+                        63,
+                        "\n"
+                    ],
+                    [
+                        64,
+                        "            initialDelaySeconds: 5\n"
+                    ],
+                    [
+                        65,
+                        "            periodSeconds: 10\n"
+                    ],
+                    [
+                        66,
+                        "\n"
+                    ],
+                    [
+                        67,
+                        "          livenessProbe:\n"
+                    ],
+                    [
+                        68,
+                        "            httpGet:\n"
+                    ],
+                    [
+                        69,
+                        "              path: /\n"
+                    ],
+                    [
+                        70,
+                        "              port: http\n"
+                    ],
+                    [
+                        71,
+                        "\n"
+                    ],
+                    [
+                        72,
+                        "            initialDelaySeconds: 10\n"
+                    ],
+                    [
+                        73,
+                        "            periodSeconds: 20"
+                    ]
+                ],
+                "file_path": "/corpus\\kubernetes\\case-002-runs-as-root\\artifact.yaml",
+                "file_abs_path": "C:\\Users\\Lenovo\\Desktop\\scanner-benchmark-project\\corpus\\kubernetes\\case-002-runs-as-root\\artifact.yaml",
+                "repo_file_path": "/corpus/kubernetes/case-002-runs-as-root/artifact.yaml",
+                "file_line_range": [
+                    1,
+                    73
+                ],
+                "resource": "Deployment.scanner-benchmark.runs-as-root-demo-app",
+                "evaluations": {},
+                "check_class": "checkov.kubernetes.checks.resource.k8s.ImageDigest",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-39",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": null
+            },
+            {
+                "check_id": "CKV_K8S_15",
+                "bc_check_id": "BC_K8S_14",
+                "check_name": "Image Pull Policy should be Always",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/template/spec/containers/[0]/image",
+                        "spec/template/spec/containers/[0]/imagePullPolicy"
+                    ]
+                },
+                "code_block": [
+                    [
+                        1,
+                        "apiVersion: apps/v1\n"
+                    ],
+                    [
+                        2,
+                        "kind: Deployment\n"
+                    ],
+                    [
+                        3,
+                        "\n"
+                    ],
+                    [
+                        4,
+                        "metadata:\n"
+                    ],
+                    [
+                        5,
+                        "  name: runs-as-root-demo-app\n"
+                    ],
+                    [
+                        6,
+                        "  namespace: scanner-benchmark\n"
+                    ],
+                    [
+                        7,
+                        "  labels:\n"
+                    ],
+                    [
+                        8,
+                        "    app: runs-as-root-demo-app\n"
+                    ],
+                    [
+                        9,
+                        "\n"
+                    ],
+                    [
+                        10,
+                        "spec:\n"
+                    ],
+                    [
+                        11,
+                        "  replicas: 1\n"
+                    ],
+                    [
+                        12,
+                        "\n"
+                    ],
+                    [
+                        13,
+                        "  selector:\n"
+                    ],
+                    [
+                        14,
+                        "    matchLabels:\n"
+                    ],
+                    [
+                        15,
+                        "      app: runs-as-root-demo-app\n"
+                    ],
+                    [
+                        16,
+                        "\n"
+                    ],
+                    [
+                        17,
+                        "  template:\n"
+                    ],
+                    [
+                        18,
+                        "    metadata:\n"
+                    ],
+                    [
+                        19,
+                        "      labels:\n"
+                    ],
+                    [
+                        20,
+                        "        app: runs-as-root-demo-app\n"
+                    ],
+                    [
+                        21,
+                        "\n"
+                    ],
+                    [
+                        22,
+                        "    spec:\n"
+                    ],
+                    [
+                        23,
+                        "      automountServiceAccountToken: false\n"
+                    ],
+                    [
+                        24,
+                        "\n"
+                    ],
+                    [
+                        25,
+                        "      securityContext:\n"
+                    ],
+                    [
+                        26,
+                        "        seccompProfile:\n"
+                    ],
+                    [
+                        27,
+                        "          type: RuntimeDefault\n"
+                    ],
+                    [
+                        28,
+                        "\n"
+                    ],
+                    [
+                        29,
+                        "      containers:\n"
+                    ],
+                    [
+                        30,
+                        "        - name: demo-container\n"
+                    ],
+                    [
+                        31,
+                        "          image: nginx:1.25\n"
+                    ],
+                    [
+                        32,
+                        "\n"
+                    ],
+                    [
+                        33,
+                        "          ports:\n"
+                    ],
+                    [
+                        34,
+                        "            - name: http\n"
+                    ],
+                    [
+                        35,
+                        "              containerPort: 80\n"
+                    ],
+                    [
+                        36,
+                        "              protocol: TCP\n"
+                    ],
+                    [
+                        37,
+                        "\n"
+                    ],
+                    [
+                        38,
+                        "          securityContext:\n"
+                    ],
+                    [
+                        39,
+                        "            # Deliberate benchmark misconfiguration:\n"
+                    ],
+                    [
+                        40,
+                        "            runAsNonRoot: false\n"
+                    ],
+                    [
+                        41,
+                        "\n"
+                    ],
+                    [
+                        42,
+                        "            privileged: false\n"
+                    ],
+                    [
+                        43,
+                        "            allowPrivilegeEscalation: false\n"
+                    ],
+                    [
+                        44,
+                        "            readOnlyRootFilesystem: true\n"
+                    ],
+                    [
+                        45,
+                        "\n"
+                    ],
+                    [
+                        46,
+                        "            capabilities:\n"
+                    ],
+                    [
+                        47,
+                        "              drop:\n"
+                    ],
+                    [
+                        48,
+                        "                - ALL\n"
+                    ],
+                    [
+                        49,
+                        "\n"
+                    ],
+                    [
+                        50,
+                        "          resources:\n"
+                    ],
+                    [
+                        51,
+                        "            requests:\n"
+                    ],
+                    [
+                        52,
+                        "              cpu: 100m\n"
+                    ],
+                    [
+                        53,
+                        "              memory: 128Mi\n"
+                    ],
+                    [
+                        54,
+                        "\n"
+                    ],
+                    [
+                        55,
+                        "            limits:\n"
+                    ],
+                    [
+                        56,
+                        "              cpu: 250m\n"
+                    ],
+                    [
+                        57,
+                        "              memory: 256Mi\n"
+                    ],
+                    [
+                        58,
+                        "\n"
+                    ],
+                    [
+                        59,
+                        "          readinessProbe:\n"
+                    ],
+                    [
+                        60,
+                        "            httpGet:\n"
+                    ],
+                    [
+                        61,
+                        "              path: /\n"
+                    ],
+                    [
+                        62,
+                        "              port: http\n"
+                    ],
+                    [
+                        63,
+                        "\n"
+                    ],
+                    [
+                        64,
+                        "            initialDelaySeconds: 5\n"
+                    ],
+                    [
+                        65,
+                        "            periodSeconds: 10\n"
+                    ],
+                    [
+                        66,
+                        "\n"
+                    ],
+                    [
+                        67,
+                        "          livenessProbe:\n"
+                    ],
+                    [
+                        68,
+                        "            httpGet:\n"
+                    ],
+                    [
+                        69,
+                        "              path: /\n"
+                    ],
+                    [
+                        70,
+                        "              port: http\n"
+                    ],
+                    [
+                        71,
+                        "\n"
+                    ],
+                    [
+                        72,
+                        "            initialDelaySeconds: 10\n"
+                    ],
+                    [
+                        73,
+                        "            periodSeconds: 20"
+                    ]
+                ],
+                "file_path": "/corpus\\kubernetes\\case-002-runs-as-root\\artifact.yaml",
+                "file_abs_path": "C:\\Users\\Lenovo\\Desktop\\scanner-benchmark-project\\corpus\\kubernetes\\case-002-runs-as-root\\artifact.yaml",
+                "repo_file_path": "/corpus/kubernetes/case-002-runs-as-root/artifact.yaml",
+                "file_line_range": [
+                    1,
+                    73
+                ],
+                "resource": "Deployment.scanner-benchmark.runs-as-root-demo-app",
+                "evaluations": {},
+                "check_class": "checkov.kubernetes.checks.resource.k8s.ImagePullPolicyAlways",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-14",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": null
+            },
+            {
+                "check_id": "CKV_K8S_23",
+                "bc_check_id": "BC_K8S_22",
+                "check_name": "Minimize the admission of root containers",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": [
+                    [
+                        1,
+                        "apiVersion: apps/v1\n"
+                    ],
+                    [
+                        2,
+                        "kind: Deployment\n"
+                    ],
+                    [
+                        3,
+                        "\n"
+                    ],
+                    [
+                        4,
+                        "metadata:\n"
+                    ],
+                    [
+                        5,
+                        "  name: runs-as-root-demo-app\n"
+                    ],
+                    [
+                        6,
+                        "  namespace: scanner-benchmark\n"
+                    ],
+                    [
+                        7,
+                        "  labels:\n"
+                    ],
+                    [
+                        8,
+                        "    app: runs-as-root-demo-app\n"
+                    ],
+                    [
+                        9,
+                        "\n"
+                    ],
+                    [
+                        10,
+                        "spec:\n"
+                    ],
+                    [
+                        11,
+                        "  replicas: 1\n"
+                    ],
+                    [
+                        12,
+                        "\n"
+                    ],
+                    [
+                        13,
+                        "  selector:\n"
+                    ],
+                    [
+                        14,
+                        "    matchLabels:\n"
+                    ],
+                    [
+                        15,
+                        "      app: runs-as-root-demo-app\n"
+                    ],
+                    [
+                        16,
+                        "\n"
+                    ],
+                    [
+                        17,
+                        "  template:\n"
+                    ],
+                    [
+                        18,
+                        "    metadata:\n"
+                    ],
+                    [
+                        19,
+                        "      labels:\n"
+                    ],
+                    [
+                        20,
+                        "        app: runs-as-root-demo-app\n"
+                    ],
+                    [
+                        21,
+                        "\n"
+                    ],
+                    [
+                        22,
+                        "    spec:\n"
+                    ],
+                    [
+                        23,
+                        "      automountServiceAccountToken: false\n"
+                    ],
+                    [
+                        24,
+                        "\n"
+                    ],
+                    [
+                        25,
+                        "      securityContext:\n"
+                    ],
+                    [
+                        26,
+                        "        seccompProfile:\n"
+                    ],
+                    [
+                        27,
+                        "          type: RuntimeDefault\n"
+                    ],
+                    [
+                        28,
+                        "\n"
+                    ],
+                    [
+                        29,
+                        "      containers:\n"
+                    ],
+                    [
+                        30,
+                        "        - name: demo-container\n"
+                    ],
+                    [
+                        31,
+                        "          image: nginx:1.25\n"
+                    ],
+                    [
+                        32,
+                        "\n"
+                    ],
+                    [
+                        33,
+                        "          ports:\n"
+                    ],
+                    [
+                        34,
+                        "            - name: http\n"
+                    ],
+                    [
+                        35,
+                        "              containerPort: 80\n"
+                    ],
+                    [
+                        36,
+                        "              protocol: TCP\n"
+                    ],
+                    [
+                        37,
+                        "\n"
+                    ],
+                    [
+                        38,
+                        "          securityContext:\n"
+                    ],
+                    [
+                        39,
+                        "            # Deliberate benchmark misconfiguration:\n"
+                    ],
+                    [
+                        40,
+                        "            runAsNonRoot: false\n"
+                    ],
+                    [
+                        41,
+                        "\n"
+                    ],
+                    [
+                        42,
+                        "            privileged: false\n"
+                    ],
+                    [
+                        43,
+                        "            allowPrivilegeEscalation: false\n"
+                    ],
+                    [
+                        44,
+                        "            readOnlyRootFilesystem: true\n"
+                    ],
+                    [
+                        45,
+                        "\n"
+                    ],
+                    [
+                        46,
+                        "            capabilities:\n"
+                    ],
+                    [
+                        47,
+                        "              drop:\n"
+                    ],
+                    [
+                        48,
+                        "                - ALL\n"
+                    ],
+                    [
+                        49,
+                        "\n"
+                    ],
+                    [
+                        50,
+                        "          resources:\n"
+                    ],
+                    [
+                        51,
+                        "            requests:\n"
+                    ],
+                    [
+                        52,
+                        "              cpu: 100m\n"
+                    ],
+                    [
+                        53,
+                        "              memory: 128Mi\n"
+                    ],
+                    [
+                        54,
+                        "\n"
+                    ],
+                    [
+                        55,
+                        "            limits:\n"
+                    ],
+                    [
+                        56,
+                        "              cpu: 250m\n"
+                    ],
+                    [
+                        57,
+                        "              memory: 256Mi\n"
+                    ],
+                    [
+                        58,
+                        "\n"
+                    ],
+                    [
+                        59,
+                        "          readinessProbe:\n"
+                    ],
+                    [
+                        60,
+                        "            httpGet:\n"
+                    ],
+                    [
+                        61,
+                        "              path: /\n"
+                    ],
+                    [
+                        62,
+                        "              port: http\n"
+                    ],
+                    [
+                        63,
+                        "\n"
+                    ],
+                    [
+                        64,
+                        "            initialDelaySeconds: 5\n"
+                    ],
+                    [
+                        65,
+                        "            periodSeconds: 10\n"
+                    ],
+                    [
+                        66,
+                        "\n"
+                    ],
+                    [
+                        67,
+                        "          livenessProbe:\n"
+                    ],
+                    [
+                        68,
+                        "            httpGet:\n"
+                    ],
+                    [
+                        69,
+                        "              path: /\n"
+                    ],
+                    [
+                        70,
+                        "              port: http\n"
+                    ],
+                    [
+                        71,
+                        "\n"
+                    ],
+                    [
+                        72,
+                        "            initialDelaySeconds: 10\n"
+                    ],
+                    [
+                        73,
+                        "            periodSeconds: 20"
+                    ]
+                ],
+                "file_path": "/corpus\\kubernetes\\case-002-runs-as-root\\artifact.yaml",
+                "file_abs_path": "C:\\Users\\Lenovo\\Desktop\\scanner-benchmark-project\\corpus\\kubernetes\\case-002-runs-as-root\\artifact.yaml",
+                "repo_file_path": "/corpus/kubernetes/case-002-runs-as-root/artifact.yaml",
+                "file_line_range": [
+                    1,
+                    73
+                ],
+                "resource": "Deployment.scanner-benchmark.runs-as-root-demo-app",
+                "evaluations": {},
+                "check_class": "checkov.kubernetes.checks.resource.k8s.RootContainers",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-22",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": null
+            },
+            {
+                "check_id": "CKV_K8S_40",
+                "bc_check_id": "BC_K8S_37",
+                "check_name": "Containers should run as a high UID to avoid host conflict",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": [
+                    [
+                        1,
+                        "apiVersion: apps/v1\n"
+                    ],
+                    [
+                        2,
+                        "kind: Deployment\n"
+                    ],
+                    [
+                        3,
+                        "\n"
+                    ],
+                    [
+                        4,
+                        "metadata:\n"
+                    ],
+                    [
+                        5,
+                        "  name: runs-as-root-demo-app\n"
+                    ],
+                    [
+                        6,
+                        "  namespace: scanner-benchmark\n"
+                    ],
+                    [
+                        7,
+                        "  labels:\n"
+                    ],
+                    [
+                        8,
+                        "    app: runs-as-root-demo-app\n"
+                    ],
+                    [
+                        9,
+                        "\n"
+                    ],
+                    [
+                        10,
+                        "spec:\n"
+                    ],
+                    [
+                        11,
+                        "  replicas: 1\n"
+                    ],
+                    [
+                        12,
+                        "\n"
+                    ],
+                    [
+                        13,
+                        "  selector:\n"
+                    ],
+                    [
+                        14,
+                        "    matchLabels:\n"
+                    ],
+                    [
+                        15,
+                        "      app: runs-as-root-demo-app\n"
+                    ],
+                    [
+                        16,
+                        "\n"
+                    ],
+                    [
+                        17,
+                        "  template:\n"
+                    ],
+                    [
+                        18,
+                        "    metadata:\n"
+                    ],
+                    [
+                        19,
+                        "      labels:\n"
+                    ],
+                    [
+                        20,
+                        "        app: runs-as-root-demo-app\n"
+                    ],
+                    [
+                        21,
+                        "\n"
+                    ],
+                    [
+                        22,
+                        "    spec:\n"
+                    ],
+                    [
+                        23,
+                        "      automountServiceAccountToken: false\n"
+                    ],
+                    [
+                        24,
+                        "\n"
+                    ],
+                    [
+                        25,
+                        "      securityContext:\n"
+                    ],
+                    [
+                        26,
+                        "        seccompProfile:\n"
+                    ],
+                    [
+                        27,
+                        "          type: RuntimeDefault\n"
+                    ],
+                    [
+                        28,
+                        "\n"
+                    ],
+                    [
+                        29,
+                        "      containers:\n"
+                    ],
+                    [
+                        30,
+                        "        - name: demo-container\n"
+                    ],
+                    [
+                        31,
+                        "          image: nginx:1.25\n"
+                    ],
+                    [
+                        32,
+                        "\n"
+                    ],
+                    [
+                        33,
+                        "          ports:\n"
+                    ],
+                    [
+                        34,
+                        "            - name: http\n"
+                    ],
+                    [
+                        35,
+                        "              containerPort: 80\n"
+                    ],
+                    [
+                        36,
+                        "              protocol: TCP\n"
+                    ],
+                    [
+                        37,
+                        "\n"
+                    ],
+                    [
+                        38,
+                        "          securityContext:\n"
+                    ],
+                    [
+                        39,
+                        "            # Deliberate benchmark misconfiguration:\n"
+                    ],
+                    [
+                        40,
+                        "            runAsNonRoot: false\n"
+                    ],
+                    [
+                        41,
+                        "\n"
+                    ],
+                    [
+                        42,
+                        "            privileged: false\n"
+                    ],
+                    [
+                        43,
+                        "            allowPrivilegeEscalation: false\n"
+                    ],
+                    [
+                        44,
+                        "            readOnlyRootFilesystem: true\n"
+                    ],
+                    [
+                        45,
+                        "\n"
+                    ],
+                    [
+                        46,
+                        "            capabilities:\n"
+                    ],
+                    [
+                        47,
+                        "              drop:\n"
+                    ],
+                    [
+                        48,
+                        "                - ALL\n"
+                    ],
+                    [
+                        49,
+                        "\n"
+                    ],
+                    [
+                        50,
+                        "          resources:\n"
+                    ],
+                    [
+                        51,
+                        "            requests:\n"
+                    ],
+                    [
+                        52,
+                        "              cpu: 100m\n"
+                    ],
+                    [
+                        53,
+                        "              memory: 128Mi\n"
+                    ],
+                    [
+                        54,
+                        "\n"
+                    ],
+                    [
+                        55,
+                        "            limits:\n"
+                    ],
+                    [
+                        56,
+                        "              cpu: 250m\n"
+                    ],
+                    [
+                        57,
+                        "              memory: 256Mi\n"
+                    ],
+                    [
+                        58,
+                        "\n"
+                    ],
+                    [
+                        59,
+                        "          readinessProbe:\n"
+                    ],
+                    [
+                        60,
+                        "            httpGet:\n"
+                    ],
+                    [
+                        61,
+                        "              path: /\n"
+                    ],
+                    [
+                        62,
+                        "              port: http\n"
+                    ],
+                    [
+                        63,
+                        "\n"
+                    ],
+                    [
+                        64,
+                        "            initialDelaySeconds: 5\n"
+                    ],
+                    [
+                        65,
+                        "            periodSeconds: 10\n"
+                    ],
+                    [
+                        66,
+                        "\n"
+                    ],
+                    [
+                        67,
+                        "          livenessProbe:\n"
+                    ],
+                    [
+                        68,
+                        "            httpGet:\n"
+                    ],
+                    [
+                        69,
+                        "              path: /\n"
+                    ],
+                    [
+                        70,
+                        "              port: http\n"
+                    ],
+                    [
+                        71,
+                        "\n"
+                    ],
+                    [
+                        72,
+                        "            initialDelaySeconds: 10\n"
+                    ],
+                    [
+                        73,
+                        "            periodSeconds: 20"
+                    ]
+                ],
+                "file_path": "/corpus\\kubernetes\\case-002-runs-as-root\\artifact.yaml",
+                "file_abs_path": "C:\\Users\\Lenovo\\Desktop\\scanner-benchmark-project\\corpus\\kubernetes\\case-002-runs-as-root\\artifact.yaml",
+                "repo_file_path": "/corpus/kubernetes/case-002-runs-as-root/artifact.yaml",
+                "file_line_range": [
+                    1,
+                    73
+                ],
+                "resource": "Deployment.scanner-benchmark.runs-as-root-demo-app",
+                "evaluations": {},
+                "check_class": "checkov.kubernetes.checks.resource.k8s.RootContainersHighUID",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-37",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": null
+            },
+            {
+                "check_id": "CKV2_K8S_6",
+                "bc_check_id": null,
+                "check_name": "Minimize the admission of pods which lack an associated NetworkPolicy",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "resource_type"
+                    ]
+                },
+                "code_block": [
+                    [
+                        1,
+                        "apiVersion: apps/v1\n"
+                    ],
+                    [
+                        2,
+                        "kind: Deployment\n"
+                    ],
+                    [
+                        3,
+                        "\n"
+                    ],
+                    [
+                        4,
+                        "metadata:\n"
+                    ],
+                    [
+                        5,
+                        "  name: runs-as-root-demo-app\n"
+                    ],
+                    [
+                        6,
+                        "  namespace: scanner-benchmark\n"
+                    ],
+                    [
+                        7,
+                        "  labels:\n"
+                    ],
+                    [
+                        8,
+                        "    app: runs-as-root-demo-app\n"
+                    ],
+                    [
+                        9,
+                        "\n"
+                    ],
+                    [
+                        10,
+                        "spec:\n"
+                    ],
+                    [
+                        11,
+                        "  replicas: 1\n"
+                    ],
+                    [
+                        12,
+                        "\n"
+                    ],
+                    [
+                        13,
+                        "  selector:\n"
+                    ],
+                    [
+                        14,
+                        "    matchLabels:\n"
+                    ],
+                    [
+                        15,
+                        "      app: runs-as-root-demo-app\n"
+                    ],
+                    [
+                        16,
+                        "\n"
+                    ],
+                    [
+                        17,
+                        "  template:\n"
+                    ],
+                    [
+                        18,
+                        "    metadata:\n"
+                    ],
+                    [
+                        19,
+                        "      labels:\n"
+                    ],
+                    [
+                        20,
+                        "        app: runs-as-root-demo-app\n"
+                    ],
+                    [
+                        21,
+                        "\n"
+                    ],
+                    [
+                        22,
+                        "    spec:\n"
+                    ],
+                    [
+                        23,
+                        "      automountServiceAccountToken: false\n"
+                    ],
+                    [
+                        24,
+                        "\n"
+                    ],
+                    [
+                        25,
+                        "      securityContext:\n"
+                    ],
+                    [
+                        26,
+                        "        seccompProfile:\n"
+                    ],
+                    [
+                        27,
+                        "          type: RuntimeDefault\n"
+                    ],
+                    [
+                        28,
+                        "\n"
+                    ],
+                    [
+                        29,
+                        "      containers:\n"
+                    ],
+                    [
+                        30,
+                        "        - name: demo-container\n"
+                    ],
+                    [
+                        31,
+                        "          image: nginx:1.25\n"
+                    ],
+                    [
+                        32,
+                        "\n"
+                    ],
+                    [
+                        33,
+                        "          ports:\n"
+                    ],
+                    [
+                        34,
+                        "            - name: http\n"
+                    ],
+                    [
+                        35,
+                        "              containerPort: 80\n"
+                    ],
+                    [
+                        36,
+                        "              protocol: TCP\n"
+                    ],
+                    [
+                        37,
+                        "\n"
+                    ],
+                    [
+                        38,
+                        "          securityContext:\n"
+                    ],
+                    [
+                        39,
+                        "            # Deliberate benchmark misconfiguration:\n"
+                    ],
+                    [
+                        40,
+                        "            runAsNonRoot: false\n"
+                    ],
+                    [
+                        41,
+                        "\n"
+                    ],
+                    [
+                        42,
+                        "            privileged: false\n"
+                    ],
+                    [
+                        43,
+                        "            allowPrivilegeEscalation: false\n"
+                    ],
+                    [
+                        44,
+                        "            readOnlyRootFilesystem: true\n"
+                    ],
+                    [
+                        45,
+                        "\n"
+                    ],
+                    [
+                        46,
+                        "            capabilities:\n"
+                    ],
+                    [
+                        47,
+                        "              drop:\n"
+                    ],
+                    [
+                        48,
+                        "                - ALL\n"
+                    ],
+                    [
+                        49,
+                        "\n"
+                    ],
+                    [
+                        50,
+                        "          resources:\n"
+                    ],
+                    [
+                        51,
+                        "            requests:\n"
+                    ],
+                    [
+                        52,
+                        "              cpu: 100m\n"
+                    ],
+                    [
+                        53,
+                        "              memory: 128Mi\n"
+                    ],
+                    [
+                        54,
+                        "\n"
+                    ],
+                    [
+                        55,
+                        "            limits:\n"
+                    ],
+                    [
+                        56,
+                        "              cpu: 250m\n"
+                    ],
+                    [
+                        57,
+                        "              memory: 256Mi\n"
+                    ],
+                    [
+                        58,
+                        "\n"
+                    ],
+                    [
+                        59,
+                        "          readinessProbe:\n"
+                    ],
+                    [
+                        60,
+                        "            httpGet:\n"
+                    ],
+                    [
+                        61,
+                        "              path: /\n"
+                    ],
+                    [
+                        62,
+                        "              port: http\n"
+                    ],
+                    [
+                        63,
+                        "\n"
+                    ],
+                    [
+                        64,
+                        "            initialDelaySeconds: 5\n"
+                    ],
+                    [
+                        65,
+                        "            periodSeconds: 10\n"
+                    ],
+                    [
+                        66,
+                        "\n"
+                    ],
+                    [
+                        67,
+                        "          livenessProbe:\n"
+                    ],
+                    [
+                        68,
+                        "            httpGet:\n"
+                    ],
+                    [
+                        69,
+                        "              path: /\n"
+                    ],
+                    [
+                        70,
+                        "              port: http\n"
+                    ],
+                    [
+                        71,
+                        "\n"
+                    ],
+                    [
+                        72,
+                        "            initialDelaySeconds: 10\n"
+                    ],
+                    [
+                        73,
+                        "            periodSeconds: 20"
+                    ]
+                ],
+                "file_path": "/corpus\\kubernetes\\case-002-runs-as-root\\artifact.yaml",
+                "file_abs_path": "C:\\Users\\Lenovo\\Desktop\\scanner-benchmark-project\\corpus\\kubernetes\\case-002-runs-as-root\\artifact.yaml",
+                "repo_file_path": "/corpus/kubernetes/case-002-runs-as-root/artifact.yaml",
+                "file_line_range": [
+                    1,
+                    73
+                ],
+                "resource": "Pod.default.runs-as-root-demo-app.app-runs-as-root-demo-app",
+                "evaluations": {},
+                "check_class": "checkov.common.graph.checks_infra.base_check",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": null,
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": null
+            }
+        ]
+    },
+    "summary": {
+        "passed": 83,
+        "failed": 5,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 2,
+        "checkov_version": "2.5.20"
+    }
+}
