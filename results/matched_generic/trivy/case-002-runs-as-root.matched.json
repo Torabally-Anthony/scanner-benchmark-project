@@ -5,7 +5,7 @@
   "scanner_version": "Unknown",
   "artifact_type": "kubernetes_yaml",
   "matching_mode": "strict",
-  "generated_at": "2026-08-02T19:42:41.028864+00:00",
+  "generated_at": "2026-08-05T14:11:01.150359+00:00",
   "source_file": "results\\normalised_generic\\trivy\\case-002-runs-as-root.normalised.json",
   "ground_truth_source": "corpus/kubernetes/case-002-runs-as-root/ground_truth.yaml",
   "classification_policy": {

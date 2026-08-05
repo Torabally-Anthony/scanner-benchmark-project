@@ -5,7 +5,7 @@
   "scanner_version": "Unknown",
   "artifact_type": "kubernetes_yaml",
   "matching_mode": "strict",
-  "generated_at": "2026-08-02T19:42:41.336691+00:00",
+  "generated_at": "2026-08-05T14:11:01.676720+00:00",
   "source_file": "results\\matched_generic\\trivy\\case-002-runs-as-root.matched.json",
   "evaluation_status": "complete",
   "counts": {

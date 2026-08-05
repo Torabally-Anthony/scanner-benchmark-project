@@ -11,7 +11,7 @@
 | Artifact type | kubernetes_yaml |
 | Matching mode | strict |
 | Evaluation status | complete |
-| Report generated | 2026-08-02T19:42:41.633736+00:00 |
+| Report generated | 2026-08-05T14:11:01.969398+00:00 |
 
 ### Scanner version
 
@@ -103,8 +103,8 @@ No findings were recorded in this category.
 
 | Input | Path | Generated at |
 | --- | --- | --- |
-| Matched findings | results\matched_generic\trivy\case-002-runs-as-root.matched.json | 2026-08-02T19:42:41.028864+00:00 |
-| Metrics | results\metrics_generic\trivy\case-002-runs-as-root.metrics.json | 2026-08-02T19:42:41.336691+00:00 |
+| Matched findings | results\matched_generic\trivy\case-002-runs-as-root.matched.json | 2026-08-05T14:11:01.150359+00:00 |
+| Metrics | results\metrics_generic\trivy\case-002-runs-as-root.metrics.json | 2026-08-05T14:11:01.676720+00:00 |
 
 ---
 

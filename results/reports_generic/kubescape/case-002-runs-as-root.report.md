@@ -11,7 +11,7 @@
 | Artifact type | kubernetes_yaml |
 | Matching mode | strict |
 | Evaluation status | complete |
-| Report generated | 2026-08-02T19:42:43.297051+00:00 |
+| Report generated | 2026-08-05T14:11:04.972842+00:00 |
 
 ### Scanner version
 
@@ -107,8 +107,8 @@ No findings were recorded in this category.
 
 | Input | Path | Generated at |
 | --- | --- | --- |
-| Matched findings | results\matched_generic\kubescape\case-002-runs-as-root.matched.json | 2026-08-02T19:42:42.569035+00:00 |
-| Metrics | results\metrics_generic\kubescape\case-002-runs-as-root.metrics.json | 2026-08-02T19:42:42.934677+00:00 |
+| Matched findings | results\matched_generic\kubescape\case-002-runs-as-root.matched.json | 2026-08-05T14:11:04.150248+00:00 |
+| Metrics | results\metrics_generic\kubescape\case-002-runs-as-root.metrics.json | 2026-08-05T14:11:04.563662+00:00 |
 
 ---
 
