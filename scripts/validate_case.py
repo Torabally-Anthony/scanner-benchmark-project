@@ -6,6 +6,7 @@ CASE_PATH = Path("corpus/kubernetes/case-001-privileged-container")
 artifact_file = CASE_PATH / "artifact.yaml"
 ground_truth_file = CASE_PATH / "ground_truth.yaml"
 
+# This function loads and returns the contents of a YAML file.
 def load_yaml(path):
     if not path.exists():
         raise FileNotFoundError(f"Missing file: {path}")
@@ -13,6 +14,7 @@ def load_yaml(path):
     with open(path, "r", encoding="utf-8") as file:
         return yaml.safe_load(file)
 
+# This function validates the original privileged-container benchmark case and prints the result.
 def main():
     print("Validating case-001-privileged-container...")
 

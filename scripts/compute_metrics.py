@@ -31,6 +31,7 @@ class MetricsError(Exception):
     """Raised when benchmark metrics cannot be calculated."""
 
 
+# This function reads a JSON file and confirms that its root is an object.
 def read_json(path: Path) -> dict[str, Any]:
     """Read a JSON file and confirm that its root is an object."""
 
@@ -64,6 +65,7 @@ def read_json(path: Path) -> dict[str, Any]:
     return data
 
 
+# This function writes formatted JSON output.
 def write_json(
     path: Path,
     content: dict[str, Any],
@@ -95,6 +97,7 @@ def write_json(
         ) from error
 
 
+# This function resolves a project-relative directory and prevents paths outside the benchmark project.
 def resolve_internal_directory(
     directory_value: str,
     field_name: str,
@@ -109,6 +112,7 @@ def resolve_internal_directory(
         / directory_value
     ).resolve()
 
+    # Reject path traversal so input and output cannot escape the project directory.
     try:
         directory.relative_to(PROJECT_ROOT)
 
@@ -120,6 +124,7 @@ def resolve_internal_directory(
     return directory
 
 
+# This function retrieves and validates a classification list.
 def get_list(
     document: dict[str, Any],
     field_name: str,
@@ -151,6 +156,7 @@ def get_list(
     return validated_items
 
 
+# This function divides two values safely.
 def safe_divide(
     numerator: int,
     denominator: int,
@@ -162,12 +168,14 @@ def safe_divide(
     the metric is undefined.
     """
 
+    # No observations means the metric is undefined, not automatically zero.
     if denominator == 0:
         return None
 
     return numerator / denominator
 
 
+# This function calculates precision.
 def calculate_precision(
     true_positive_count: int,
     false_positive_count: int,
@@ -180,6 +188,7 @@ def calculate_precision(
     )
 
 
+# This function calculates recall.
 def calculate_recall(
     true_positive_count: int,
     false_negative_count: int,
@@ -192,6 +201,7 @@ def calculate_recall(
     )
 
 
+# This function calculates the F1 score.
 def calculate_f1_score(
     precision: float | None,
     recall: float | None,
@@ -214,6 +224,7 @@ def calculate_f1_score(
     )
 
 
+# This function rounds a metric while preserving undefined values.
 def round_metric(
     value: float | None,
     decimal_places: int,
@@ -229,6 +240,7 @@ def round_metric(
     )
 
 
+# This function validates the main matched-document properties.
 def validate_matched_document(
     document: dict[str, Any],
     expected_case_id: str,
@@ -271,6 +283,7 @@ def validate_matched_document(
     return matching_mode
 
 
+# This function creates explanations for defined and undefined metrics.
 def create_metric_explanations(
     true_positive_count: int,
     false_positive_count: int,
@@ -336,6 +349,7 @@ def create_metric_explanations(
     }
 
 
+# This function reads command-line arguments.
 def parse_arguments() -> argparse.Namespace:
     """Read command-line arguments."""
 
@@ -388,6 +402,7 @@ def parse_arguments() -> argparse.Namespace:
     return parser.parse_args()
 
 
+# This function runs the generic metric-calculation process.
 def run() -> Path:
     """Run the generic metric-calculation process."""
 
@@ -466,6 +481,7 @@ def run() -> Path:
         "ambiguous_matches",
     )
 
+    # Only TP, FP, and FN enter the formulas; extras, duplicates, and ambiguous matches are reported separately.
     true_positive_count = len(
         true_positives
     )
@@ -779,6 +795,7 @@ def run() -> Path:
     return output_path
 
 
+# This function serves as the application entry point and handles any errors.
 def main() -> int:
     """Application entry point."""
 

@@ -54,6 +54,7 @@ class StageResult:
     error_message: str | None = None
 
 
+# This function parses command-line arguments.
 def parse_arguments() -> argparse.Namespace:
     """Parse command-line arguments."""
 
@@ -135,6 +136,7 @@ def parse_arguments() -> argparse.Namespace:
     return parser.parse_args()
 
 
+# This function returns a stripped string or None.
 def clean_text(value: Any) -> str | None:
     """Return a stripped string or None."""
 
@@ -146,6 +148,7 @@ def clean_text(value: Any) -> str | None:
     return cleaned or None
 
 
+# This function removes duplicates while preserving their original order.
 def remove_duplicates(values: list[str]) -> list[str]:
     """Remove duplicates while preserving their original order."""
 
@@ -162,9 +165,11 @@ def remove_duplicates(values: list[str]) -> list[str]:
     return unique_values
 
 
+# This function resolves and validates the selected scanners.
 def resolve_scanners(arguments: argparse.Namespace) -> list[str]:
     """Resolve and validate the selected scanners."""
 
+    # A scanner list entered on the command line overrides the built-in defaults.
     requested_scanners = (
         arguments.scanners
         if arguments.scanners
@@ -203,12 +208,14 @@ def resolve_scanners(arguments: argparse.Namespace) -> list[str]:
     return scanners
 
 
+# This function resolves matching mode from arguments or configuration.
 def resolve_matching_mode(
     arguments: argparse.Namespace,
     configuration: dict[str, Any],
 ) -> str:
     """Resolve matching mode from arguments or configuration."""
 
+    # A command-line mode overrides the configured mode and its review fallback.
     if arguments.matching_mode:
         matching_mode = arguments.matching_mode
 
@@ -233,6 +240,7 @@ def resolve_matching_mode(
     return matching_mode
 
 
+# This function resolves a project-relative path and ensures that it remains inside the benchmark project.
 def resolve_project_path(
     path_value: Any,
     field_name: str,
@@ -254,6 +262,7 @@ def resolve_project_path(
         / clean_path
     ).resolve()
 
+    # Reject path traversal so configured files cannot escape the project directory.
     try:
         resolved_path.relative_to(
             PROJECT_ROOT.resolve()
@@ -267,6 +276,7 @@ def resolve_project_path(
     return resolved_path
 
 
+# This function validates an output directory path.
 def validate_output_directory(
     directory_value: str,
     field_name: str,
@@ -279,6 +289,7 @@ def validate_output_directory(
     )
 
 
+# This function confirms that the requested case is a valid Helm case.
 def validate_helm_case(
     case_id: str,
     configuration: dict[str, Any],
@@ -386,6 +397,7 @@ def validate_helm_case(
     return case_configuration
 
 
+# This function confirms that the shared analysis scripts exist.
 def validate_shared_scripts() -> None:
     """Confirm that the shared analysis scripts exist."""
 
@@ -426,6 +438,7 @@ def validate_shared_scripts() -> None:
         )
 
 
+# This function returns the expected scanner raw-output path.
 def raw_output_path(
     scanner: str,
     case_id: str,
@@ -441,6 +454,7 @@ def raw_output_path(
     )
 
 
+# This function confirms that a raw scanner JSON file exists.
 def validate_raw_output(
     scanner: str,
     case_id: str,
@@ -473,6 +487,7 @@ def validate_raw_output(
     return output_path
 
 
+# This function creates a readable command string.
 def format_command(command: list[str]) -> str:
     """Create a readable command string."""
 
@@ -482,6 +497,7 @@ def format_command(command: list[str]) -> str:
     return shlex.join(command)
 
 
+# This function prints the pipeline configuration.
 def print_pipeline_header(
     case_id: str,
     scanners: list[str],
@@ -500,6 +516,7 @@ def print_pipeline_header(
     print(separator)
 
 
+# This function prints information before a stage starts.
 def print_stage_header(
     scanner: str,
     stage: str,
@@ -517,6 +534,7 @@ def print_stage_header(
     print("-" * 76)
 
 
+# This function runs one pipeline stage and streams its output.
 def run_stage(
     scanner: str,
     stage: str,
@@ -533,6 +551,7 @@ def run_stage(
     started_at = time.perf_counter()
 
     environment = os.environ.copy()
+    # Unbuffered output lets the parent display child-script output immediately.
     environment["PYTHONUNBUFFERED"] = "1"
 
     try:
@@ -540,6 +559,7 @@ def run_stage(
             command,
             cwd=PROJECT_ROOT,
             stdout=subprocess.PIPE,
+            # Combining both streams preserves the order of output and errors.
             stderr=subprocess.STDOUT,
             text=True,
             encoding="utf-8",
@@ -602,6 +622,7 @@ def run_stage(
     )
 
 
+# This function builds the shared analysis commands for one scanner.
 def build_pipeline_commands(
     case_id: str,
     scanner: str,
@@ -619,6 +640,7 @@ def build_pipeline_commands(
         / "scripts"
     )
 
+    # Use the same Python interpreter and virtual environment as this runner.
     python_executable = sys.executable
 
     normalisation_command = [
@@ -689,6 +711,7 @@ def build_pipeline_commands(
         reports_root,
     ]
 
+    # The stages must stay ordered because each one reads the previous stage's output.
     return [
         (
             "Normalisation",
@@ -709,6 +732,7 @@ def build_pipeline_commands(
     ]
 
 
+# This function runs all analysis stages for one scanner.
 def run_scanner_pipeline(
     case_id: str,
     scanner: str,
@@ -717,6 +741,7 @@ def run_scanner_pipeline(
 ) -> list[StageResult]:
     """Run all analysis stages for one scanner."""
 
+    # The runner processes saved JSON and intentionally does not execute scanner CLIs.
     validate_raw_output(
         scanner=scanner,
         case_id=case_id,
@@ -744,12 +769,14 @@ def run_scanner_pipeline(
 
         results.append(result)
 
+        # Later stages depend on this output, so they cannot run after a failure.
         if not result.success:
             break
 
     return results
 
 
+# This function prints the final pipeline summary.
 def print_summary(
     case_id: str,
     scanners: list[str],
@@ -885,6 +912,7 @@ def print_summary(
     print("=" * 76)
 
 
+# This function runs the complete Helm benchmark analysis pipeline.
 def run() -> int:
     """Run the complete Helm benchmark analysis pipeline."""
 
@@ -974,6 +1002,7 @@ def run() -> int:
                 for result in scanner_results
             )
 
+            # This flag decides whether a failed scanner also stops later scanners.
             if (
                 scanner_failed
                 and not arguments.continue_on_error
@@ -1046,6 +1075,7 @@ def run() -> int:
     return 0
 
 
+# This function serves as the application entry point and handles any errors.
 def main() -> int:
     """Application entry point."""
 

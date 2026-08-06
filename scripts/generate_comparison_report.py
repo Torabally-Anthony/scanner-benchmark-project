@@ -73,6 +73,7 @@ class ComparisonReportError(Exception):
     """Raised when the comparison report cannot be generated."""
 
 
+# This function parses command-line arguments.
 def parse_arguments() -> argparse.Namespace:
     """Parse command-line arguments."""
 
@@ -105,6 +106,7 @@ def parse_arguments() -> argparse.Namespace:
     return parser.parse_args()
 
 
+# This function reads one JSON object from disk.
 def read_json(path: Path) -> dict[str, Any]:
     """Read one JSON object from disk."""
 
@@ -133,6 +135,7 @@ def read_json(path: Path) -> dict[str, Any]:
     return data
 
 
+# This function resolves and validates the output directory.
 def resolve_output_directory(
     value: str,
 ) -> Path:
@@ -157,6 +160,7 @@ def resolve_output_directory(
     return output_directory
 
 
+# This function selects and validates the cases included in the report.
 def select_cases(
     configuration: dict[str, Any],
     requested_cases: list[str] | None,
@@ -233,6 +237,7 @@ def select_cases(
     return selected_cases
 
 
+# This function reads a required numeric value.
 def require_number(
     mapping: dict[str, Any],
     field_name: str,
@@ -254,6 +259,7 @@ def require_number(
     return float(value)
 
 
+# This function loads one scanner-case metrics result.
 def load_metric_row(
     case_id: str,
     artifact_type: str,
@@ -328,6 +334,7 @@ def load_metric_row(
     return row
 
 
+# This function classifies scanner coverage for one case.
 def classify_case_result(
     row: dict[str, Any],
 ) -> str:
@@ -341,6 +348,7 @@ def classify_case_result(
         "false_negative_count"
     ]
 
+    # Case status distinguishes full, partial, and missed ground-truth coverage.
     if (
         true_positives > 0
         and false_negatives == 0
@@ -362,6 +370,7 @@ def classify_case_result(
     return "No labelled result"
 
 
+# This function divides safely when the denominator may be zero.
 def safe_divide(
     numerator: int,
     denominator: int,
@@ -374,6 +383,7 @@ def safe_divide(
     return numerator / denominator
 
 
+# This function aggregates scanner results across multiple cases.
 def aggregate_rows(
     rows: list[dict[str, Any]],
 ) -> dict[str, Any]:
@@ -394,6 +404,7 @@ def aggregate_rows(
         for row in rows
     )
 
+    # Micro metrics combine all case counts before calculating each score.
     micro_precision = safe_divide(
         total_tp,
         total_tp + total_fp,
@@ -454,6 +465,7 @@ def aggregate_rows(
 
         "micro_f1_score": micro_f1,
 
+        # Macro metrics give every case equal weight by averaging its score.
         "macro_precision": (
             mean(
                 row["precision"]
@@ -483,6 +495,7 @@ def aggregate_rows(
     }
 
 
+# This function builds the complete comparison data structure.
 def build_report(
     selected_cases: list[
         tuple[str, dict[str, Any]]
@@ -527,6 +540,7 @@ def build_report(
         }
 
         for scanner in SCANNERS:
+            # Non-applicable scanners are excluded rather than treated as missed detections.
             if scanner not in applicable_scanners:
                 coverage_row[
                     "scanners"
@@ -652,6 +666,7 @@ def build_report(
             ]["applicable_scanners"]
         )
 
+        # Applicability is tracked separately so unsupported cases do not lower scanner scores.
         summary[
             "applicable_case_count"
         ] = applicable_count
@@ -732,6 +747,7 @@ def build_report(
     }
 
 
+# This function formats one metric for Markdown.
 def format_metric(
     value: Any,
 ) -> str:
@@ -743,6 +759,7 @@ def format_metric(
     return f"{float(value):.4f}"
 
 
+# This function builds a Markdown table.
 def markdown_table(
     headers: list[str],
     rows: list[list[Any]],
@@ -775,6 +792,7 @@ def markdown_table(
     return output
 
 
+# This function renders the comparison report as Markdown.
 def render_markdown(
     report: dict[str, Any],
 ) -> str:
@@ -1129,6 +1147,7 @@ def render_markdown(
     return "\n".join(lines)
 
 
+# This function generates both comparison reports.
 def run() -> int:
     """Generate both comparison reports."""
 
@@ -1229,6 +1248,7 @@ def run() -> int:
     return 0
 
 
+# This function serves as the application entry point and handles any errors.
 def main() -> int:
     """Application entry point."""
 

@@ -17,19 +17,20 @@ from config_loader import (
     load_benchmark_config,
 )
 
-
+# scanners
 SUPPORTED_SCANNERS = {
     "checkov",
     "trivy",
     "kubescape",
 }
 
+# modes
 SUPPORTED_MATCHING_MODES = {
     "review",
     "strict",
 }
 
-
+# exception handling
 class PipelineError(Exception):
     """Raised when the benchmark pipeline cannot run."""
 
@@ -37,7 +38,7 @@ class PipelineError(Exception):
 @dataclass
 class StageResult:
     """Stores the result of one pipeline stage."""
-
+# results stored
     scanner: str
     stage: str
     success: bool
@@ -46,7 +47,7 @@ class StageResult:
     command: list[str]
     error_message: str | None = None
 
-
+# This function reads command-line arguments.
 def parse_arguments() -> argparse.Namespace:
     """Read command-line arguments."""
 
@@ -132,7 +133,7 @@ def parse_arguments() -> argparse.Namespace:
 
     return parser.parse_args()
 
-
+# This function cleans and validates one scanner name.
 def clean_scanner_name(value: Any) -> str:
     """Clean and validate one scanner name."""
 
@@ -155,7 +156,7 @@ def clean_scanner_name(value: Any) -> str:
 
     return scanner
 
-
+# This function removes duplicates while preserving order.
 def remove_duplicates(
     values: list[str],
 ) -> list[str]:
@@ -173,13 +174,14 @@ def remove_duplicates(
 
     return unique_values
 
-
+# This function resolves scanners from CLI arguments or configuration.
 def resolve_scanners(
     arguments: argparse.Namespace,
     configuration: dict[str, Any],
 ) -> list[str]:
     """Resolve scanners from CLI arguments or configuration."""
 
+    # A scanner list entered on the command line overrides the configured defaults.
     if arguments.scanners:
         scanner_values = arguments.scanners
     else:
@@ -223,13 +225,14 @@ def resolve_scanners(
 
     return scanners
 
-
+# This function resolves matching mode from CLI or configuration.
 def resolve_matching_mode(
     arguments: argparse.Namespace,
     configuration: dict[str, Any],
 ) -> str:
     """Resolve matching mode from CLI or configuration."""
 
+    # A command-line mode overrides the configured mode and its review fallback.
     if arguments.matching_mode:
         mode = arguments.matching_mode
     else:
@@ -256,7 +259,7 @@ def resolve_matching_mode(
 
     return mode
 
-
+# This function confirms that an output directory remains inside the benchmark project.
 def validate_internal_directory(
     directory_value: str,
     field_name: str,
@@ -270,6 +273,7 @@ def validate_internal_directory(
         PROJECT_ROOT / directory_value
     ).resolve()
 
+    # Reject path traversal so pipeline output cannot escape the project directory.
     try:
         directory.relative_to(PROJECT_ROOT)
 
@@ -281,7 +285,7 @@ def validate_internal_directory(
 
     return directory
 
-
+# This function confirms that every pipeline script exists.
 def validate_script_files() -> None:
     """Confirm that every pipeline script exists."""
 
@@ -321,7 +325,7 @@ def validate_script_files() -> None:
             f"are missing:\n{formatted_paths}"
         )
 
-
+# This function returns the expected raw scanner JSON path.
 def raw_output_path(
     scanner: str,
     case_id: str,
@@ -336,7 +340,7 @@ def raw_output_path(
         / f"{case_id}.json"
     )
 
-
+# This function confirms that a scanner raw-output file exists.
 def validate_raw_output(
     scanner: str,
     case_id: str,
@@ -362,7 +366,7 @@ def validate_raw_output(
 
     return path
 
-
+# This function creates a readable representation of a command.
 def format_command(
     command: list[str],
 ) -> str:
@@ -375,7 +379,7 @@ def format_command(
 
     return shlex.join(command)
 
-
+# This function displays the pipeline configuration.
 def print_pipeline_header(
     case_id: str,
     scanners: list[str],
@@ -396,7 +400,7 @@ def print_pipeline_header(
     print(separator)
     print()
 
-
+# This function displays information before a stage starts.
 def print_stage_header(
     scanner: str,
     stage: str,
@@ -415,7 +419,7 @@ def print_stage_header(
     )
     print("-" * 72)
 
-
+# This function runs one Python pipeline stage and streams its console output.
 def run_stage(
     scanner: str,
     stage: str,
@@ -435,6 +439,7 @@ def run_stage(
     started_at = time.perf_counter()
 
     environment = os.environ.copy()
+    # Unbuffered output lets the parent display child-script output immediately.
     environment["PYTHONUNBUFFERED"] = "1"
 
     try:
@@ -442,6 +447,7 @@ def run_stage(
             command,
             cwd=PROJECT_ROOT,
             stdout=subprocess.PIPE,
+            # Combining both streams preserves the order of output and errors.
             stderr=subprocess.STDOUT,
             text=True,
             encoding="utf-8",
@@ -527,7 +533,7 @@ def run_stage(
         error_message=error_message,
     )
 
-
+# This function builds the ordered commands for one scanner.
 def build_pipeline_commands(
     case_id: str,
     scanner: str,
@@ -545,6 +551,7 @@ def build_pipeline_commands(
         / "scripts"
     )
 
+    # Use the same Python interpreter and virtual environment as this runner.
     python_executable = sys.executable
 
     normalisation_command = [
@@ -615,6 +622,7 @@ def build_pipeline_commands(
         reports_root,
     ]
 
+    # The stages must stay ordered because each one reads the previous stage's output.
     return [
         (
             "Normalisation",
@@ -634,7 +642,7 @@ def build_pipeline_commands(
         ),
     ]
 
-
+# This function runs every pipeline stage for one scanner.
 def run_scanner_pipeline(
     case_id: str,
     scanner: str,
@@ -645,6 +653,7 @@ def run_scanner_pipeline(
 
     results: list[StageResult] = []
 
+    # The runner processes saved JSON and intentionally does not execute scanner CLIs.
     validate_raw_output(
         scanner=scanner,
         case_id=case_id,
@@ -680,12 +689,13 @@ def run_scanner_pipeline(
 
         results.append(result)
 
+        # Later stages depend on this output, so they cannot run after a failure.
         if not result.success:
             break
 
     return results
 
-
+# This function displays the final pipeline summary.
 def print_summary(
     case_id: str,
     scanners: list[str],
@@ -841,7 +851,7 @@ def print_summary(
     print()
     print("=" * 72)
 
-
+# This function runs the complete benchmark pipeline.
 def run() -> int:
     """Run the complete benchmark pipeline."""
 
@@ -943,6 +953,7 @@ def run() -> int:
                 for result in scanner_results
             )
 
+            # This flag decides whether a failed scanner also stops later scanners.
             if (
                 scanner_failed
                 and not arguments.continue_on_error
@@ -1001,15 +1012,17 @@ def run() -> int:
             "Benchmark pipeline completed "
             "with one or more failures."
         )
+        # Exit code 1 tells a terminal or CI system that the benchmark failed.
         return 1
 
     print(
         "Benchmark pipeline completed successfully."
     )
 
+    # Exit code 0 tells a terminal or CI system that the benchmark succeeded.
     return 0
 
-
+# This function serves as the application entry point and handles any errors.
 def main() -> int:
     """Application entry point."""
 
@@ -1028,6 +1041,7 @@ def main() -> int:
     except KeyboardInterrupt:
         print()
         print("Benchmark pipeline cancelled.")
+        # Exit code 130 is the conventional result for a keyboard interruption.
         return 130
 
     except Exception as error:

@@ -19,6 +19,7 @@ class ConfigurationError(Exception):
     """Raised when the benchmark configuration is invalid."""
 
 
+# This function loads a YAML file and confirms its root is an object.
 def load_yaml(path: Path) -> dict[str, Any]:
     """Load a YAML file and confirm its root is an object."""
 
@@ -47,6 +48,7 @@ def load_yaml(path: Path) -> dict[str, Any]:
     return data
 
 
+# This function loads the central benchmark configuration.
 def load_benchmark_config() -> dict[str, Any]:
     """Load the central benchmark configuration."""
 
@@ -60,6 +62,7 @@ def load_benchmark_config() -> dict[str, Any]:
     return configuration
 
 
+# This function returns the configuration for one benchmark case.
 def get_case_configuration(
     configuration: dict[str, Any],
     case_id: str,
@@ -83,6 +86,7 @@ def get_case_configuration(
     return case_configuration
 
 
+# This function resolves a configuration path against the project root.
 def resolve_project_path(path_value: str) -> Path:
     """Resolve a configuration path against the project root."""
 
@@ -93,6 +97,7 @@ def resolve_project_path(path_value: str) -> Path:
 
     path = (PROJECT_ROOT / path_value).resolve()
 
+    # Reject path traversal so configuration cannot reference files outside the project.
     try:
         path.relative_to(PROJECT_ROOT)
     except ValueError as error:
@@ -103,6 +108,7 @@ def resolve_project_path(path_value: str) -> Path:
     return path
 
 
+# This function loads the ground-truth file configured for a case.
 def load_case_ground_truth(
     case_configuration: dict[str, Any],
 ) -> dict[str, Any]:
@@ -124,6 +130,7 @@ def load_case_ground_truth(
     return load_yaml(ground_truth_path)
 
 
+# This function indexes ground-truth items by their IDs.
 def get_ground_truth_items(
     ground_truth: dict[str, Any],
 ) -> dict[str, dict[str, Any]]:
@@ -161,6 +168,7 @@ def get_ground_truth_items(
     return indexed_items
 
 
+# This function converts scanner rule mappings into a lookup from rule IDs to ground-truth IDs.
 def build_rule_to_ground_truth_map(
     case_configuration: dict[str, Any],
     scanner: str,
@@ -204,6 +212,7 @@ def build_rule_to_ground_truth_map(
                 clean_rule_id
             )
 
+            # One rule cannot identify two expected issues because the match would be ambiguous.
             if (
                 previous_mapping is not None
                 and previous_mapping != ground_truth_id

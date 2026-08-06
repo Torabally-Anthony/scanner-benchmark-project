@@ -33,6 +33,7 @@ class MatchingError(Exception):
     """Raised when normalised findings cannot be matched."""
 
 
+# This function reads a JSON file and confirms that its root is an object.
 def read_json(path: Path) -> dict[str, Any]:
     """Read a JSON file and confirm that its root is an object."""
 
@@ -66,6 +67,7 @@ def read_json(path: Path) -> dict[str, Any]:
     return data
 
 
+# This function writes formatted JSON to disk.
 def write_json(
     path: Path,
     content: dict[str, Any],
@@ -97,6 +99,7 @@ def write_json(
         ) from error
 
 
+# This function validates the normalised file and returns its findings.
 def validate_normalised_document(
     document: dict[str, Any],
     expected_case_id: str,
@@ -144,6 +147,7 @@ def validate_normalised_document(
     return valid_findings
 
 
+# This function returns a stripped string or None.
 def clean_text(value: Any) -> str | None:
     """Return a stripped string or None."""
 
@@ -155,6 +159,7 @@ def clean_text(value: Any) -> str | None:
     return cleaned_value or None
 
 
+# This function copies a finding and adds matching information.
 def create_classified_finding(
     finding: dict[str, Any],
     classification: str,
@@ -170,6 +175,7 @@ def create_classified_finding(
     return classified_finding
 
 
+# This function creates a false-negative record from ground truth.
 def create_false_negative(
     ground_truth_id: str,
     ground_truth_item: dict[str, Any],
@@ -203,6 +209,7 @@ def create_false_negative(
     }
 
 
+# This function classifies normalised findings.
 def match_findings_to_ground_truth(
     findings: list[dict[str, Any]],
     ground_truth_items: dict[str, dict[str, Any]],
@@ -276,7 +283,7 @@ def match_findings_to_ground_truth(
 
                 continue
 
-            # A previous finding has already detected this issue.
+            # Only the first detection counts as a TP so repeated alerts cannot inflate the score.
             if ground_truth_id in matched_ground_truth_ids:
                 duplicate_matches.append(
                     create_classified_finding(
@@ -330,6 +337,7 @@ def match_findings_to_ground_truth(
 
                 continue
 
+            # Review preserves unverified extras; strict mode assumes every extra is an FP.
             if matching_mode == "review":
                 unlabelled_extras.append(
                     create_classified_finding(
@@ -373,6 +381,7 @@ def match_findings_to_ground_truth(
 
     false_negatives: list[dict[str, Any]] = []
 
+    # Any expected issue left unmatched is a detection the scanner missed.
     for ground_truth_id, ground_truth_item in (
         ground_truth_items.items()
     ):
@@ -396,6 +405,7 @@ def match_findings_to_ground_truth(
     }
 
 
+# This function reads command-line arguments.
 def parse_arguments() -> argparse.Namespace:
     """Read command-line arguments."""
 
@@ -451,6 +461,7 @@ def parse_arguments() -> argparse.Namespace:
     return parser.parse_args()
 
 
+# This function resolves and validates a project-relative directory.
 def resolve_internal_directory(
     directory_value: str,
     field_name: str,
@@ -461,6 +472,7 @@ def resolve_internal_directory(
         PROJECT_ROOT / directory_value
     ).resolve()
 
+    # Reject path traversal so input and output cannot escape the project directory.
     try:
         directory.relative_to(PROJECT_ROOT)
 
@@ -472,6 +484,7 @@ def resolve_internal_directory(
     return directory
 
 
+# This function runs the generic ground-truth matching process.
 def run() -> Path:
     """Run the generic ground-truth matching process."""
 
@@ -738,6 +751,7 @@ def run() -> Path:
     return output_path
 
 
+# This function serves as the application entry point and handles any errors.
 def main() -> int:
     """Application entry point."""
 
