@@ -95,7 +95,7 @@ def resolve_project_path(path_value: str) -> Path:
             "A required project path is missing."
         )
 
-    path = (PROJECT_ROOT / path_value).resolve()
+    path = (PROJECT_ROOT / path_value).resolve() #converts the path into a clean
 
     # Reject path traversal so configuration cannot reference files outside the project.
     try:

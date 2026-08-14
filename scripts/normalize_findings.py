@@ -97,11 +97,11 @@ def parse_line_range(
 
     return None, None
 
-
+#GO OVER AGAIN!!!
 # This function extracts failed findings from Checkov JSON.
 def extract_checkov_findings(
     raw_data: Any,
-) -> list[dict[str, Any]]:
+) -> list[dict[str, Any]]: #consistent iteration dict -> list -> blocks
     """Extract failed findings from Checkov JSON."""
 
     blocks: list[dict[str, Any]]
@@ -141,7 +141,7 @@ def extract_checkov_findings(
             if not isinstance(finding, dict):
                 continue
 
-            start_line, end_line = parse_line_range(
+            start_line, end_line = parse_line_range( #tuple unpacking:
                 finding.get("file_line_range")
             )
 
@@ -273,7 +273,7 @@ def extract_trivy_findings(
 
     return extracted
 
-
+#GO OVER AGAIN!!!
 # This function extracts failed controls from Kubescape JSON.
 def extract_kubescape_findings(
     raw_data: Any,
@@ -434,7 +434,7 @@ def extract_kubescape_findings(
 
     return extracted
 
-
+#GO OVER AGAIN!!!
 # This function sends raw scanner data to the correct scanner extractor.
 def extract_scanner_findings(
     scanner: str,
@@ -526,7 +526,7 @@ def normalise_rule_id(
 
     return clean_rule_id or None
 
-
+#GO OVER AGAIN!!!
 # This function converts extracted findings into the common schema.
 def normalise_findings(
     scanner: str,
@@ -543,7 +543,7 @@ def normalise_findings(
         for raw_rule_id, ground_truth_id
         in reverse_rule_mapping.items()
         if (
-            clean_rule_id := normalise_rule_id(
+            clean_rule_id := normalise_rule_id( #calculate the value and assign it to a variable at the same time
                 raw_rule_id
             )
         )
@@ -728,7 +728,7 @@ def write_output(
                 content,
                 file,
                 indent=2,
-                ensure_ascii=False,
+                ensure_ascii=False, #preserve normal Unicode characters instead of escaping them.
             )
 
             file.write("\n")
