@@ -55,3 +55,6 @@ dist/
 # Scanner executables
 tools/trivy/trivy.exe
 tools/kubescape/kubescape.exe
+
+# Raw Outputs
+results/raw/
