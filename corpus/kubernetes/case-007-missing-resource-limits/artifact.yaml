@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: no-resource-limits-demo
+  namespace: benchmark
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: no-resource-limits-demo
+  template:
+    metadata:
+      labels:
+        app: no-resource-limits-demo
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: demo-container
+          image: nginx:1.25
+
+          securityContext:
+            privileged: false
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 10001
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault

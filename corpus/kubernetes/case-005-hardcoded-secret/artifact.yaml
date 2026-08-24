@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: database-credentials
+  namespace: benchmark
+type: Opaque
+stringData:
+  username: admin
+  password: SuperSecretPassword123!

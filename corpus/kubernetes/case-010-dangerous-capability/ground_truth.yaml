@@ -1,0 +1,33 @@
+case_id: case-010-dangerous-capability
+artifact_type: kubernetes_yaml
+
+ground_truth:
+  - id: GT-010
+    title: Container granted dangerous Linux capability
+    category: PodSecurity
+    subcategory: DangerousCapability
+    severity: High
+
+    resource: Deployment.benchmark.dangerous-capability-demo
+
+    container: demo-container
+
+    field_path: spec.template.spec.containers[0].securityContext.capabilities.add
+
+    bad_value:
+      - SYS_ADMIN
+
+    expected_value: []
+
+    rationale: >
+      Containers should operate with the minimum Linux
+      capabilities required for their function. SYS_ADMIN grants
+      a broad set of privileged operations and significantly
+      increases the potential impact of container compromise.
+      Dangerous capabilities should therefore not be added unless
+      there is a specifically justified requirement.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

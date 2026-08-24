@@ -1,0 +1,36 @@
+case_id: case-003-rbac-wildcard
+artifact_type: kubernetes_yaml
+
+ground_truth:
+  - id: GT-003
+    title: RBAC role grants wildcard permissions
+    category: AccessControl
+    subcategory: RBACWildcard
+    severity: High
+
+    resource: Role.benchmark.wildcard-role
+
+    field_path: rules[0]
+
+    bad_value:
+      resources:
+        - "*"
+      verbs:
+        - "*"
+
+    expected_value:
+      resources:
+        - required-resource
+      verbs:
+        - required-verbs
+
+    rationale: >
+      The Role grants wildcard access to Kubernetes resources and
+      operations. RBAC permissions should follow the principle of
+      least privilege and permit only the resources and actions
+      required by the workload.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

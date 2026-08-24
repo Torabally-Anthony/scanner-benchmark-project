@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dangerous-capability-demo
+  namespace: benchmark
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dangerous-capability-demo
+  template:
+    metadata:
+      labels:
+        app: dangerous-capability-demo
+    spec:
+      automountServiceAccountToken: false
+
+      containers:
+        - name: demo-container
+          image: nginx:1.25
+
+          securityContext:
+            privileged: false
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 10001
+            readOnlyRootFilesystem: true
+
+            capabilities:
+              drop:
+                - ALL
+              add:
+                - SYS_ADMIN
+
+            seccompProfile:
+              type: RuntimeDefault
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "64Mi"
+            limits:
+              cpu: "250m"
+              memory: "128Mi"
