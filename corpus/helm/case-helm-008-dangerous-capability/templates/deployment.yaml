@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: capability-helm-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: capability-helm-demo
+  template:
+    metadata:
+      labels:
+        app: capability-helm-demo
+    spec:
+      automountServiceAccountToken: false
+
+      containers:
+        - name: demo-container
+          image: nginx:1.25
+
+          securityContext:
+            privileged: false
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 10001
+
+            capabilities:
+              drop:
+                - ALL
+              add:
+                - {{ .Values.securityContext.addedCapability }}

@@ -1,0 +1,7 @@
+image:
+  repository: nginx
+  tag: "1.25"
+
+securityContext:
+  runAsNonRoot: false
+  runAsUser: 0

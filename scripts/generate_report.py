@@ -33,6 +33,7 @@ class ReportError(Exception):
     """Raised when a benchmark report cannot be generated."""
 
 
+# This function reads a JSON file and confirms that its root is an object.
 def read_json(path: Path) -> dict[str, Any]:
     """Read a JSON file and confirm that its root is an object."""
 
@@ -66,6 +67,7 @@ def read_json(path: Path) -> dict[str, Any]:
     return data
 
 
+# This function writes a UTF-8 text file.
 def write_text(
     path: Path,
     content: str,
@@ -89,6 +91,7 @@ def write_text(
         ) from error
 
 
+# This function resolves a project-relative directory and prevents paths outside the benchmark project.
 def resolve_internal_directory(
     directory_value: str,
     field_name: str,
@@ -103,6 +106,7 @@ def resolve_internal_directory(
         / directory_value
     ).resolve()
 
+    # Reject path traversal so input and output cannot escape the project directory.
     try:
         directory.relative_to(PROJECT_ROOT)
 
@@ -114,6 +118,7 @@ def resolve_internal_directory(
     return directory
 
 
+# This function retrieves and validates a list of JSON objects.
 def get_object_list(
     document: dict[str, Any],
     field_name: str,
@@ -145,6 +150,7 @@ def get_object_list(
     return validated_items
 
 
+# This function returns a stripped string or None.
 def clean_text(value: Any) -> str | None:
     """Return a stripped string or None."""
 
@@ -156,6 +162,7 @@ def clean_text(value: Any) -> str | None:
     return cleaned_value or None
 
 
+# This function converts a value into readable report text.
 def display_value(value: Any) -> str:
     """Convert a value into readable report text."""
 
@@ -176,6 +183,7 @@ def display_value(value: Any) -> str:
     return text or "—"
 
 
+# This function escapes a value for use inside a Markdown table.
 def markdown_table_value(value: Any) -> str:
     """Escape a value for use inside a Markdown table."""
 
@@ -209,6 +217,7 @@ def markdown_table_value(value: Any) -> str:
     return text
 
 
+# This function formats a metric value for the report.
 def format_metric(value: Any) -> str:
     """Format a metric value for the report."""
 
@@ -224,6 +233,7 @@ def format_metric(value: Any) -> str:
     return display_value(value)
 
 
+# This function returns a presentation-friendly scanner name.
 def scanner_display_name(scanner: str) -> str:
     """Return a presentation-friendly scanner name."""
 
@@ -239,6 +249,7 @@ def scanner_display_name(scanner: str) -> str:
     )
 
 
+# This function creates a readable resource identifier.
 def format_ground_truth_resource(
     ground_truth_item: dict[str, Any],
 ) -> str:
@@ -276,6 +287,7 @@ def format_ground_truth_resource(
     return ".".join(components)
 
 
+# This function retrieves a container name from ground truth.
 def get_ground_truth_container(
     ground_truth_item: dict[str, Any],
 ) -> Any:
@@ -292,6 +304,7 @@ def get_ground_truth_container(
     return ground_truth_item.get("container")
 
 
+# This function validates that matched and metrics files belong together.
 def validate_documents(
     matched_document: dict[str, Any],
     metrics_document: dict[str, Any],
@@ -377,6 +390,7 @@ def validate_documents(
     return matched_mode
 
 
+# This function confirms that matched and metrics counts agree.
 def validate_count_consistency(
     matched_document: dict[str, Any],
     metrics_document: dict[str, Any],
@@ -414,6 +428,7 @@ def validate_count_consistency(
         "ambiguous_match_count",
     ]
 
+    # Refuse to combine stale or unrelated stage outputs in one report.
     for field_name in count_fields:
         matched_value = matched_counts.get(
             field_name
@@ -432,6 +447,7 @@ def validate_count_consistency(
             )
 
 
+# This function appends a Markdown table to the report.
 def append_table(
     lines: list[str],
     headers: list[str],
@@ -473,6 +489,7 @@ ColumnExtractor = Callable[
 ]
 
 
+# This function appends a finding classification section.
 def append_finding_section(
     lines: list[str],
     title: str,
@@ -521,6 +538,7 @@ def append_finding_section(
     )
 
 
+# This function builds the ground-truth evaluation table.
 def build_ground_truth_rows(
     ground_truth_items: dict[str, dict[str, Any]],
     true_positives: list[dict[str, Any]],
@@ -609,6 +627,7 @@ def build_ground_truth_rows(
     return rows
 
 
+# This function creates the complete Markdown report.
 def build_report(
     case_id: str,
     scanner: str,
@@ -1344,6 +1363,7 @@ def build_report(
     return "\n".join(lines)
 
 
+# This function reads command-line arguments.
 def parse_arguments() -> argparse.Namespace:
     """Read command-line arguments."""
 
@@ -1395,6 +1415,7 @@ def parse_arguments() -> argparse.Namespace:
     return parser.parse_args()
 
 
+# This function runs the generic report-generation process.
 def run() -> Path:
     """Run the generic report-generation process."""
 
@@ -1543,6 +1564,7 @@ def run() -> Path:
     return output_path
 
 
+# This function serves as the application entry point and handles any errors.
 def main() -> int:
     """Application entry point."""
 

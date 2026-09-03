@@ -4,8 +4,8 @@
   "tool": "checkov",
   "scanner_version": "2.5.20",
   "artifact_type": "helm_chart",
-  "matching_mode": "review",
-  "generated_at": "2026-08-02T15:14:32.035717+00:00",
+  "matching_mode": "strict",
+  "generated_at": "2026-08-02T19:38:23.541352+00:00",
   "source_file": "results\\normalised_helm\\checkov\\case-helm-001-host-network.normalised.json",
   "ground_truth_source": "corpus/helm/case-helm-001-host-network/ground_truth.yaml",
   "classification_policy": {
@@ -20,9 +20,9 @@
     "total_normalised_findings": 4,
     "ground_truth_issue_count": 1,
     "true_positive_count": 1,
-    "false_positive_count": 0,
+    "false_positive_count": 3,
     "false_negative_count": 0,
-    "unlabelled_extra_findings_count": 3,
+    "unlabelled_extra_findings_count": 0,
     "duplicate_match_count": 0,
     "ambiguous_match_count": 0
   },
@@ -66,9 +66,7 @@
       "classification_reason": "The scanner rule correctly matched ground-truth issue 'GT-HELM-001'."
     }
   ],
-  "false_positives": [],
-  "false_negatives": [],
-  "unlabelled_extras": [
+  "false_positives": [
     {
       "finding_id": "checkov-case-helm-001-host-network-0001",
       "tool": "checkov",
@@ -100,8 +98,8 @@
       "skipped_resources": null,
       "score": null,
       "compliance_score": null,
-      "classification": "unlabelled_extra",
-      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
+      "classification": "false_positive",
+      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
     },
     {
       "finding_id": "checkov-case-helm-001-host-network-0002",
@@ -134,8 +132,8 @@
       "skipped_resources": null,
       "score": null,
       "compliance_score": null,
-      "classification": "unlabelled_extra",
-      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
+      "classification": "false_positive",
+      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
     },
     {
       "finding_id": "checkov-case-helm-001-host-network-0004",
@@ -168,10 +166,12 @@
       "skipped_resources": null,
       "score": null,
       "compliance_score": null,
-      "classification": "unlabelled_extra",
-      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
+      "classification": "false_positive",
+      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
     }
   ],
+  "false_negatives": [],
+  "unlabelled_extras": [],
   "duplicate_matches": [],
   "ambiguous_matches": []
 }

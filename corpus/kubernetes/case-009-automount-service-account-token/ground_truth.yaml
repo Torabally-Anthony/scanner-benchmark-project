@@ -1,0 +1,27 @@
+case_id: case-009-automount-service-account-token
+artifact_type: kubernetes_yaml
+
+ground_truth:
+  - id: GT-009
+    title: Service account token automatically mounted into pod
+    category: IdentityAccess
+    subcategory: ServiceAccountToken
+    severity: Medium
+
+    resource: Deployment.benchmark.service-account-token-demo
+
+    field_path: spec.template.spec.automountServiceAccountToken
+
+    bad_value: true
+    expected_value: false
+
+    rationale: >
+      Kubernetes service account tokens should not automatically
+      be mounted into workloads that do not require access to the
+      Kubernetes API. Unnecessary token exposure can provide an
+      attacker with credentials if the container is compromised.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

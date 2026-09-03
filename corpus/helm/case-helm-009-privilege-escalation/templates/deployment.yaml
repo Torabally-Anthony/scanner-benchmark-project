@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: escalation-helm-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: escalation-helm-demo
+  template:
+    metadata:
+      labels:
+        app: escalation-helm-demo
+    spec:
+      automountServiceAccountToken: false
+
+      containers:
+        - name: demo-container
+          image: nginx:1.25
+
+          securityContext:
+            privileged: false
+            allowPrivilegeEscalation: {{ .Values.securityContext.allowPrivilegeEscalation }}
+            runAsNonRoot: true
+            runAsUser: 10001
+
+            capabilities:
+              drop:
+                - ALL

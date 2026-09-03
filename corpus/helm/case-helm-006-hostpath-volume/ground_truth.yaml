@@ -1,0 +1,28 @@
+case_id: case-helm-006-hostpath-volume
+artifact_type: helm
+
+ground_truth:
+  - id: GT-HELM-006
+    title: Helm chart mounts host filesystem using hostPath
+    category: PodSecurity
+    subcategory: HostPathVolume
+    severity: High
+
+    resource: Deployment.default.hostpath-helm-demo
+    container: demo-container
+
+    field_path: spec.template.spec.volumes[0].hostPath.path
+
+    bad_value: "/"
+    expected_value: null
+
+    rationale: >
+      The rendered workload exposes the Kubernetes node filesystem
+      through a hostPath volume. This weakens workload isolation
+      and can expose sensitive host resources to a compromised
+      container.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

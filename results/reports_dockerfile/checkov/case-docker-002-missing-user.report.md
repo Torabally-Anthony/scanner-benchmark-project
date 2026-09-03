@@ -9,9 +9,9 @@
 | Case ID | case-docker-002-missing-user |
 | Scanner | Checkov |
 | Artifact type | dockerfile |
-| Matching mode | review |
+| Matching mode | strict |
 | Evaluation status | complete |
-| Report generated | 2026-08-02T17:40:24.451720+00:00 |
+| Report generated | 2026-08-02T19:42:47.335177+00:00 |
 
 ### Scanner version
 
@@ -91,7 +91,7 @@ No findings were recorded in this category.
 - **Precision:** Precision measures the proportion of classified positive findings that were true positives.
 - **Recall:** Recall measures the proportion of ground-truth issues detected by the scanner.
 - **F1 score:** F1 is the harmonic mean of precision and recall.
-- **Review-mode policy:** Unmapped findings are retained as unlabelled extras. They are not counted as false positives until they have been manually reviewed.
+- **Strict-mode policy:** Unmapped findings are counted as false positives.
 - **Duplicate policy:** Only the first valid finding mapped to a ground-truth issue is counted as a true positive. Additional detections of the same issue are stored as duplicate matches.
 - **Ambiguous findings:** Ambiguous matches are reported separately and are excluded from the precision, recall and F1 calculations.
 
@@ -99,8 +99,8 @@ No findings were recorded in this category.
 
 | Input | Path | Generated at |
 | --- | --- | --- |
-| Matched findings | results\matched_dockerfile\checkov\case-docker-002-missing-user.matched.json | 2026-08-02T17:40:23.833500+00:00 |
-| Metrics | results\metrics_dockerfile\checkov\case-docker-002-missing-user.metrics.json | 2026-08-02T17:40:24.101939+00:00 |
+| Matched findings | results\matched_dockerfile\checkov\case-docker-002-missing-user.matched.json | 2026-08-02T19:42:46.668371+00:00 |
+| Metrics | results\metrics_dockerfile\checkov\case-docker-002-missing-user.metrics.json | 2026-08-02T19:42:47.059160+00:00 |
 
 ---
 

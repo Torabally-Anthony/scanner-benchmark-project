@@ -4,7 +4,7 @@
   "tool": "checkov",
   "scanner_version": "2.5.20",
   "artifact_type": "helm_chart",
-  "generated_at": "2026-08-02T15:14:31.802290+00:00",
+  "generated_at": "2026-08-02T19:38:23.264932+00:00",
   "source_file": "results\\raw\\checkov\\case-helm-001-host-network.json",
   "summary": {
     "normalised_findings_count": 4,

@@ -1,0 +1,3 @@
+apiVersion: v2
+name: host-ipc-demo
+version: 0.1.0

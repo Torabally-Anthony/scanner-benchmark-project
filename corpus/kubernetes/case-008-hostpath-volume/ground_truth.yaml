@@ -1,0 +1,30 @@
+case_id: case-008-hostpath-volume
+artifact_type: kubernetes_yaml
+
+ground_truth:
+  - id: GT-008
+    title: Pod mounts host filesystem using hostPath
+    category: PodSecurity
+    subcategory: HostPathVolume
+    severity: High
+
+    resource: Deployment.benchmark.hostpath-demo
+
+    container: demo-container
+
+    field_path: spec.template.spec.volumes[0].hostPath.path
+
+    bad_value: "/"
+    expected_value: null
+
+    rationale: >
+      hostPath volumes expose files from the Kubernetes node
+      directly to a pod. Mounting the host filesystem can allow
+      a compromised container to access sensitive host data and
+      increases the potential impact of container escape or
+      privilege abuse.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

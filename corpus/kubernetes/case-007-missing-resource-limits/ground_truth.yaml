@@ -1,0 +1,32 @@
+case_id: case-007-missing-resource-limits
+artifact_type: kubernetes_yaml
+
+ground_truth:
+  - id: GT-007
+    title: Container does not define resource limits
+    category: ResourceManagement
+    subcategory: MissingResourceLimits
+    severity: Medium
+
+    resource: Deployment.benchmark.no-resource-limits-demo
+
+    container: demo-container
+
+    field_path: spec.template.spec.containers[0].resources.limits
+
+    bad_value: null
+
+    expected_value:
+      cpu: defined
+      memory: defined
+
+    rationale: >
+      Containers should define suitable CPU and memory limits.
+      Without limits, a container can consume excessive resources
+      and affect the availability and stability of other workloads
+      running on the same cluster.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

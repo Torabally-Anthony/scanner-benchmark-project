@@ -1,0 +1,9 @@
+FROM nginx:latest
+
+WORKDIR /app
+
+USER 10001
+
+HEALTHCHECK CMD ["sh", "-c", "exit 0"]
+
+CMD ["nginx", "-g", "daemon off;"]

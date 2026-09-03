@@ -1,0 +1,26 @@
+case_id: case-helm-005-host-ipc
+artifact_type: helm
+
+ground_truth:
+  - id: GT-HELM-005
+    title: Helm chart enables host IPC namespace
+    category: PodSecurity
+    subcategory: HostIPC
+    severity: High
+
+    resource: Deployment.default.host-ipc-demo
+
+    field_path: spec.template.spec.hostIPC
+
+    bad_value: true
+    expected_value: false
+
+    rationale: >
+      Sharing the host IPC namespace reduces isolation between
+      the pod and the Kubernetes node and may expose host-level
+      inter-process communication resources to the workload.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

@@ -1,0 +1,26 @@
+case_id: case-docker-005-missing-healthcheck
+artifact_type: dockerfile
+
+ground_truth:
+  - id: GT-DOCKER-005
+    title: Dockerfile does not define a health check
+    category: Reliability
+    subcategory: MissingHealthcheck
+    severity: Low
+
+    resource: Dockerfile
+
+    field_path: HEALTHCHECK
+
+    bad_value: null
+    expected_value: defined
+
+    rationale: >
+      A container health check provides a mechanism for determining
+      whether the application inside the container is functioning
+      correctly. Without one, unhealthy containers may be more
+      difficult to identify automatically.
+
+    applicable_scanners:
+      - checkov
+      - trivy

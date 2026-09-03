@@ -15,5 +15,5 @@ misconfigurations:
 
     field_path: instructions.USER.final
 
-    bad_value: root
+    bad_value: root # container effective user has elevated priviledges inside the container
     expected_secure_value: non-root-user

@@ -30,6 +30,7 @@ class ConfigurationValidationError(Exception):
     """Raised when benchmark configuration validation fails."""
 
 
+# This function returns a stripped string or None.
 def clean_text(
     value: Any,
 ) -> str | None:
@@ -43,6 +44,7 @@ def clean_text(
     return cleaned_value or None
 
 
+# This function resolves a configuration path and confirms that it remains inside the benchmark project.
 def resolve_project_path(
     path_value: Any,
     field_name: str,
@@ -63,6 +65,7 @@ def resolve_project_path(
         PROJECT_ROOT / clean_path
     ).resolve()
 
+    # Reject path traversal so configuration cannot reference files outside the project.
     try:
         resolved_path.relative_to(
             PROJECT_ROOT.resolve()
@@ -77,6 +80,7 @@ def resolve_project_path(
     return resolved_path
 
 
+# This function returns a readable project-relative path.
 def display_project_path(
     path: Path,
 ) -> str:
@@ -91,6 +95,7 @@ def display_project_path(
         return str(path)
 
 
+# This function validates the configuration schema version.
 def validate_schema_version(
     configuration: dict[str, Any],
 ) -> str:
@@ -118,6 +123,7 @@ def validate_schema_version(
     return schema_version
 
 
+# This function validates default matching mode and scanner list.
 def validate_defaults(
     configuration: dict[str, Any],
 ) -> tuple[str, list[str]]:
@@ -218,6 +224,7 @@ def validate_defaults(
     return matching_mode, scanners
 
 
+# This function validates the optional shared path configuration.
 def validate_optional_paths(
     configuration: dict[str, Any],
 ) -> None:
@@ -261,6 +268,7 @@ def validate_optional_paths(
         )
 
 
+# This function validates one scanner's rule-ID list.
 def validate_rule_id_list(
     case_id: str,
     ground_truth_id: str,
@@ -321,6 +329,7 @@ def validate_rule_id_list(
     return cleaned_rule_ids
 
 
+# This function validates the artifact and ground-truth paths.
 def validate_case_paths(
     case_id: str,
     case_configuration: dict[str, Any],
@@ -384,6 +393,7 @@ def validate_case_paths(
     return artifact_path, ground_truth_path
 
 
+# This function confirms the configured artifact types agree.
 def validate_artifact_type(
     case_id: str,
     case_configuration: dict[str, Any],
@@ -433,6 +443,7 @@ def validate_artifact_type(
     )
 
 
+# This function confirms the ground-truth case ID matches its config key.
 def validate_case_id_match(
     configured_case_id: str,
     ground_truth: dict[str, Any],
@@ -459,6 +470,7 @@ def validate_case_id_match(
     print("  [OK] Case IDs match")
 
 
+# This function validates mappings between ground-truth IDs and scanner rules.
 def validate_rule_mappings(
     case_id: str,
     case_configuration: dict[str, Any],
@@ -608,6 +620,7 @@ def validate_rule_mappings(
     return warning_count
 
 
+# This function validates one benchmark case.
 def validate_case(
     case_id: str,
     case_configuration: Any,
@@ -697,6 +710,7 @@ def validate_case(
     return warning_count
 
 
+# This function validates the complete benchmark configuration.
 def run_validation() -> int:
     """Validate the complete benchmark configuration."""
 
@@ -811,6 +825,7 @@ def run_validation() -> int:
     return 0
 
 
+# This function serves as the application entry point and handles any errors.
 def main() -> int:
     """Application entry point."""
 

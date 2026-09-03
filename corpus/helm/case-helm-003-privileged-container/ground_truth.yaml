@@ -1,0 +1,28 @@
+case_id: case-helm-003-privileged-container
+artifact_type: helm
+
+ground_truth:
+  - id: GT-HELM-003
+    title: Helm chart renders a privileged container
+    category: PodSecurity
+    subcategory: PrivilegedContainer
+    severity: High
+
+    resource: Deployment.default.privileged-helm-demo
+    container: demo-container
+
+    field_path: spec.template.spec.containers[0].securityContext.privileged
+
+    bad_value: true
+    expected_value: false
+
+    rationale: >
+      The Helm value enables privileged execution. When rendered,
+      the resulting Kubernetes workload gives the container
+      elevated access to the host and significantly weakens
+      container isolation.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

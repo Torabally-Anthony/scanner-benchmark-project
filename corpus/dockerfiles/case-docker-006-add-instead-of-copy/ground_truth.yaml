@@ -1,0 +1,25 @@
+case_id: case-docker-006-add-instead-of-copy
+artifact_type: dockerfile
+
+ground_truth:
+  - id: GT-DOCKER-006
+    title: Dockerfile uses ADD where COPY is sufficient
+    category: BuildSecurity
+    subcategory: AddInsteadOfCopy
+    severity: Low
+
+    resource: Dockerfile
+
+    field_path: ADD[0]
+
+    bad_value: "ADD app.conf /app/app.conf"
+    expected_value: "COPY app.conf /app/app.conf"
+
+    rationale: >
+      ADD has additional behaviour such as automatic archive
+      extraction. When only copying a local file is required,
+      COPY provides clearer and more predictable behaviour.
+
+    applicable_scanners:
+      - checkov
+      - trivy

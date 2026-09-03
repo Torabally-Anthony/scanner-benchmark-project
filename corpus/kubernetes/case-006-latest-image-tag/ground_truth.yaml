@@ -1,0 +1,29 @@
+case_id: case-006-latest-image-tag
+artifact_type: kubernetes_yaml
+
+ground_truth:
+  - id: GT-006
+    title: Container image uses latest tag
+    category: SupplyChain
+    subcategory: UnpinnedImage
+    severity: Medium
+
+    resource: Deployment.benchmark.latest-tag-demo
+
+    container: demo-container
+
+    field_path: spec.template.spec.containers[0].image
+
+    bad_value: nginx:latest
+    expected_value: nginx:<fixed-version-or-digest>
+
+    rationale: >
+      The latest tag is mutable and does not uniquely identify
+      the container image being deployed. A fixed version or,
+      preferably, an immutable image digest improves deployment
+      reproducibility and supply-chain control.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

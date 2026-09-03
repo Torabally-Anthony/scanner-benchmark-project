@@ -1,0 +1,28 @@
+case_id: case-004-public-loadbalancer
+artifact_type: kubernetes_yaml
+
+ground_truth:
+  - id: GT-004
+    title: Service unnecessarily exposed using LoadBalancer
+    category: Network
+    subcategory: ExternalExposure
+    severity: High
+
+    resource: Service.benchmark.public-demo-service
+
+    field_path: spec.type
+
+    bad_value: LoadBalancer
+    expected_value: ClusterIP
+
+    rationale: >
+      A LoadBalancer service can expose the application outside
+      the cluster. Services that do not require direct external
+      access should use an internal service type such as ClusterIP
+      and be exposed through controlled ingress mechanisms where
+      appropriate.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

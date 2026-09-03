@@ -3,9 +3,9 @@
   "Trivy": {
     "Version": "0.69.3"
   },
-  "ReportID": "019fc2b9-e71c-7859-a593-6d92f5347367",
-  "CreatedAt": "2026-08-02T15:46:31.0685473+02:00",
-  "ArtifactName": "corpus/dockerfiles/case-docker-001-root-user/Dockerfile",
+  "ReportID": "019fc3f7-e74e-7540-bc1c-58fc35a61458",
+  "CreatedAt": "2026-08-02T21:33:51.5663441+02:00",
+  "ArtifactName": "corpus/dockerfiles/case-docker-001-root-user",
   "ArtifactType": "filesystem",
   "Results": [
     {

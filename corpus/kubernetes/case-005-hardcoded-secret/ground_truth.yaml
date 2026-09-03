@@ -1,0 +1,27 @@
+case_id: case-005-hardcoded-secret
+artifact_type: kubernetes_yaml
+
+ground_truth:
+  - id: GT-005
+    title: Hardcoded secret stored in Kubernetes manifest
+    category: Secrets
+    subcategory: HardcodedCredential
+    severity: High
+
+    resource: Secret.benchmark.database-credentials
+
+    field_path: stringData.password
+
+    bad_value: "SuperSecretPassword123!"
+    expected_value: external-secret-reference
+
+    rationale: >
+      Sensitive credentials should not be stored directly in
+      source-controlled Kubernetes manifests. Secrets should be
+      supplied through an approved secret-management mechanism
+      and access should be controlled appropriately.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

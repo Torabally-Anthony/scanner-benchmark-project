@@ -1,6 +1,6 @@
 # Benchmark Comparison Report
 
-Generated: `2026-08-02T17:44:47.161332+00:00`
+Generated: `2026-08-02T19:43:03.994255+00:00`
 
 ## Methodology note
 
@@ -22,9 +22,9 @@ In review mode, unlabelled extra findings are reported as review burden and are 
 
 | Case | Artifact | Scanner | TP | FP | FN | Extras | Precision | Recall | F1 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| case-001-privileged-container | Kubernetes YAML | checkov | 1 | 0 | 0 | 19 | 1.0000 | 1.0000 | 1.0000 |
-| case-001-privileged-container | Kubernetes YAML | trivy | 1 | 0 | 0 | 17 | 1.0000 | 1.0000 | 1.0000 |
-| case-001-privileged-container | Kubernetes YAML | kubescape | 1 | 0 | 0 | 22 | 1.0000 | 1.0000 | 1.0000 |
+| case-001-privileged-container | Kubernetes YAML | checkov | 1 | 19 | 0 | 0 | 0.0500 | 1.0000 | 0.0952 |
+| case-001-privileged-container | Kubernetes YAML | trivy | 1 | 17 | 0 | 0 | 0.0556 | 1.0000 | 0.1053 |
+| case-001-privileged-container | Kubernetes YAML | kubescape | 1 | 22 | 0 | 0 | 0.0435 | 1.0000 | 0.0833 |
 | case-002-runs-as-root | Kubernetes YAML | checkov | 1 | 4 | 0 | 0 | 0.2000 | 1.0000 | 0.3333 |
 | case-002-runs-as-root | Kubernetes YAML | trivy | 1 | 3 | 0 | 0 | 0.2500 | 1.0000 | 0.4000 |
 | case-002-runs-as-root | Kubernetes YAML | kubescape | 1 | 5 | 0 | 0 | 0.1667 | 1.0000 | 0.2857 |
@@ -32,12 +32,12 @@ In review mode, unlabelled extra findings are reported as review burden and are 
 | case-docker-001-root-user | Dockerfile | trivy | 1 | 0 | 0 | 0 | 1.0000 | 1.0000 | 1.0000 |
 | case-docker-002-missing-user | Dockerfile | checkov | 1 | 0 | 0 | 0 | 1.0000 | 1.0000 | 1.0000 |
 | case-docker-002-missing-user | Dockerfile | trivy | 1 | 0 | 0 | 0 | 1.0000 | 1.0000 | 1.0000 |
-| case-helm-001-host-network | Helm chart | checkov | 1 | 0 | 0 | 3 | 1.0000 | 1.0000 | 1.0000 |
+| case-helm-001-host-network | Helm chart | checkov | 1 | 3 | 0 | 0 | 0.2500 | 1.0000 | 0.4000 |
 | case-helm-001-host-network | Helm chart | trivy | 1 | 0 | 0 | 0 | 1.0000 | 1.0000 | 1.0000 |
-| case-helm-001-host-network | Helm chart | kubescape | 1 | 0 | 0 | 5 | 1.0000 | 1.0000 | 1.0000 |
-| case-helm-002-host-pid | Helm chart | checkov | 1 | 0 | 0 | 3 | 1.0000 | 1.0000 | 1.0000 |
+| case-helm-001-host-network | Helm chart | kubescape | 1 | 5 | 0 | 0 | 0.1667 | 1.0000 | 0.2857 |
+| case-helm-002-host-pid | Helm chart | checkov | 1 | 3 | 0 | 0 | 0.2500 | 1.0000 | 0.4000 |
 | case-helm-002-host-pid | Helm chart | trivy | 1 | 0 | 0 | 0 | 1.0000 | 1.0000 | 1.0000 |
-| case-helm-002-host-pid | Helm chart | kubescape | 1 | 0 | 0 | 6 | 1.0000 | 1.0000 | 1.0000 |
+| case-helm-002-host-pid | Helm chart | kubescape | 1 | 6 | 0 | 0 | 0.1429 | 1.0000 | 0.2500 |
 
 ## Scanner coverage matrix
 
@@ -56,9 +56,9 @@ In review mode, unlabelled extra findings are reported as review burden and are 
 
 | Scanner | Cases | TP | FP | FN | Extras | Micro P | Micro R | Micro F1 | Macro F1 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| checkov | 2 | 2 | 4 | 0 | 19 | 0.3333 | 1.0000 | 0.5000 | 0.6666 |
-| trivy | 2 | 2 | 3 | 0 | 17 | 0.4000 | 1.0000 | 0.5714 | 0.7000 |
-| kubescape | 2 | 2 | 5 | 0 | 22 | 0.2857 | 1.0000 | 0.4444 | 0.6429 |
+| checkov | 2 | 2 | 23 | 0 | 0 | 0.0800 | 1.0000 | 0.1481 | 0.2142 |
+| trivy | 2 | 2 | 20 | 0 | 0 | 0.0909 | 1.0000 | 0.1667 | 0.2527 |
+| kubescape | 2 | 2 | 27 | 0 | 0 | 0.0690 | 1.0000 | 0.1290 | 0.1845 |
 
 ### Dockerfile
 
@@ -71,14 +71,14 @@ In review mode, unlabelled extra findings are reported as review burden and are 
 
 | Scanner | Cases | TP | FP | FN | Extras | Micro P | Micro R | Micro F1 | Macro F1 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| checkov | 2 | 2 | 0 | 0 | 6 | 1.0000 | 1.0000 | 1.0000 | 1.0000 |
+| checkov | 2 | 2 | 6 | 0 | 0 | 0.2500 | 1.0000 | 0.4000 | 0.4000 |
 | trivy | 2 | 2 | 0 | 0 | 0 | 1.0000 | 1.0000 | 1.0000 | 1.0000 |
-| kubescape | 2 | 2 | 0 | 0 | 11 | 1.0000 | 1.0000 | 1.0000 | 1.0000 |
+| kubescape | 2 | 2 | 11 | 0 | 0 | 0.1538 | 1.0000 | 0.2667 | 0.2679 |
 
 ## Overall scanner summary
 
 | Scanner | Applicable cases | N/A cases | TP | FP | FN | Extras | Micro P | Micro R | Micro F1 | Macro F1 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| checkov | 6 | 0 | 6 | 4 | 0 | 25 | 0.6000 | 1.0000 | 0.7500 | 0.8889 |
-| trivy | 6 | 0 | 6 | 3 | 0 | 17 | 0.6667 | 1.0000 | 0.8000 | 0.9000 |
-| kubescape | 4 | 2 | 4 | 5 | 0 | 33 | 0.4444 | 1.0000 | 0.6154 | 0.8214 |
+| checkov | 6 | 0 | 6 | 29 | 0 | 0 | 0.1714 | 1.0000 | 0.2927 | 0.5381 |
+| trivy | 6 | 0 | 6 | 20 | 0 | 0 | 0.2308 | 1.0000 | 0.3750 | 0.7509 |
+| kubescape | 4 | 2 | 4 | 38 | 0 | 0 | 0.0952 | 1.0000 | 0.1739 | 0.2262 |

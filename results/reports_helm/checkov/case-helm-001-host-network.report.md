@@ -9,9 +9,9 @@
 | Case ID | case-helm-001-host-network |
 | Scanner | Checkov |
 | Artifact type | helm_chart |
-| Matching mode | review |
-| Evaluation status | requires_manual_review |
-| Report generated | 2026-08-02T15:14:32.531181+00:00 |
+| Matching mode | strict |
+| Evaluation status | complete |
+| Report generated | 2026-08-02T19:38:24.141072+00:00 |
 
 ### Scanner version
 
@@ -26,9 +26,9 @@
 | Normalised findings | 4 |
 | Ground-truth issues | 1 |
 | True positives | 1 |
-| False positives | 0 |
+| False positives | 3 |
 | False negatives | 0 |
-| Unlabelled extras | 3 |
+| Unlabelled extras | 0 |
 | Duplicate matches | 0 |
 | Ambiguous matches | 0 |
 
@@ -36,9 +36,9 @@
 
 | Metric | Formula | Result |
 | --- | --- | --- |
-| Precision | TP / (TP + FP) | 1 |
+| Precision | TP / (TP + FP) | 0.25 |
 | Recall | TP / (TP + FN) | 1 |
-| F1 score | 2 * (Precision * Recall) / (Precision + Recall) | 1 |
+| F1 score | 2 * (Precision * Recall) / (Precision + Recall) | 0.4 |
 
 ## Ground-truth evaluation
 
@@ -60,7 +60,11 @@ These findings correctly matched a known ground-truth issue.
 
 These findings were classified as incorrect according to the selected matching policy.
 
-No findings were recorded in this category.
+| Finding | Rule | Rule name | Severity | Resource | Reason |
+| --- | --- | --- | --- | --- | --- |
+| checkov-case-helm-001-host-network-0001 | CKV_K8S_43 | Image should use digest | — | Deployment.scanner-benchmark.helm-host-network-demo-app | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
+| checkov-case-helm-001-host-network-0002 | CKV_K8S_15 | Image Pull Policy should be Always | — | Deployment.scanner-benchmark.helm-host-network-demo-app | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
+| checkov-case-helm-001-host-network-0004 | CKV2_K8S_6 | Minimize the admission of pods which lack an associated NetworkPolicy | — | Pod.scanner-benchmark.helm-host-network-demo-app.app-helm-host-network-demo-app | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
 
 ## False negatives
 
@@ -72,11 +76,7 @@ No findings were recorded in this category.
 
 These scanner findings do not yet have an approved mapping to the benchmark ground truth.
 
-| Finding | Rule | Rule name | Severity | Original category | Original subcategory | Resource |
-| --- | --- | --- | --- | --- | --- | --- |
-| checkov-case-helm-001-host-network-0001 | CKV_K8S_43 | Image should use digest | — | — | — | Deployment.scanner-benchmark.helm-host-network-demo-app |
-| checkov-case-helm-001-host-network-0002 | CKV_K8S_15 | Image Pull Policy should be Always | — | — | — | Deployment.scanner-benchmark.helm-host-network-demo-app |
-| checkov-case-helm-001-host-network-0004 | CKV2_K8S_6 | Minimize the admission of pods which lack an associated NetworkPolicy | — | — | — | Pod.scanner-benchmark.helm-host-network-demo-app.app-helm-host-network-demo-app |
+No findings were recorded in this category.
 
 ## Duplicate matches
 
@@ -95,17 +95,16 @@ No findings were recorded in this category.
 - **Precision:** Precision measures the proportion of classified positive findings that were true positives.
 - **Recall:** Recall measures the proportion of ground-truth issues detected by the scanner.
 - **F1 score:** F1 is the harmonic mean of precision and recall.
-- **Review-mode policy:** Unmapped findings are retained as unlabelled extras. They are not counted as false positives until they have been manually reviewed.
+- **Strict-mode policy:** Unmapped findings are counted as false positives.
 - **Duplicate policy:** Only the first valid finding mapped to a ground-truth issue is counted as a true positive. Additional detections of the same issue are stored as duplicate matches.
 - **Ambiguous findings:** Ambiguous matches are reported separately and are excluded from the precision, recall and F1 calculations.
-- **Current limitation:** The scanner reported 3 unlabelled extra finding(s). Therefore, the reported precision only reflects the currently labelled portion of the benchmark results.
 
 ## Input provenance
 
 | Input | Path | Generated at |
 | --- | --- | --- |
-| Matched findings | results\matched_helm\checkov\case-helm-001-host-network.matched.json | 2026-08-02T15:14:32.035717+00:00 |
-| Metrics | results\metrics_helm\checkov\case-helm-001-host-network.metrics.json | 2026-08-02T15:14:32.282601+00:00 |
+| Matched findings | results\matched_helm\checkov\case-helm-001-host-network.matched.json | 2026-08-02T19:38:23.541352+00:00 |
+| Metrics | results\metrics_helm\checkov\case-helm-001-host-network.metrics.json | 2026-08-02T19:38:23.817227+00:00 |
 
 ---
 

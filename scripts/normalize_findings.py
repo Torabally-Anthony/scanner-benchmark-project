@@ -29,6 +29,7 @@ class NormalisationError(Exception):
     """Raised when scanner output cannot be normalised."""
 
 
+# This function reads a JSON file, including files containing a UTF-8 BOM.
 def read_json(path: Path) -> Any:
     """Read a JSON file, including files containing a UTF-8 BOM."""
 
@@ -55,6 +56,7 @@ def read_json(path: Path) -> Any:
         ) from error
 
 
+# This function reads the scanner version saved in the raw results directory.
 def read_scanner_version(scanner: str) -> str:
     """Read the scanner version saved in the raw results directory."""
 
@@ -78,6 +80,7 @@ def read_scanner_version(scanner: str) -> str:
         return "Unknown"
 
 
+# This function converts a scanner line range into start and end values.
 def parse_line_range(
     value: Any,
 ) -> tuple[int | None, int | None]:
@@ -94,10 +97,11 @@ def parse_line_range(
 
     return None, None
 
-
+#GO OVER AGAIN!!!
+# This function extracts failed findings from Checkov JSON.
 def extract_checkov_findings(
     raw_data: Any,
-) -> list[dict[str, Any]]:
+) -> list[dict[str, Any]]: #consistent iteration dict -> list -> blocks
     """Extract failed findings from Checkov JSON."""
 
     blocks: list[dict[str, Any]]
@@ -137,7 +141,7 @@ def extract_checkov_findings(
             if not isinstance(finding, dict):
                 continue
 
-            start_line, end_line = parse_line_range(
+            start_line, end_line = parse_line_range( #tuple unpacking:
                 finding.get("file_line_range")
             )
 
@@ -185,6 +189,7 @@ def extract_checkov_findings(
     return extracted
 
 
+# This function extracts failed misconfigurations from Trivy JSON.
 def extract_trivy_findings(
     raw_data: Any,
 ) -> list[dict[str, Any]]:
@@ -268,7 +273,8 @@ def extract_trivy_findings(
 
     return extracted
 
-
+#GO OVER AGAIN!!!
+# This function extracts failed controls from Kubescape JSON.
 def extract_kubescape_findings(
     raw_data: Any,
 ) -> list[dict[str, Any]]:
@@ -428,7 +434,8 @@ def extract_kubescape_findings(
 
     return extracted
 
-
+#GO OVER AGAIN!!!
+# This function sends raw scanner data to the correct scanner extractor.
 def extract_scanner_findings(
     scanner: str,
     raw_data: Any,
@@ -444,6 +451,7 @@ def extract_scanner_findings(
         "kubescape": extract_kubescape_findings,
     }
 
+    # Scanner-specific parsing ends here; every later stage receives one common schema.
     extractor = extractors.get(scanner)
 
     if extractor is None:
@@ -454,6 +462,7 @@ def extract_scanner_findings(
     return extractor(raw_data)
 
 
+# This function creates the common resource name from ground truth.
 def canonical_resource(
     ground_truth_item: dict[str, Any],
 ) -> tuple[str | None, str | None]:
@@ -504,6 +513,7 @@ def canonical_resource(
     return resource_name, container
 
 
+# This function cleans scanner rule IDs before matching.
 def normalise_rule_id(
     rule_id: Any,
 ) -> str | None:
@@ -516,7 +526,8 @@ def normalise_rule_id(
 
     return clean_rule_id or None
 
-
+#GO OVER AGAIN!!!
+# This function converts extracted findings into the common schema.
 def normalise_findings(
     scanner: str,
     case_id: str,
@@ -532,7 +543,7 @@ def normalise_findings(
         for raw_rule_id, ground_truth_id
         in reverse_rule_mapping.items()
         if (
-            clean_rule_id := normalise_rule_id(
+            clean_rule_id := normalise_rule_id( #calculate the value and assign it to a variable at the same time
                 raw_rule_id
             )
         )
@@ -560,6 +571,7 @@ def normalise_findings(
             else None
         )
 
+        # Approved rule-ID mappings decide whether a scanner finding represents ground truth.
         mapping_status = (
             "mapped"
             if ground_truth_item is not None
@@ -577,6 +589,7 @@ def normalise_findings(
                 ground_truth_item
             )
 
+        # Ground truth supplies canonical comparison fields while original scanner values remain available.
         normalised_finding = {
             "finding_id": (
                 f"{scanner}-{case_id}-{index:04d}"
@@ -694,6 +707,7 @@ def normalise_findings(
     return normalised
 
 
+# This function writes formatted JSON output.
 def write_output(
     output_path: Path,
     content: dict[str, Any],
@@ -714,7 +728,7 @@ def write_output(
                 content,
                 file,
                 indent=2,
-                ensure_ascii=False,
+                ensure_ascii=False, #preserve normal Unicode characters instead of escaping them.
             )
 
             file.write("\n")
@@ -725,6 +739,7 @@ def write_output(
         ) from error
 
 
+# This function reads command-line arguments.
 def parse_arguments() -> argparse.Namespace:
     """Read command-line arguments."""
 
@@ -761,6 +776,7 @@ def parse_arguments() -> argparse.Namespace:
     return parser.parse_args()
 
 
+# This function runs the generic normalisation pipeline.
 def run() -> Path:
     """Run the generic normalisation pipeline."""
 
@@ -839,6 +855,7 @@ def run() -> Path:
         / arguments.output_root
     ).resolve()
 
+    # Reject path traversal so generated results remain inside the project.
     try:
         output_root.relative_to(PROJECT_ROOT)
 
@@ -899,6 +916,7 @@ def run() -> Path:
     return output_path
 
 
+# This function serves as the application entry point and handles any errors.
 def main() -> int:
     """Application entry point."""
 
