@@ -1,0 +1,26 @@
+case_id: case-docker-003-latest-base-image
+artifact_type: dockerfile
+
+ground_truth:
+  - id: GT-DOCKER-003
+    title: Dockerfile uses latest base image tag
+    category: SupplyChain
+    subcategory: UnpinnedBaseImage
+    severity: Medium
+
+    resource: Dockerfile
+
+    field_path: FROM[0].image
+
+    bad_value: nginx:latest
+    expected_value: nginx:<fixed-version-or-digest>
+
+    rationale: >
+      Using the latest tag makes the exact base image unpredictable
+      because the tag can change over time. A fixed version or
+      immutable digest improves reproducibility and supply-chain
+      control.
+
+    applicable_scanners:
+      - checkov
+      - trivy

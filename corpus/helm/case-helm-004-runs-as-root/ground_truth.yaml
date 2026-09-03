@@ -1,0 +1,28 @@
+case_id: case-helm-004-runs-as-root
+artifact_type: helm
+
+ground_truth:
+  - id: GT-HELM-004
+    title: Helm chart renders container running as root
+    category: PodSecurity
+    subcategory: RunAsRoot
+    severity: High
+
+    resource: Deployment.default.root-helm-demo
+    container: demo-container
+
+    field_path: spec.template.spec.containers[0].securityContext.runAsNonRoot
+
+    bad_value: false
+    expected_value: true
+
+    rationale: >
+      The Helm configuration explicitly allows the workload
+      to run as the root user. Containers should normally
+      execute as a non-root identity to reduce the impact
+      of container compromise.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

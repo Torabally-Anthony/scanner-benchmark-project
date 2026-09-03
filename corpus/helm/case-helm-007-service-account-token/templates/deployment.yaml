@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: token-helm-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: token-helm-demo
+  template:
+    metadata:
+      labels:
+        app: token-helm-demo
+    spec:
+      automountServiceAccountToken: {{ .Values.serviceAccount.automountToken }}
+
+      containers:
+        - name: demo-container
+          image: nginx:1.25
+          securityContext:
+            privileged: false
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 10001
+            capabilities:
+              drop:
+                - ALL

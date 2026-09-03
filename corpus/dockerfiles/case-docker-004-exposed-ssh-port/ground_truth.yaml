@@ -1,0 +1,26 @@
+case_id: case-docker-004-exposed-ssh-port
+artifact_type: dockerfile
+
+ground_truth:
+  - id: GT-DOCKER-004
+    title: Dockerfile exposes SSH port 22
+    category: Network
+    subcategory: SSHExposure
+    severity: High
+
+    resource: Dockerfile
+
+    field_path: EXPOSE[0]
+
+    bad_value: 22
+    expected_value: null
+
+    rationale: >
+      Container images normally should not expose SSH services.
+      Exposing port 22 increases the network attack surface and
+      can encourage management practices that bypass normal
+      container orchestration controls.
+
+    applicable_scanners:
+      - checkov
+      - trivy

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hostpath-helm-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hostpath-helm-demo
+  template:
+    metadata:
+      labels:
+        app: hostpath-helm-demo
+    spec:
+      automountServiceAccountToken: false
+
+      containers:
+        - name: demo-container
+          image: nginx:1.25
+          securityContext:
+            privileged: false
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 10001
+            capabilities:
+              drop:
+                - ALL
+
+          volumeMounts:
+            - name: host-files
+              mountPath: /host
+
+      volumes:
+        - name: host-files
+          hostPath:
+            path: {{ .Values.hostPath.path | quote }}

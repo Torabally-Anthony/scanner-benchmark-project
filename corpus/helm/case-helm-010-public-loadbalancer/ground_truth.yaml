@@ -1,0 +1,27 @@
+case_id: case-helm-010-public-loadbalancer
+artifact_type: helm
+
+ground_truth:
+  - id: GT-HELM-010
+    title: Helm chart exposes service using LoadBalancer
+    category: Network
+    subcategory: ExternalExposure
+    severity: High
+
+    resource: Service.default.public-helm-service
+
+    field_path: spec.type
+
+    bad_value: LoadBalancer
+    expected_value: ClusterIP
+
+    rationale: >
+      The Helm configuration renders a LoadBalancer service,
+      potentially exposing the workload externally. Internal
+      applications should avoid direct external exposure unless
+      it is specifically required.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

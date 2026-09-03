@@ -1,0 +1,3 @@
+apiVersion: v2
+name: privilege-escalation-demo
+version: 0.1.0

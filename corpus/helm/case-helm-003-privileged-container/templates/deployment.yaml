@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: privileged-helm-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: privileged-helm-demo
+  template:
+    metadata:
+      labels:
+        app: privileged-helm-demo
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: demo-container
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          securityContext:
+            privileged: {{ .Values.securityContext.privileged }}
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 10001
+            capabilities:
+              drop:
+                - ALL

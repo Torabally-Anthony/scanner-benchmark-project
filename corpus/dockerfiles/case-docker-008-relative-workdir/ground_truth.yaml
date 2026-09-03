@@ -1,0 +1,25 @@
+case_id: case-docker-008-relative-workdir
+artifact_type: dockerfile
+
+ground_truth:
+  - id: GT-DOCKER-008
+    title: Dockerfile uses a relative WORKDIR
+    category: BuildPractice
+    subcategory: RelativeWorkdir
+    severity: Medium
+
+    resource: Dockerfile
+
+    field_path: WORKDIR[0]
+
+    bad_value: app
+    expected_value: /app
+
+    rationale: >
+      WORKDIR should use an absolute path so that the resulting
+      working directory is explicit and does not depend on a
+      previously inherited working directory.
+
+    applicable_scanners:
+      - checkov
+      - trivy

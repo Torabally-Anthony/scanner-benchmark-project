@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: root-helm-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: root-helm-demo
+  template:
+    metadata:
+      labels:
+        app: root-helm-demo
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: demo-container
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          securityContext:
+            privileged: false
+            allowPrivilegeEscalation: false
+            runAsNonRoot: {{ .Values.securityContext.runAsNonRoot }}
+            runAsUser: {{ .Values.securityContext.runAsUser }}
+            capabilities:
+              drop:
+                - ALL

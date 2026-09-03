@@ -1,0 +1,29 @@
+case_id: case-helm-008-dangerous-capability
+artifact_type: helm
+
+ground_truth:
+  - id: GT-HELM-008
+    title: Helm chart grants dangerous Linux capability
+    category: PodSecurity
+    subcategory: DangerousCapability
+    severity: High
+
+    resource: Deployment.default.capability-helm-demo
+    container: demo-container
+
+    field_path: spec.template.spec.containers[0].securityContext.capabilities.add
+
+    bad_value:
+      - SYS_ADMIN
+
+    expected_value: []
+
+    rationale: >
+      SYS_ADMIN provides a broad collection of privileged Linux
+      operations. Containers should be granted only capabilities
+      that are specifically required for their operation.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

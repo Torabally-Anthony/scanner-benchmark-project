@@ -1,0 +1,31 @@
+case_id: case-docker-009-duplicate-stage-alias
+artifact_type: dockerfile
+
+ground_truth:
+  - id: GT-DOCKER-009
+    title: Multi-stage Dockerfile contains duplicate stage aliases
+    category: BuildIntegrity
+    subcategory: DuplicateStageAlias
+    severity: Medium
+
+    resource: Dockerfile
+
+    field_path: FROM.alias
+
+    bad_value:
+      - builder
+      - builder
+
+    expected_value:
+      - builder
+      - runtime
+
+    rationale: >
+      Multi-stage Docker builds should use unique aliases for
+      each build stage. Duplicate aliases create ambiguity and
+      can make stage references difficult to understand or
+      maintain correctly.
+
+    applicable_scanners:
+      - checkov
+      - trivy

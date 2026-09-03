@@ -1,0 +1,29 @@
+case_id: case-docker-010-orphan-package-update
+artifact_type: dockerfile
+
+ground_truth:
+  - id: GT-DOCKER-010
+    title: Package index update is executed as a standalone build step
+    category: PackageManagement
+    subcategory: OrphanPackageUpdate
+    severity: Medium
+
+    resource: Dockerfile
+
+    field_path: RUN[0]
+
+    bad_value: "apt-get update"
+
+    expected_value: >
+      apt-get update and required package installation performed
+      in the same RUN instruction
+
+    rationale: >
+      Package index updates should normally be combined with the
+      package installation operation that requires them. Keeping
+      them in separate Docker build layers can result in stale
+      package metadata being reused from the build cache.
+
+    applicable_scanners:
+      - checkov
+      - trivy

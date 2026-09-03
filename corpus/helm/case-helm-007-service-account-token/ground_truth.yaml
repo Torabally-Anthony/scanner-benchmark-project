@@ -1,0 +1,26 @@
+case_id: case-helm-007-service-account-token
+artifact_type: helm
+
+ground_truth:
+  - id: GT-HELM-007
+    title: Helm chart automatically mounts service account token
+    category: IdentityAccess
+    subcategory: ServiceAccountToken
+    severity: Medium
+
+    resource: Deployment.default.token-helm-demo
+
+    field_path: spec.template.spec.automountServiceAccountToken
+
+    bad_value: true
+    expected_value: false
+
+    rationale: >
+      Automatically mounting a Kubernetes service account token
+      exposes API credentials to the container even when the
+      workload does not require Kubernetes API access.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape
