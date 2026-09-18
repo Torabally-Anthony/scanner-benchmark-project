@@ -2,24 +2,9 @@
 
 **Case:** `case-helm-002-host-pid`
 
-## Benchmark information
+Artifact: `helm_chart` · Mode: `strict` · Status: `complete`
 
-| Property | Value |
-| --- | --- |
-| Case ID | case-helm-002-host-pid |
-| Scanner | Kubescape |
-| Artifact type | helm_chart |
-| Matching mode | strict |
-| Evaluation status | complete |
-| Report generated | 2026-08-02T19:42:58.318623+00:00 |
-
-### Scanner version
-
-```text
-Your current version is: v4.0.10
-Build commit: f956507357091c3806777fe13ddf5e65efe36e44
-Build date: 2026-06-30T05:17:15Z
-```
+Scanner version: `v4.0.10`
 
 ## Results summary
 
@@ -44,73 +29,30 @@ Build date: 2026-06-30T05:17:15Z
 
 ## Ground-truth evaluation
 
-This table shows whether each known benchmark issue was detected by the scanner.
+| Ground truth | Issue | Resource | Result | Scanner rule |
+| --- | --- | --- | --- | --- |
+| GT-HELM-002 | HostPID | Deployment.scanner-benchmark.helm-host-pid-demo-app | Detected | C-0038 |
 
-| Ground truth | Category | Subcategory | Severity | Resource | Container | Field path | Result | Scanner rule |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| GT-HELM-002 | PodSecurity | HostPID | High | Deployment.scanner-benchmark.helm-host-pid-demo-app | — | spec.template.spec.hostPID | Detected | C-0038 |
+## True positives (1)
 
-## True positives
+| Finding | Rule | Ground truth | Resource |
+| --- | --- | --- | --- |
+| kubescape-case-helm-002-host-pid-0002 | C-0038 | GT-HELM-002 | Deployment.scanner-benchmark.helm-host-pid-demo-app |
 
-These findings correctly matched a known ground-truth issue.
+## False positives (6)
 
-| Finding | Rule | Rule name | Ground truth | Severity | Resource | Container | Field path |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| kubescape-case-helm-002-host-pid-0002 | C-0038 | Host PID/IPC privileges | GT-HELM-002 | High | Deployment.scanner-benchmark.helm-host-pid-demo-app | — | spec.template.spec.hostPID |
-
-## False positives
-
-These findings were classified as incorrect according to the selected matching policy.
-
-| Finding | Rule | Rule name | Severity | Resource | Reason |
-| --- | --- | --- | --- | --- | --- |
-| kubescape-case-helm-002-host-pid-0001 | C-0030 | Ingress and Egress blocked | Medium | Unknown | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
-| kubescape-case-helm-002-host-pid-0003 | C-0077 | K8s common labels usage | Low | Unknown | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
-| kubescape-case-helm-002-host-pid-0004 | C-0211 | Apply Security Context to Your Pods and Containers | High | Unknown | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
-| kubescape-case-helm-002-host-pid-0005 | C-0237 | Check if signature exists | High | Unknown | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
-| kubescape-case-helm-002-host-pid-0006 | C-0260 | Missing network policy | Medium | Unknown | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
-| kubescape-case-helm-002-host-pid-0007 | C-0275 | Minimize the admission of containers wishing to share the host process ID namespace | Medium | Unknown | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
-
-## False negatives
-
-These ground-truth issues were not detected by the scanner.
-
-No findings were recorded in this category.
-
-## Unlabelled extra findings
-
-These scanner findings do not yet have an approved mapping to the benchmark ground truth.
-
-No findings were recorded in this category.
-
-## Duplicate matches
-
-These additional findings matched an issue that had already been counted as a true positive.
-
-No findings were recorded in this category.
-
-## Ambiguous matches
-
-These findings contained incomplete or inconsistent mapping information.
-
-No findings were recorded in this category.
-
-## Interpretation and methodological notes
-
-- **Precision:** Precision measures the proportion of classified positive findings that were true positives.
-- **Recall:** Recall measures the proportion of ground-truth issues detected by the scanner.
-- **F1 score:** F1 is the harmonic mean of precision and recall.
-- **Strict-mode policy:** Unmapped findings are counted as false positives.
-- **Duplicate policy:** Only the first valid finding mapped to a ground-truth issue is counted as a true positive. Additional detections of the same issue are stored as duplicate matches.
-- **Ambiguous findings:** Ambiguous matches are reported separately and are excluded from the precision, recall and F1 calculations.
-
-## Input provenance
-
-| Input | Path | Generated at |
+| Finding | Rule | Resource |
 | --- | --- | --- |
-| Matched findings | results\matched_helm\kubescape\case-helm-002-host-pid.matched.json | 2026-08-02T19:42:57.448354+00:00 |
-| Metrics | results\metrics_helm\kubescape\case-helm-002-host-pid.metrics.json | 2026-08-02T19:42:57.865473+00:00 |
+| kubescape-case-helm-002-host-pid-0001 | C-0030 | Unknown |
+| kubescape-case-helm-002-host-pid-0003 | C-0077 | Unknown |
+| kubescape-case-helm-002-host-pid-0004 | C-0211 | Unknown |
+| kubescape-case-helm-002-host-pid-0005 | C-0237 | Unknown |
+| kubescape-case-helm-002-host-pid-0006 | C-0260 | Unknown |
 
----
+Showing 5 of 6. See the matched JSON for the full list.
 
-Report generated by the generic scanner benchmark reporting pipeline.
+Unmapped findings count as false positives; duplicate and ambiguous matches are excluded from the scores.
+
+- Full findings: `results/matched_helm/kubescape/case-helm-002-host-pid.matched.json`
+- Full metrics: `results/metrics_helm/kubescape/case-helm-002-host-pid.metrics.json`
+- Generated: `2026-09-17T06:59:44.691737+00:00`

@@ -5,14 +5,13 @@
   "scanner_version": "Unknown",
   "artifact_type": "kubernetes_yaml",
   "matching_mode": "strict",
-  "generated_at": "2026-08-02T19:37:35.808312+00:00",
-  "source_file": "results\\normalised_generic\\trivy\\case-001-privileged-container.normalised.json",
+  "generated_at": "2026-09-17T06:12:32.615933+00:00",
+  "source_file": "results/normalised_generic/trivy/case-001-privileged-container.normalised.json",
   "ground_truth_source": "corpus/kubernetes/case-001-privileged-container/ground_truth.yaml",
   "classification_policy": {
     "true_positive": "The first valid scanner finding mapped to a ground-truth issue.",
     "false_negative": "A ground-truth issue with no valid scanner detection.",
-    "unlabelled_extra": "An unmapped finding retained for review.",
-    "false_positive": "An unmapped finding classified as incorrect in strict mode.",
+    "false_positive": "An unmapped finding counted as incorrect.",
     "duplicate_match": "An additional finding mapped to a ground-truth issue already detected.",
     "ambiguous_match": "A finding with inconsistent or incomplete mapping information."
   },
@@ -99,7 +98,7 @@
       "score": null,
       "compliance_score": null,
       "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification_reason": "The finding has no ground-truth mapping, so it is counted as a false positive."
     },
     {
       "finding_id": "trivy-case-001-privileged-container-0002",
@@ -133,7 +132,7 @@
       "score": null,
       "compliance_score": null,
       "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification_reason": "The finding has no ground-truth mapping, so it is counted as a false positive."
     },
     {
       "finding_id": "trivy-case-001-privileged-container-0003",
@@ -167,7 +166,7 @@
       "score": null,
       "compliance_score": null,
       "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification_reason": "The finding has no ground-truth mapping, so it is counted as a false positive."
     },
     {
       "finding_id": "trivy-case-001-privileged-container-0004",
@@ -201,7 +200,7 @@
       "score": null,
       "compliance_score": null,
       "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification_reason": "The finding has no ground-truth mapping, so it is counted as a false positive."
     },
     {
       "finding_id": "trivy-case-001-privileged-container-0005",
@@ -235,7 +234,7 @@
       "score": null,
       "compliance_score": null,
       "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification_reason": "The finding has no ground-truth mapping, so it is counted as a false positive."
     },
     {
       "finding_id": "trivy-case-001-privileged-container-0006",
@@ -269,7 +268,7 @@
       "score": null,
       "compliance_score": null,
       "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification_reason": "The finding has no ground-truth mapping, so it is counted as a false positive."
     },
     {
       "finding_id": "trivy-case-001-privileged-container-0007",
@@ -303,7 +302,7 @@
       "score": null,
       "compliance_score": null,
       "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification_reason": "The finding has no ground-truth mapping, so it is counted as a false positive."
     },
     {
       "finding_id": "trivy-case-001-privileged-container-0008",
@@ -337,7 +336,7 @@
       "score": null,
       "compliance_score": null,
       "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification_reason": "The finding has no ground-truth mapping, so it is counted as a false positive."
     },
     {
       "finding_id": "trivy-case-001-privileged-container-0010",
@@ -371,7 +370,7 @@
       "score": null,
       "compliance_score": null,
       "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification_reason": "The finding has no ground-truth mapping, so it is counted as a false positive."
     },
     {
       "finding_id": "trivy-case-001-privileged-container-0011",
@@ -405,7 +404,7 @@
       "score": null,
       "compliance_score": null,
       "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification_reason": "The finding has no ground-truth mapping, so it is counted as a false positive."
     },
     {
       "finding_id": "trivy-case-001-privileged-container-0012",
@@ -439,7 +438,7 @@
       "score": null,
       "compliance_score": null,
       "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification_reason": "The finding has no ground-truth mapping, so it is counted as a false positive."
     },
     {
       "finding_id": "trivy-case-001-privileged-container-0013",
@@ -473,7 +472,7 @@
       "score": null,
       "compliance_score": null,
       "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification_reason": "The finding has no ground-truth mapping, so it is counted as a false positive."
     },
     {
       "finding_id": "trivy-case-001-privileged-container-0014",
@@ -507,7 +506,7 @@
       "score": null,
       "compliance_score": null,
       "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification_reason": "The finding has no ground-truth mapping, so it is counted as a false positive."
     },
     {
       "finding_id": "trivy-case-001-privileged-container-0015",
@@ -541,7 +540,7 @@
       "score": null,
       "compliance_score": null,
       "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification_reason": "The finding has no ground-truth mapping, so it is counted as a false positive."
     },
     {
       "finding_id": "trivy-case-001-privileged-container-0016",
@@ -575,7 +574,7 @@
       "score": null,
       "compliance_score": null,
       "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification_reason": "The finding has no ground-truth mapping, so it is counted as a false positive."
     },
     {
       "finding_id": "trivy-case-001-privileged-container-0017",
@@ -609,7 +608,7 @@
       "score": null,
       "compliance_score": null,
       "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification_reason": "The finding has no ground-truth mapping, so it is counted as a false positive."
     },
     {
       "finding_id": "trivy-case-001-privileged-container-0018",
@@ -643,7 +642,7 @@
       "score": null,
       "compliance_score": null,
       "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification_reason": "The finding has no ground-truth mapping, so it is counted as a false positive."
     }
   ],
   "false_negatives": [],

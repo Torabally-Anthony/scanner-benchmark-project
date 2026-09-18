@@ -2,22 +2,9 @@
 
 **Case:** `case-helm-001-host-network`
 
-## Benchmark information
+Artifact: `helm_chart` · Mode: `strict` · Status: `complete`
 
-| Property | Value |
-| --- | --- |
-| Case ID | case-helm-001-host-network |
-| Scanner | Checkov |
-| Artifact type | helm_chart |
-| Matching mode | strict |
-| Evaluation status | complete |
-| Report generated | 2026-08-02T19:38:24.141072+00:00 |
-
-### Scanner version
-
-```text
-2.5.20
-```
+Scanner version: `2.5.20`
 
 ## Results summary
 
@@ -42,70 +29,26 @@
 
 ## Ground-truth evaluation
 
-This table shows whether each known benchmark issue was detected by the scanner.
+| Ground truth | Issue | Resource | Result | Scanner rule |
+| --- | --- | --- | --- | --- |
+| GT-HELM-001 | HostNetwork | Deployment.scanner-benchmark.helm-host-network-demo-app | Detected | CKV_K8S_19 |
 
-| Ground truth | Category | Subcategory | Severity | Resource | Container | Field path | Result | Scanner rule |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| GT-HELM-001 | PodSecurity | HostNetwork | High | Deployment.scanner-benchmark.helm-host-network-demo-app | — | spec.template.spec.hostNetwork | Detected | CKV_K8S_19 |
+## True positives (1)
 
-## True positives
+| Finding | Rule | Ground truth | Resource |
+| --- | --- | --- | --- |
+| checkov-case-helm-001-host-network-0003 | CKV_K8S_19 | GT-HELM-001 | Deployment.scanner-benchmark.helm-host-network-demo-app |
 
-These findings correctly matched a known ground-truth issue.
+## False positives (3)
 
-| Finding | Rule | Rule name | Ground truth | Severity | Resource | Container | Field path |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| checkov-case-helm-001-host-network-0003 | CKV_K8S_19 | Containers should not share the host network namespace | GT-HELM-001 | High | Deployment.scanner-benchmark.helm-host-network-demo-app | — | spec.template.spec.hostNetwork |
-
-## False positives
-
-These findings were classified as incorrect according to the selected matching policy.
-
-| Finding | Rule | Rule name | Severity | Resource | Reason |
-| --- | --- | --- | --- | --- | --- |
-| checkov-case-helm-001-host-network-0001 | CKV_K8S_43 | Image should use digest | — | Deployment.scanner-benchmark.helm-host-network-demo-app | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
-| checkov-case-helm-001-host-network-0002 | CKV_K8S_15 | Image Pull Policy should be Always | — | Deployment.scanner-benchmark.helm-host-network-demo-app | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
-| checkov-case-helm-001-host-network-0004 | CKV2_K8S_6 | Minimize the admission of pods which lack an associated NetworkPolicy | — | Pod.scanner-benchmark.helm-host-network-demo-app.app-helm-host-network-demo-app | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
-
-## False negatives
-
-These ground-truth issues were not detected by the scanner.
-
-No findings were recorded in this category.
-
-## Unlabelled extra findings
-
-These scanner findings do not yet have an approved mapping to the benchmark ground truth.
-
-No findings were recorded in this category.
-
-## Duplicate matches
-
-These additional findings matched an issue that had already been counted as a true positive.
-
-No findings were recorded in this category.
-
-## Ambiguous matches
-
-These findings contained incomplete or inconsistent mapping information.
-
-No findings were recorded in this category.
-
-## Interpretation and methodological notes
-
-- **Precision:** Precision measures the proportion of classified positive findings that were true positives.
-- **Recall:** Recall measures the proportion of ground-truth issues detected by the scanner.
-- **F1 score:** F1 is the harmonic mean of precision and recall.
-- **Strict-mode policy:** Unmapped findings are counted as false positives.
-- **Duplicate policy:** Only the first valid finding mapped to a ground-truth issue is counted as a true positive. Additional detections of the same issue are stored as duplicate matches.
-- **Ambiguous findings:** Ambiguous matches are reported separately and are excluded from the precision, recall and F1 calculations.
-
-## Input provenance
-
-| Input | Path | Generated at |
+| Finding | Rule | Resource |
 | --- | --- | --- |
-| Matched findings | results\matched_helm\checkov\case-helm-001-host-network.matched.json | 2026-08-02T19:38:23.541352+00:00 |
-| Metrics | results\metrics_helm\checkov\case-helm-001-host-network.metrics.json | 2026-08-02T19:38:23.817227+00:00 |
+| checkov-case-helm-001-host-network-0001 | CKV_K8S_43 | Deployment.scanner-benchmark.helm-host-network-demo-app |
+| checkov-case-helm-001-host-network-0002 | CKV_K8S_15 | Deployment.scanner-benchmark.helm-host-network-demo-app |
+| checkov-case-helm-001-host-network-0004 | CKV2_K8S_6 | Pod.scanner-benchmark.helm-host-network-demo-app.app-helm-host-network-demo-app |
 
----
+Unmapped findings count as false positives; duplicate and ambiguous matches are excluded from the scores.
 
-Report generated by the generic scanner benchmark reporting pipeline.
+- Full findings: `results/matched_helm/checkov/case-helm-001-host-network.matched.json`
+- Full metrics: `results/metrics_helm/checkov/case-helm-001-host-network.metrics.json`
+- Generated: `2026-09-17T06:59:44.523881+00:00`

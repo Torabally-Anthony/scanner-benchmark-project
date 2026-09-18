@@ -24,7 +24,6 @@ SUPPORTED_SCANNERS = {
 }
 
 SUPPORTED_MATCHING_MODES = {
-    "review",
     "strict",
 }
 
@@ -287,23 +286,6 @@ def format_ground_truth_resource(
     return ".".join(components)
 
 
-# This function retrieves a container name from ground truth.
-def get_ground_truth_container(
-    ground_truth_item: dict[str, Any],
-) -> Any:
-    """Retrieve a container name from ground truth."""
-
-    resource = ground_truth_item.get("resource")
-
-    if isinstance(resource, dict):
-        container = resource.get("container")
-
-        if container is not None:
-            return container
-
-    return ground_truth_item.get("container")
-
-
 # This function validates that matched and metrics files belong together.
 def validate_documents(
     matched_document: dict[str, Any],
@@ -371,13 +353,13 @@ def validate_documents(
     if matched_mode not in SUPPORTED_MATCHING_MODES:
         raise ReportError(
             "The matched file matching_mode must be "
-            "'review' or 'strict'."
+            "'strict'."
         )
 
     if metrics_mode not in SUPPORTED_MATCHING_MODES:
         raise ReportError(
             "The metrics file matching_mode must be "
-            "'review' or 'strict'."
+            "'strict'."
         )
 
     if matched_mode != metrics_mode:
@@ -483,151 +465,69 @@ def append_table(
     lines.append("")
 
 
-ColumnExtractor = Callable[
-    [dict[str, Any]],
-    Any,
-]
+# Keep Markdown readable; the matched JSON contains every finding and field.
+FINDING_PREVIEW_LIMIT = 5
 
 
-# This function appends a finding classification section.
-def append_finding_section(
+def append_finding_preview(
     lines: list[str],
     title: str,
-    introduction: str,
     findings: list[dict[str, Any]],
-    columns: list[
-        tuple[
-            str,
-            ColumnExtractor,
-        ]
-    ],
+    columns: list[tuple[str, Callable[[dict[str, Any]], Any]]],
 ) -> None:
-    """Append a finding classification section."""
-
-    lines.append(f"## {title}")
-    lines.append("")
-    lines.append(introduction)
-    lines.append("")
+    """Show a small sample of a non-empty finding category."""
 
     if not findings:
-        lines.append(
-            "No findings were recorded in this category."
-        )
-        lines.append("")
         return
 
-    headers = [
-        heading
-        for heading, _ in columns
-    ]
-
-    rows: list[list[Any]] = []
-
-    for finding in findings:
-        row = [
-            extractor(finding)
-            for _, extractor in columns
-        ]
-
-        rows.append(row)
-
+    lines.extend([f"## {title} ({len(findings)})", ""])
     append_table(
         lines,
-        headers,
-        rows,
+        [heading for heading, _ in columns],
+        [
+            [extractor(finding) for _, extractor in columns]
+            for finding in findings[:FINDING_PREVIEW_LIMIT]
+        ],
     )
 
+    remaining = len(findings) - FINDING_PREVIEW_LIMIT
+    if remaining > 0:
+        lines.extend([
+            f"Showing {FINDING_PREVIEW_LIMIT} of {len(findings)}. "
+            "See the matched JSON for the full list.",
+            "",
+        ])
 
-# This function builds the ground-truth evaluation table.
+
 def build_ground_truth_rows(
     ground_truth_items: dict[str, dict[str, Any]],
     true_positives: list[dict[str, Any]],
     duplicate_matches: list[dict[str, Any]],
 ) -> list[list[Any]]:
-    """Build the ground-truth evaluation table."""
+    """Summarise the result for each benchmark issue."""
 
-    detections: dict[
-        str,
-        list[dict[str, Any]],
-    ] = {}
+    detections: dict[str, set[str]] = {}
+    for finding in true_positives + duplicate_matches:
+        ground_truth_id = clean_text(finding.get("ground_truth_id"))
+        if ground_truth_id:
+            rule_id = clean_text(finding.get("rule_id"))
+            detections.setdefault(ground_truth_id, set())
+            if rule_id:
+                detections[ground_truth_id].add(rule_id)
 
-    for finding in (
-        true_positives
-        + duplicate_matches
-    ):
-        ground_truth_id = clean_text(
-            finding.get("ground_truth_id")
-        )
-
-        if ground_truth_id is None:
-            continue
-
-        detections.setdefault(
+    return [
+        [
             ground_truth_id,
-            [],
-        ).append(finding)
-
-    rows: list[list[Any]] = []
-
-    for (
-        ground_truth_id,
-        ground_truth_item,
-    ) in ground_truth_items.items():
-        related_findings = detections.get(
-            ground_truth_id,
-            [],
-        )
-
-        detected = bool(
-            related_findings
-        )
-
-        rule_ids = sorted(
-            {
-                str(finding.get("rule_id"))
-                for finding in related_findings
-                if finding.get("rule_id")
-            }
-        )
-
-        rows.append(
-            [
-                ground_truth_id,
-                ground_truth_item.get(
-                    "category"
-                ),
-                ground_truth_item.get(
-                    "subcategory"
-                ),
-                ground_truth_item.get(
-                    "severity"
-                ),
-                format_ground_truth_resource(
-                    ground_truth_item
-                ),
-                get_ground_truth_container(
-                    ground_truth_item
-                ),
-                ground_truth_item.get(
-                    "field_path"
-                ),
-                (
-                    "Detected"
-                    if detected
-                    else "Missed"
-                ),
-                (
-                    ", ".join(rule_ids)
-                    if rule_ids
-                    else "—"
-                ),
-            ]
-        )
-
-    return rows
+            item.get("subcategory") or item.get("category"),
+            format_ground_truth_resource(item),
+            "Detected" if ground_truth_id in detections else "Missed",
+            ", ".join(sorted(detections.get(ground_truth_id, set()))) or "—",
+        ]
+        for ground_truth_id, item in ground_truth_items.items()
+    ]
 
 
-# This function creates the complete Markdown report.
+# This function creates a compact Markdown report; JSON retains full detail.
 def build_report(
     case_id: str,
     scanner: str,
@@ -638,728 +538,137 @@ def build_report(
     matched_path: Path,
     metrics_path: Path,
 ) -> str:
-    """Create the complete Markdown report."""
+    """Create a concise, reviewable Markdown report."""
 
-    true_positives = get_object_list(
-        matched_document,
-        "true_positives",
-    )
-
-    false_positives = get_object_list(
-        matched_document,
-        "false_positives",
-    )
-
-    false_negatives = get_object_list(
-        matched_document,
-        "false_negatives",
-    )
-
-    unlabelled_extras = get_object_list(
-        matched_document,
-        "unlabelled_extras",
-    )
-
-    duplicate_matches = get_object_list(
-        matched_document,
-        "duplicate_matches",
-    )
-
-    ambiguous_matches = get_object_list(
-        matched_document,
-        "ambiguous_matches",
-    )
-
-    counts = metrics_document.get(
-        "counts",
-        {},
-    )
-
-    metrics = metrics_document.get(
-        "metrics",
-        {},
-    )
-
-    formula_used = metrics_document.get(
-        "formula_used",
-        {},
-    )
-
-    interpretation = metrics_document.get(
-        "interpretation",
-        {},
-    )
-
+    findings = {
+        "True positives": get_object_list(matched_document, "true_positives"),
+        "False positives": get_object_list(matched_document, "false_positives"),
+        "False negatives": get_object_list(matched_document, "false_negatives"),
+        "Unlabelled extras": get_object_list(matched_document, "unlabelled_extras"),
+        "Duplicate matches": get_object_list(matched_document, "duplicate_matches"),
+        "Ambiguous matches": get_object_list(matched_document, "ambiguous_matches"),
+    }
+    counts = metrics_document.get("counts")
+    metrics = metrics_document.get("metrics")
+    formulas = metrics_document.get("formula_used")
     if not isinstance(counts, dict):
-        raise ReportError(
-            "The metrics file has no valid counts object."
-        )
-
+        raise ReportError("The metrics file has no valid counts object.")
     if not isinstance(metrics, dict):
-        raise ReportError(
-            "The metrics file has no valid metrics object."
-        )
+        raise ReportError("The metrics file has no valid metrics object.")
+    if not isinstance(formulas, dict):
+        formulas = {}
 
-    if not isinstance(formula_used, dict):
-        formula_used = {}
-
-    if not isinstance(interpretation, dict):
-        interpretation = {}
-
-    generated_at = datetime.now(
-        timezone.utc
-    ).isoformat()
-
-    scanner_name = scanner_display_name(
-        scanner
-    )
-
-    evaluation_status = metrics_document.get(
-        "evaluation_status",
-        "unknown",
-    )
-
-    scanner_version = (
+    version = (
         metrics_document.get("scanner_version")
         or matched_document.get("scanner_version")
         or "Unknown"
     )
-
-    scanner_version_text = display_value(
-        scanner_version
-    ).replace(
-        "```",
-        "'''",
+    version = display_value(version).splitlines()[0].removeprefix(
+        "Your current version is: "
     )
+    generated_at = datetime.now(timezone.utc).isoformat()
+    lines = [
+        f"# Benchmark Report: {scanner_display_name(scanner)}",
+        "",
+        f"**Case:** `{case_id}`",
+        "",
+        (
+            f"Artifact: `{markdown_table_value(matched_document.get('artifact_type'))}`"
+            f" · Mode: `{matching_mode}`"
+            f" · Status: `{markdown_table_value(metrics_document.get('evaluation_status'))}`"
+        ),
+        "",
+    ]
+    if version != "Unknown":
+        lines.extend([f"Scanner version: `{markdown_table_value(version)}`", ""])
 
-    lines: list[str] = []
-
-    lines.append(
-        f"# Benchmark Report: {scanner_name}"
-    )
-    lines.append("")
-    lines.append(
-        f"**Case:** `{case_id}`"
-    )
-    lines.append("")
-
-    lines.append("## Benchmark information")
-    lines.append("")
-
+    lines.extend(["## Results summary", ""])
     append_table(
         lines,
+        ["Measure", "Count"],
         [
-            "Property",
-            "Value",
-        ],
-        [
-            [
-                "Case ID",
-                case_id,
-            ],
-            [
-                "Scanner",
-                scanner_name,
-            ],
-            [
-                "Artifact type",
-                matched_document.get(
-                    "artifact_type"
-                ),
-            ],
-            [
-                "Matching mode",
-                matching_mode,
-            ],
-            [
-                "Evaluation status",
-                evaluation_status,
-            ],
-            [
-                "Report generated",
-                generated_at,
-            ],
+            [label, counts.get(key)]
+            for label, key in [
+                ("Normalised findings", "total_normalised_findings"),
+                ("Ground-truth issues", "ground_truth_issue_count"),
+                ("True positives", "true_positive_count"),
+                ("False positives", "false_positive_count"),
+                ("False negatives", "false_negative_count"),
+                ("Unlabelled extras", "unlabelled_extra_findings_count"),
+                ("Duplicate matches", "duplicate_match_count"),
+                ("Ambiguous matches", "ambiguous_match_count"),
+            ]
         ],
     )
 
-    lines.append("### Scanner version")
-    lines.append("")
-    lines.append("```text")
-    lines.append(scanner_version_text)
-    lines.append("```")
-    lines.append("")
-
-    lines.append("## Results summary")
-    lines.append("")
-
+    lines.extend(["## Performance metrics", ""])
     append_table(
         lines,
+        ["Metric", "Formula", "Result"],
         [
-            "Measure",
-            "Count",
-        ],
-        [
-            [
-                "Normalised findings",
-                counts.get(
-                    "total_normalised_findings"
-                ),
-            ],
-            [
-                "Ground-truth issues",
-                counts.get(
-                    "ground_truth_issue_count"
-                ),
-            ],
-            [
-                "True positives",
-                counts.get(
-                    "true_positive_count"
-                ),
-            ],
-            [
-                "False positives",
-                counts.get(
-                    "false_positive_count"
-                ),
-            ],
-            [
-                "False negatives",
-                counts.get(
-                    "false_negative_count"
-                ),
-            ],
-            [
-                "Unlabelled extras",
-                counts.get(
-                    "unlabelled_extra_findings_count"
-                ),
-            ],
-            [
-                "Duplicate matches",
-                counts.get(
-                    "duplicate_match_count"
-                ),
-            ],
-            [
-                "Ambiguous matches",
-                counts.get(
-                    "ambiguous_match_count"
-                ),
-            ],
+            ["Precision", formulas.get("precision", "TP / (TP + FP)"),
+             format_metric(metrics.get("precision"))],
+            ["Recall", formulas.get("recall", "TP / (TP + FN)"),
+             format_metric(metrics.get("recall"))],
+            ["F1 score", formulas.get("f1_score", "2PR / (P + R)"),
+             format_metric(metrics.get("f1_score"))],
         ],
     )
 
-    lines.append("## Performance metrics")
-    lines.append("")
-
+    lines.extend(["## Ground-truth evaluation", ""])
     append_table(
         lines,
-        [
-            "Metric",
-            "Formula",
-            "Result",
-        ],
-        [
-            [
-                "Precision",
-                formula_used.get(
-                    "precision",
-                    "TP / (TP + FP)",
-                ),
-                format_metric(
-                    metrics.get("precision")
-                ),
-            ],
-            [
-                "Recall",
-                formula_used.get(
-                    "recall",
-                    "TP / (TP + FN)",
-                ),
-                format_metric(
-                    metrics.get("recall")
-                ),
-            ],
-            [
-                "F1 score",
-                formula_used.get(
-                    "f1_score",
-                    (
-                        "2 × (Precision × Recall) "
-                        "/ (Precision + Recall)"
-                    ),
-                ),
-                format_metric(
-                    metrics.get("f1_score")
-                ),
-            ],
-        ],
-    )
-
-    lines.append("## Ground-truth evaluation")
-    lines.append("")
-    lines.append(
-        "This table shows whether each known benchmark "
-        "issue was detected by the scanner."
-    )
-    lines.append("")
-
-    ground_truth_rows = build_ground_truth_rows(
-        ground_truth_items=ground_truth_items,
-        true_positives=true_positives,
-        duplicate_matches=duplicate_matches,
-    )
-
-    append_table(
-        lines,
-        [
-            "Ground truth",
-            "Category",
-            "Subcategory",
-            "Severity",
-            "Resource",
-            "Container",
-            "Field path",
-            "Result",
-            "Scanner rule",
-        ],
-        ground_truth_rows,
-    )
-
-    append_finding_section(
-        lines=lines,
-        title="True positives",
-        introduction=(
-            "These findings correctly matched a known "
-            "ground-truth issue."
+        ["Ground truth", "Issue", "Resource", "Result", "Scanner rule"],
+        build_ground_truth_rows(
+            ground_truth_items,
+            findings["True positives"],
+            findings["Duplicate matches"],
         ),
-        findings=true_positives,
-        columns=[
-            (
-                "Finding",
-                lambda item: item.get(
-                    "finding_id"
-                ),
-            ),
-            (
-                "Rule",
-                lambda item: item.get(
-                    "rule_id"
-                ),
-            ),
-            (
-                "Rule name",
-                lambda item: item.get(
-                    "rule_name"
-                ),
-            ),
-            (
-                "Ground truth",
-                lambda item: item.get(
-                    "ground_truth_id"
-                ),
-            ),
-            (
-                "Severity",
-                lambda item: item.get(
-                    "severity"
-                ),
-            ),
-            (
-                "Resource",
-                lambda item: item.get(
-                    "resource"
-                ),
-            ),
-            (
-                "Container",
-                lambda item: item.get(
-                    "container"
-                ),
-            ),
-            (
-                "Field path",
-                lambda item: item.get(
-                    "field_path"
-                ),
-            ),
-        ],
     )
 
-    append_finding_section(
-        lines=lines,
-        title="False positives",
-        introduction=(
-            "These findings were classified as incorrect "
-            "according to the selected matching policy."
-        ),
-        findings=false_positives,
-        columns=[
-            (
-                "Finding",
-                lambda item: item.get(
-                    "finding_id"
-                ),
-            ),
-            (
-                "Rule",
-                lambda item: item.get(
-                    "rule_id"
-                ),
-            ),
-            (
-                "Rule name",
-                lambda item: item.get(
-                    "rule_name"
-                ),
-            ),
-            (
-                "Severity",
-                lambda item: item.get(
-                    "severity"
-                ),
-            ),
-            (
-                "Resource",
-                lambda item: item.get(
-                    "resource"
-                ),
-            ),
-            (
-                "Reason",
-                lambda item: item.get(
-                    "classification_reason"
-                ),
-            ),
-        ],
-    )
+    finding_id = lambda item: item.get("finding_id")
+    rule_id = lambda item: item.get("rule_id")
+    ground_truth_id = lambda item: item.get("ground_truth_id")
+    resource = lambda item: item.get("resource") or item.get("original_resource")
+    for title, columns in [
+        ("True positives", [
+            ("Finding", finding_id), ("Rule", rule_id),
+            ("Ground truth", ground_truth_id), ("Resource", resource),
+        ]),
+        ("False positives", [
+            ("Finding", finding_id), ("Rule", rule_id),
+            ("Resource", resource),
+        ]),
+        ("False negatives", [
+            ("Ground truth", ground_truth_id),
+            ("Issue", lambda item: item.get("subcategory") or item.get("category")),
+            ("Resource", resource),
+        ]),
+        ("Unlabelled extras", [
+            ("Finding", finding_id), ("Rule", rule_id),
+            ("Resource", resource),
+        ]),
+        ("Duplicate matches", [
+            ("Finding", finding_id), ("Rule", rule_id),
+            ("Ground truth", ground_truth_id),
+        ]),
+        ("Ambiguous matches", [
+            ("Finding", finding_id), ("Rule", rule_id),
+            ("Ground truth", ground_truth_id),
+            ("Mapping status", lambda item: item.get("mapping_status")),
+        ]),
+    ]:
+        append_finding_preview(lines, title, findings[title], columns)
 
-    append_finding_section(
-        lines=lines,
-        title="False negatives",
-        introduction=(
-            "These ground-truth issues were not detected "
-            "by the scanner."
-        ),
-        findings=false_negatives,
-        columns=[
-            (
-                "Ground truth",
-                lambda item: item.get(
-                    "ground_truth_id"
-                ),
-            ),
-            (
-                "Category",
-                lambda item: item.get(
-                    "category"
-                ),
-            ),
-            (
-                "Subcategory",
-                lambda item: item.get(
-                    "subcategory"
-                ),
-            ),
-            (
-                "Severity",
-                lambda item: item.get(
-                    "severity"
-                ),
-            ),
-            (
-                "Resource",
-                lambda item: item.get(
-                    "resource"
-                ),
-            ),
-            (
-                "Container",
-                lambda item: item.get(
-                    "container"
-                ),
-            ),
-            (
-                "Field path",
-                lambda item: item.get(
-                    "field_path"
-                ),
-            ),
-        ],
-    )
-
-    append_finding_section(
-        lines=lines,
-        title="Unlabelled extra findings",
-        introduction=(
-            "These scanner findings do not yet have an "
-            "approved mapping to the benchmark ground truth."
-        ),
-        findings=unlabelled_extras,
-        columns=[
-            (
-                "Finding",
-                lambda item: item.get(
-                    "finding_id"
-                ),
-            ),
-            (
-                "Rule",
-                lambda item: item.get(
-                    "rule_id"
-                ),
-            ),
-            (
-                "Rule name",
-                lambda item: item.get(
-                    "rule_name"
-                ),
-            ),
-            (
-                "Severity",
-                lambda item: item.get(
-                    "severity"
-                ),
-            ),
-            (
-                "Original category",
-                lambda item: item.get(
-                    "original_category"
-                ),
-            ),
-            (
-                "Original subcategory",
-                lambda item: item.get(
-                    "original_subcategory"
-                ),
-            ),
-            (
-                "Resource",
-                lambda item: item.get(
-                    "original_resource"
-                )
-                or item.get("resource"),
-            ),
-        ],
-    )
-
-    append_finding_section(
-        lines=lines,
-        title="Duplicate matches",
-        introduction=(
-            "These additional findings matched an issue "
-            "that had already been counted as a true positive."
-        ),
-        findings=duplicate_matches,
-        columns=[
-            (
-                "Finding",
-                lambda item: item.get(
-                    "finding_id"
-                ),
-            ),
-            (
-                "Rule",
-                lambda item: item.get(
-                    "rule_id"
-                ),
-            ),
-            (
-                "Rule name",
-                lambda item: item.get(
-                    "rule_name"
-                ),
-            ),
-            (
-                "Ground truth",
-                lambda item: item.get(
-                    "ground_truth_id"
-                ),
-            ),
-            (
-                "Reason",
-                lambda item: item.get(
-                    "classification_reason"
-                ),
-            ),
-        ],
-    )
-
-    append_finding_section(
-        lines=lines,
-        title="Ambiguous matches",
-        introduction=(
-            "These findings contained incomplete or "
-            "inconsistent mapping information."
-        ),
-        findings=ambiguous_matches,
-        columns=[
-            (
-                "Finding",
-                lambda item: item.get(
-                    "finding_id"
-                ),
-            ),
-            (
-                "Rule",
-                lambda item: item.get(
-                    "rule_id"
-                ),
-            ),
-            (
-                "Rule name",
-                lambda item: item.get(
-                    "rule_name"
-                ),
-            ),
-            (
-                "Ground truth",
-                lambda item: item.get(
-                    "ground_truth_id"
-                ),
-            ),
-            (
-                "Mapping status",
-                lambda item: item.get(
-                    "mapping_status"
-                ),
-            ),
-            (
-                "Reason",
-                lambda item: item.get(
-                    "classification_reason"
-                ),
-            ),
-        ],
-    )
-
-    lines.append(
-        "## Interpretation and methodological notes"
-    )
-    lines.append("")
-
-    precision_explanation = interpretation.get(
-        "precision"
-    )
-
-    recall_explanation = interpretation.get(
-        "recall"
-    )
-
-    f1_explanation = interpretation.get(
-        "f1_score"
-    )
-
-    if precision_explanation:
-        lines.append(
-            f"- **Precision:** "
-            f"{precision_explanation}"
-        )
-
-    if recall_explanation:
-        lines.append(
-            f"- **Recall:** "
-            f"{recall_explanation}"
-        )
-
-    if f1_explanation:
-        lines.append(
-            f"- **F1 score:** "
-            f"{f1_explanation}"
-        )
-
-    if matching_mode == "review":
-        lines.append(
-            "- **Review-mode policy:** Unmapped findings "
-            "are retained as unlabelled extras. They are "
-            "not counted as false positives until they "
-            "have been manually reviewed."
-        )
-
-    if matching_mode == "strict":
-        lines.append(
-            "- **Strict-mode policy:** Unmapped findings "
-            "are counted as false positives."
-        )
-
-    lines.append(
-        "- **Duplicate policy:** Only the first valid "
-        "finding mapped to a ground-truth issue is counted "
-        "as a true positive. Additional detections of the "
-        "same issue are stored as duplicate matches."
-    )
-
-    lines.append(
-        "- **Ambiguous findings:** Ambiguous matches are "
-        "reported separately and are excluded from the "
-        "precision, recall and F1 calculations."
-    )
-
-    unlabelled_count = counts.get(
-        "unlabelled_extra_findings_count",
-        0,
-    )
-
-    if (
-        matching_mode == "review"
-        and isinstance(unlabelled_count, int)
-        and unlabelled_count > 0
-    ):
-        lines.append(
-            f"- **Current limitation:** The scanner "
-            f"reported {unlabelled_count} unlabelled extra "
-            "finding(s). Therefore, the reported precision "
-            "only reflects the currently labelled portion "
-            "of the benchmark results."
-        )
-
-    lines.append("")
-
-    lines.append("## Input provenance")
-    lines.append("")
-
-    append_table(
-        lines,
-        [
-            "Input",
-            "Path",
-            "Generated at",
-        ],
-        [
-            [
-                "Matched findings",
-                str(
-                    matched_path.relative_to(
-                        PROJECT_ROOT
-                    )
-                ),
-                matched_document.get(
-                    "generated_at"
-                ),
-            ],
-            [
-                "Metrics",
-                str(
-                    metrics_path.relative_to(
-                        PROJECT_ROOT
-                    )
-                ),
-                metrics_document.get(
-                    "generated_at"
-                ),
-            ],
-        ],
-    )
-
-    lines.append("---")
-    lines.append("")
-    lines.append(
-        "Report generated by the generic scanner "
-        "benchmark reporting pipeline."
-    )
-    lines.append("")
-
+    lines.extend([
+        "Unmapped findings count as false positives; duplicate and ambiguous "
+        "matches are excluded from the scores.",
+        "",
+        "- Full findings: `" + str(matched_path.relative_to(PROJECT_ROOT)) + "`",
+        "- Full metrics: `" + str(metrics_path.relative_to(PROJECT_ROOT)) + "`",
+        "- Generated: `" + generated_at + "`",
+        "",
+    ])
     return "\n".join(lines)
 
 

@@ -4,8 +4,8 @@
   "tool": "checkov",
   "scanner_version": "2.5.20",
   "artifact_type": "helm_chart",
-  "generated_at": "2026-08-02T19:42:53.259526+00:00",
-  "source_file": "results\\raw\\checkov\\case-helm-002-host-pid.json",
+  "generated_at": "2026-09-17T06:12:36.519360+00:00",
+  "source_file": "results/raw/checkov/case-helm-002-host-pid.json",
   "summary": {
     "normalised_findings_count": 4,
     "mapped_findings_count": 1,

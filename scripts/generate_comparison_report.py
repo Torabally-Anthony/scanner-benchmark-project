@@ -286,6 +286,13 @@ def load_metric_row(
         metrics_path
     )
 
+    if data.get("matching_mode") != "strict":
+        raise ComparisonReportError(
+            f"Metrics file {metrics_path} must use strict "
+            "matching. Reprocess the case before generating "
+            "the comparison report."
+        )
+
     counts = data.get("counts")
     metrics = data.get("metrics")
 
@@ -796,354 +803,65 @@ def markdown_table(
 def render_markdown(
     report: dict[str, Any],
 ) -> str:
-    """Render the comparison report as Markdown."""
+    """Render a compact comparison; the JSON keeps all breakdowns."""
 
     lines = [
         "# Benchmark Comparison Report",
         "",
-        (
-            "Generated: "
-            f"`{report['generated_at_utc']}`"
-        ),
+        f"Generated: `{report['generated_at_utc']}`",
         "",
-        "## Methodology note",
-        "",
-        (
-            "Metrics are aggregated only across "
-            "scanner–artifact combinations that are "
-            "applicable."
-        ),
-        "",
-        (
-            "Kubescape is marked **Not applicable** "
-            "for Dockerfile cases and is not assigned "
-            "false negatives for them."
-        ),
-        "",
-        (
-            "In review mode, unlabelled extra findings "
-            "are reported as review burden and are not "
-            "automatically counted as false positives."
-        ),
+        "Metrics include applicable scanner and artifact combinations only. "
+        "Kubescape is not applicable to Dockerfile cases. "
+        "Unmapped findings count as false positives.",
         "",
         "## Corpus overview",
         "",
     ]
-
-    corpus_rows: list[list[Any]] = []
-
-    for artifact_type in (
-        "kubernetes_yaml",
-        "dockerfile",
-        "helm_chart",
-    ):
-        summary = report[
-            "corpus_summary"
-        ][artifact_type]
-
-        corpus_rows.append(
-            [
-                summary["label"],
-                summary["case_count"],
-                ", ".join(
-                    summary[
-                        "applicable_scanners"
-                    ]
-                ),
-            ]
-        )
-
-    lines.extend(
-        markdown_table(
-            [
-                "Artifact family",
-                "Cases",
-                "Applicable scanners",
-            ],
-            corpus_rows,
-        )
-    )
-
-    lines.extend(
+    corpus_rows = [
         [
-            "",
-            "## Per-case results",
-            "",
+            report["corpus_summary"][artifact_type]["label"],
+            report["corpus_summary"][artifact_type]["case_count"],
+            ", ".join(report["corpus_summary"][artifact_type]["applicable_scanners"]),
         ]
-    )
+        for artifact_type in ("kubernetes_yaml", "dockerfile", "helm_chart")
+    ]
+    lines.extend(markdown_table(
+        ["Artifact family", "Cases", "Applicable scanners"],
+        corpus_rows,
+    ))
 
-    per_case_rows = []
-
-    for row in report[
-        "case_results"
-    ]:
-        per_case_rows.append(
-            [
-                row["case_id"],
-                row["artifact_label"],
-                row["scanner"],
-                row[
-                    "true_positive_count"
-                ],
-                row[
-                    "false_positive_count"
-                ],
-                row[
-                    "false_negative_count"
-                ],
-                row[
-                    "unlabelled_extra_findings_count"
-                ],
-                format_metric(
-                    row["precision"]
-                ),
-                format_metric(
-                    row["recall"]
-                ),
-                format_metric(
-                    row["f1_score"]
-                ),
-            ]
-        )
-
-    lines.extend(
-        markdown_table(
-            [
-                "Case",
-                "Artifact",
-                "Scanner",
-                "TP",
-                "FP",
-                "FN",
-                "Extras",
-                "Precision",
-                "Recall",
-                "F1",
-            ],
-            per_case_rows,
-        )
-    )
-
-    lines.extend(
+    lines.extend(["", "## Per-case results", ""])
+    case_rows = [
         [
-            "",
-            "## Scanner coverage matrix",
-            "",
+            row["case_id"], row["scanner"],
+            row["true_positive_count"], row["false_positive_count"],
+            row["false_negative_count"], format_metric(row["f1_score"]),
         ]
-    )
+        for row in report["case_results"]
+    ]
+    lines.extend(markdown_table(
+        ["Case", "Scanner", "TP", "FP", "FN", "F1"],
+        case_rows,
+    ))
 
-    coverage_rows = []
-
-    for row in report[
-        "coverage_matrix"
-    ]:
-        coverage_rows.append(
-            [
-                row["case_id"],
-                row["artifact_label"],
-                row[
-                    "scanners"
-                ]["checkov"],
-                row[
-                    "scanners"
-                ]["trivy"],
-                row[
-                    "scanners"
-                ]["kubescape"],
-            ]
-        )
-
-    lines.extend(
-        markdown_table(
-            [
-                "Case",
-                "Artifact",
-                "Checkov",
-                "Trivy",
-                "Kubescape",
-            ],
-            coverage_rows,
-        )
-    )
-
-    lines.extend(
+    lines.extend(["", "## Overall scanner summary", ""])
+    overall_rows = [
         [
-            "",
-            "## Results by artifact family",
-            "",
-        ]
-    )
-
-    for artifact_type in (
-        "kubernetes_yaml",
-        "dockerfile",
-        "helm_chart",
-    ):
-        artifact_summary = report[
-            "artifact_summaries"
-        ][artifact_type]
-
-        lines.extend(
-            [
-                (
-                    "### "
-                    + artifact_summary[
-                        "label"
-                    ]
-                ),
-                "",
-            ]
-        )
-
-        artifact_rows = []
-
-        for (
             scanner,
-            summary,
-        ) in artifact_summary[
-            "scanners"
-        ].items():
-
-            artifact_rows.append(
-                [
-                    scanner,
-                    summary[
-                        "applicable_case_count"
-                    ],
-                    summary[
-                        "true_positive_count"
-                    ],
-                    summary[
-                        "false_positive_count"
-                    ],
-                    summary[
-                        "false_negative_count"
-                    ],
-                    summary[
-                        "unlabelled_extra_findings_count"
-                    ],
-                    format_metric(
-                        summary[
-                            "micro_precision"
-                        ]
-                    ),
-                    format_metric(
-                        summary[
-                            "micro_recall"
-                        ]
-                    ),
-                    format_metric(
-                        summary[
-                            "micro_f1_score"
-                        ]
-                    ),
-                    format_metric(
-                        summary[
-                            "macro_f1_score"
-                        ]
-                    ),
-                ]
-            )
-
-        lines.extend(
-            markdown_table(
-                [
-                    "Scanner",
-                    "Cases",
-                    "TP",
-                    "FP",
-                    "FN",
-                    "Extras",
-                    "Micro P",
-                    "Micro R",
-                    "Micro F1",
-                    "Macro F1",
-                ],
-                artifact_rows,
-            )
-        )
-
-        lines.append("")
-
-    lines.extend(
-        [
-            "## Overall scanner summary",
-            "",
+            report["scanner_summaries"][scanner]["applicable_case_count"],
+            report["scanner_summaries"][scanner]["true_positive_count"],
+            report["scanner_summaries"][scanner]["false_positive_count"],
+            report["scanner_summaries"][scanner]["false_negative_count"],
+            format_metric(report["scanner_summaries"][scanner]["micro_f1_score"]),
+            format_metric(report["scanner_summaries"][scanner]["macro_f1_score"]),
         ]
-    )
-
-    overall_rows = []
-
-    for scanner in SCANNERS:
-        summary = report[
-            "scanner_summaries"
-        ][scanner]
-
-        overall_rows.append(
-            [
-                scanner,
-                summary[
-                    "applicable_case_count"
-                ],
-                summary[
-                    "not_applicable_case_count"
-                ],
-                summary[
-                    "true_positive_count"
-                ],
-                summary[
-                    "false_positive_count"
-                ],
-                summary[
-                    "false_negative_count"
-                ],
-                summary[
-                    "unlabelled_extra_findings_count"
-                ],
-                format_metric(
-                    summary[
-                        "micro_precision"
-                    ]
-                ),
-                format_metric(
-                    summary[
-                        "micro_recall"
-                    ]
-                ),
-                format_metric(
-                    summary[
-                        "micro_f1_score"
-                    ]
-                ),
-                format_metric(
-                    summary[
-                        "macro_f1_score"
-                    ]
-                ),
-            ]
-        )
-
-    lines.extend(
-        markdown_table(
-            [
-                "Scanner",
-                "Applicable cases",
-                "N/A cases",
-                "TP",
-                "FP",
-                "FN",
-                "Extras",
-                "Micro P",
-                "Micro R",
-                "Micro F1",
-                "Macro F1",
-            ],
-            overall_rows,
-        )
-    )
-
-    lines.append("")
-
+        for scanner in SCANNERS
+    ]
+    lines.extend(markdown_table(
+        ["Scanner", "Cases", "TP", "FP", "FN", "Micro F1", "Macro F1"],
+        overall_rows,
+    ))
+    lines.extend(["", "Full breakdown: `results/comparison/benchmark-comparison.json`", ""])
     return "\n".join(lines)
 
 

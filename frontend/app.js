@@ -1190,10 +1190,6 @@ function standardMetricResult(
         ?? metrics.f1,
       ),
 
-    matchingMode:
-      result.matching_mode
-      ?? null,
-
     updatedAt:
       result.updated_at
       ?? null,
@@ -1431,11 +1427,6 @@ function selectMetric(item) {
     scanner: item.scanner,
     artifactType: item.artifactType,
 
-    matchingMode:
-      item.matchingMode
-      ?? state.latest?.matchingMode
-      ?? "review",
-
     status: "completed",
 
     updatedAt:
@@ -1456,16 +1447,6 @@ function setLatest(latest) {
     latestScanner:
       latest.scanner
         ? scannerName(latest.scanner)
-        : "—",
-
-    latestMode:
-      latest.matchingMode
-        ? latest.matchingMode.replace(
-            /^./,
-            (character) => (
-              character.toUpperCase()
-            ),
-          )
         : "—",
 
     latestUpdated:
@@ -1641,6 +1622,89 @@ function consoleLog(message) {
 }
 
 
+function setRunMessage(message) {
+  const box = $("runSummary");
+
+  if (box) {
+    box.textContent = message;
+  }
+}
+
+
+function runMetric(value) {
+  return value === null || value === undefined
+    ? "—"
+    : metric(value);
+}
+
+
+function renderRunSummary(caseId, results) {
+  const box = $("runSummary");
+
+  if (!box) {
+    return;
+  }
+
+  if (!results.length) {
+    setRunMessage(
+      "No scanner results were returned. Open the full log for details.",
+    );
+    return;
+  }
+
+  const completed = results.filter(
+    (result) => result.status === "completed",
+  ).length;
+
+  const items = results.map((result) => {
+    const counts = result.metrics?.counts;
+    const scores = result.metrics?.metrics;
+
+    let detail;
+
+    if (result.status === "completed" && counts && scores) {
+      detail = `
+        <div class="run-summary-metrics">
+          <span>TP ${integer(counts.true_positive_count)}</span>
+          <span>FP ${integer(counts.false_positive_count)}</span>
+          <span>FN ${integer(counts.false_negative_count)}</span>
+          <span>Precision ${runMetric(scores.precision)}</span>
+          <span>Recall ${runMetric(scores.recall)}</span>
+          <span>F1 ${runMetric(scores.f1_score)}</span>
+        </div>
+      `;
+    } else if (result.status === "completed") {
+      detail = "<p>Metrics are unavailable. Open the full log for details.</p>";
+    } else {
+      detail = `
+        <p class="run-summary-error">
+          ${escapeHtml(result.error || "Processing failed.")}
+          Open the full log for details.
+        </p>
+      `;
+    }
+
+    return `
+      <div class="run-summary-item">
+        <div class="run-summary-item-head">
+          <strong>${escapeHtml(scannerName(result.scanner))}</strong>
+          ${pill(statusLabel(result.status), result.status)}
+        </div>
+        ${detail}
+      </div>
+    `;
+  }).join("");
+
+  box.innerHTML = `
+    <div class="run-summary-head">
+      <strong>${escapeHtml(caseId)}</strong>
+      <span>${completed} of ${results.length} completed</span>
+    </div>
+    <div class="run-summary-items">${items}</div>
+  `;
+}
+
+
 function setProgress(value) {
   const bar = $("progressBar");
 
@@ -1657,11 +1721,6 @@ async function processBenchmark(event) {
 
   const caseId = (
     $("caseSelect")?.value
-  );
-
-  const matchingMode = (
-    $("modeSelect")?.value
-    ?? "review"
   );
 
   const selectedScanners = (
@@ -1703,8 +1762,18 @@ async function processBenchmark(event) {
 
   setProgress(10);
 
+  setRunMessage(
+    `Processing ${caseId} with ${selectedScanners.join(", ")}…`,
+  );
+
+  const logDetails = $("consoleDetails");
+
+  if (logDetails) {
+    logDetails.open = false;
+  }
+
   consoleLog(
-    `Starting ${matchingMode} processing for ${caseId}.`,
+    `Starting processing for ${caseId}.`,
   );
 
   consoleLog(
@@ -1720,7 +1789,6 @@ async function processBenchmark(event) {
         body: JSON.stringify({
           case_id: caseId,
           scanners: selectedScanners,
-          matching_mode: matchingMode,
         }),
       },
     );
@@ -1762,6 +1830,18 @@ async function processBenchmark(event) {
       }
     });
 
+    renderRunSummary(caseId, results);
+
+    if (
+      logDetails
+      && (
+        !results.length
+        || results.some((result) => result.status !== "completed")
+      )
+    ) {
+      logDetails.open = true;
+    }
+
     setProgress(100);
 
     if (
@@ -1787,8 +1867,6 @@ async function processBenchmark(event) {
         artifactType:
           response.artifact_type,
 
-        matchingMode,
-
         status:
           response.failed_count
             ? "partial"
@@ -1807,7 +1885,7 @@ async function processBenchmark(event) {
       );
     } else {
       toast(
-        "No scanner pipeline completed. Review the execution console.",
+        "No scanner pipeline completed. Open the full processing log.",
         "error",
       );
     }
@@ -1817,9 +1895,17 @@ async function processBenchmark(event) {
       loadReports(),
     ]);
   } catch (error) {
+    setRunMessage(
+      "Benchmark processing failed. Open the full log for details.",
+    );
+
     consoleLog(
       `Benchmark processing failed: ${errorMessage(error)}`,
     );
+
+    if (logDetails) {
+      logDetails.open = true;
+    }
 
     toast(
       `Benchmark processing failed: ${errorMessage(error)}`,
@@ -1900,6 +1986,312 @@ function setOutputStage(stage) {
       copy.description
     );
   }
+
+  showOutputViewer();
+
+  const viewer = $("outputViewer");
+
+  if (viewer) {
+    viewer.textContent = (
+      "Select an output and click “Load output”."
+    );
+  }
+}
+
+
+function showOutputViewer() {
+  const viewer = $("outputViewer");
+
+  ["normalisedSummary", "matchedSummary"]
+    .forEach((id) => {
+      const summary = $(id);
+
+      if (summary) {
+        summary.hidden = true;
+      }
+    });
+
+  ["normalisedDetails", "matchedDetails"]
+    .forEach((id) => {
+      const details = $(id);
+
+      if (details) {
+        details.hidden = true;
+        details.open = false;
+      }
+    });
+
+  if (viewer) {
+    viewer.hidden = false;
+  }
+}
+
+
+function normalisedFindingCard(finding) {
+  const mapped = (
+    finding.mapping_status === "mapped"
+  );
+
+  const mapping = mapped
+    ? `Mapped to ${finding.ground_truth_id ?? "ground truth"}`
+    : "Unmapped";
+
+  return `
+    <div class="normalised-finding">
+      <div class="run-summary-item-head">
+        <strong>${escapeHtml(finding.rule_id ?? "Unknown rule")}</strong>
+        ${pill(mapping, mapped ? "completed" : "warning")}
+      </div>
+      <p>${escapeHtml(finding.rule_name || finding.message || "No description")}</p>
+      <small>
+        ${escapeHtml(finding.status ?? "Unknown status")}
+        · ${escapeHtml(finding.severity ?? "Unknown severity")}
+      </small>
+    </div>
+  `;
+}
+
+
+function renderNormalisedOutput(response, header) {
+  const normalisedDocument = response.data;
+  const summary = $("normalisedSummary");
+  const details = $("normalisedDetails");
+  const fullJson = $("normalisedJson");
+  const viewer = $("outputViewer");
+
+  if (
+    !normalisedDocument
+    || !Array.isArray(normalisedDocument.findings)
+    || !normalisedDocument.findings.every(
+      (finding) => finding && typeof finding === "object",
+    )
+    || !summary
+    || !details
+    || !fullJson
+    || !viewer
+  ) {
+    return false;
+  }
+
+  const findings = normalisedDocument.findings;
+  const mappedCount = findings.filter(
+    (finding) => finding.mapping_status === "mapped",
+  ).length;
+  const preview = findings.slice(0, 5);
+  const remaining = findings.slice(5);
+
+  const remainingFindings = remaining.length
+    ? `
+      <details class="normalised-more">
+        <summary>Show remaining ${remaining.length} findings</summary>
+        <div class="normalised-findings">
+          ${remaining.map(normalisedFindingCard).join("")}
+        </div>
+      </details>
+    `
+    : "";
+
+  summary.innerHTML = `
+    <div class="run-summary-head">
+      <strong>${escapeHtml(response.case_id)}</strong>
+      <span>${escapeHtml(scannerName(response.scanner))}</span>
+    </div>
+    <div class="normalised-stats">
+      <span><strong>${findings.length}</strong> findings</span>
+      <span><strong>${mappedCount}</strong> mapped</span>
+      <span><strong>${findings.length - mappedCount}</strong> unmapped</span>
+    </div>
+    <div class="normalised-findings">
+      ${preview.length
+        ? preview.map(normalisedFindingCard).join("")
+        : "<p>No findings were reported.</p>"}
+    </div>
+    ${remainingFindings}
+    <small class="normalised-meta">
+      Updated ${escapeHtml(dateText(response.updated_at))}
+    </small>
+  `;
+
+  fullJson.textContent = (
+    header
+    + JSON.stringify(normalisedDocument, null, 2)
+  );
+
+  summary.hidden = false;
+  details.hidden = false;
+  details.open = false;
+  viewer.hidden = true;
+
+  return true;
+}
+
+
+function matchedFindingCard(entry) {
+  const finding = entry.finding;
+  const identifier = (
+    finding.rule_id
+    || finding.ground_truth_id
+    || finding.finding_id
+    || "Unknown finding"
+  );
+
+  const description = (
+    finding.rule_name
+    || finding.subcategory
+    || finding.classification_reason
+    || finding.message
+    || "No description"
+  );
+
+  const context = [
+    finding.ground_truth_id,
+    finding.severity,
+  ].filter(Boolean).join(" · ");
+
+  return `
+    <div class="matched-finding">
+      <div class="run-summary-item-head">
+        <strong>${escapeHtml(identifier)}</strong>
+        ${pill(entry.label, entry.status)}
+      </div>
+      <p>${escapeHtml(description)}</p>
+      ${context ? `<small>${escapeHtml(context)}</small>` : ""}
+    </div>
+  `;
+}
+
+
+function renderMatchedOutput(response, header) {
+  const matchedDocument = response.data;
+  const summary = $("matchedSummary");
+  const details = $("matchedDetails");
+  const fullJson = $("matchedJson");
+  const viewer = $("outputViewer");
+
+  if (
+    !matchedDocument
+    || !summary
+    || !details
+    || !fullJson
+    || !viewer
+  ) {
+    return false;
+  }
+
+  const groups = [
+    {
+      key: "true_positives",
+      label: "True positive",
+      status: "completed",
+      short: "TP",
+    },
+    {
+      key: "false_positives",
+      label: "False positive",
+      status: "failed",
+      short: "FP",
+    },
+    {
+      key: "false_negatives",
+      label: "False negative",
+      status: "failed",
+      short: "FN",
+    },
+    {
+      key: "duplicate_matches",
+      label: "Duplicate",
+      status: "neutral",
+      short: "Duplicates",
+    },
+    {
+      key: "ambiguous_matches",
+      label: "Ambiguous",
+      status: "warning",
+      short: "Ambiguous",
+    },
+    {
+      key: "unlabelled_extras",
+      label: "Unlabelled extra",
+      status: "warning",
+      short: "Extras",
+    },
+  ];
+
+  if (
+    !groups.every(
+      (group) => Array.isArray(matchedDocument[group.key])
+        && matchedDocument[group.key].every(
+          (finding) => finding && typeof finding === "object",
+        ),
+    )
+  ) {
+    return false;
+  }
+
+  const entries = groups.flatMap(
+    (group) => matchedDocument[group.key].map(
+      (finding) => ({
+        finding,
+        label: group.label,
+        status: group.status,
+      }),
+    ),
+  );
+
+  const preview = entries.slice(0, 5);
+  const remaining = entries.slice(5);
+  const countItems = groups
+    .filter((group) =>
+      ["TP", "FP", "FN"].includes(group.short)
+      || matchedDocument[group.key].length > 0,
+    )
+    .map((group) => `
+      <span>
+        <strong>${matchedDocument[group.key].length}</strong>
+        ${group.short}
+      </span>
+    `)
+    .join("");
+
+  const remainingFindings = remaining.length
+    ? `
+      <details class="matched-more">
+        <summary>Show remaining ${remaining.length} findings</summary>
+        <div class="matched-findings">
+          ${remaining.map(matchedFindingCard).join("")}
+        </div>
+      </details>
+    `
+    : "";
+
+  summary.innerHTML = `
+    <div class="run-summary-head">
+      <strong>${escapeHtml(response.case_id)}</strong>
+      <span>${escapeHtml(scannerName(response.scanner))}</span>
+    </div>
+    <div class="matched-stats">${countItems}</div>
+    <div class="matched-findings">
+      ${preview.length
+        ? preview.map(matchedFindingCard).join("")
+        : "<p>No classified findings were reported.</p>"}
+    </div>
+    ${remainingFindings}
+    <small class="matched-meta">
+      Updated ${escapeHtml(dateText(response.updated_at))}
+    </small>
+  `;
+
+  fullJson.textContent = (
+    header
+    + JSON.stringify(matchedDocument, null, 2)
+  );
+
+  summary.hidden = false;
+  details.hidden = false;
+  details.open = false;
+  viewer.hidden = true;
+
+  return true;
 }
 
 
@@ -1922,6 +2314,8 @@ async function loadOutput() {
   if (!viewer) {
     return;
   }
+
+  showOutputViewer();
 
   if (
     !scanner
@@ -1976,6 +2370,20 @@ async function loadOutput() {
       `Updated: ${dateText(data.updated_at)}`,
       "",
     ].join("\n");
+
+    if (
+      stage === "normalised"
+      && renderNormalisedOutput(data, header)
+    ) {
+      return;
+    }
+
+    if (
+      stage === "matched"
+      && renderMatchedOutput(data, header)
+    ) {
+      return;
+    }
 
     viewer.textContent = (
       header
@@ -2395,6 +2803,283 @@ async function loadComparison(
 }
 
 
+function markdownSection(markdown, heading) {
+  const lines = markdown.split(/\r?\n/);
+  const start = lines.findIndex(
+    (line) => line.trim() === `## ${heading}`,
+  );
+
+  if (start < 0) {
+    return "";
+  }
+
+  const end = lines.findIndex(
+    (line, index) => index > start && line.startsWith("## "),
+  );
+
+  return lines.slice(start + 1, end < 0 ? undefined : end).join("\n");
+}
+
+
+function markdownTableCells(line) {
+  const content = line.trim().replace(/^\|/, "").replace(/\|$/, "");
+  const cells = [];
+  let cell = "";
+
+  for (let index = 0; index < content.length; index += 1) {
+    const character = content[index];
+
+    if (character === "\\" && content[index + 1] === "|") {
+      cell += "|";
+      index += 1;
+    } else if (character === "|") {
+      cells.push(cell.trim());
+      cell = "";
+    } else {
+      cell += character;
+    }
+  }
+
+  cells.push(cell.trim());
+  return cells;
+}
+
+
+function markdownTableRows(section) {
+  return section.split(/\r?\n/)
+    .filter((line) => line.trim().startsWith("|"))
+    .map(markdownTableCells)
+    .filter((cells) => !cells.every(
+      (cell) => /^[-: ]+$/.test(cell),
+    ));
+}
+
+
+function markdownTableValue(section, label, column = 1) {
+  const row = markdownTableRows(section).find(
+    (cells) => cells[0]?.toLowerCase() === label.toLowerCase(),
+  );
+
+  return row?.[column] ?? "—";
+}
+
+
+function reportInlineHtml(value) {
+  return escapeHtml(value)
+    .replace(/`([^`]+)`/g, "<code>$1</code>")
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+}
+
+
+// Render the Markdown subset produced by the benchmark report generators.
+function renderReportMarkdown(markdown) {
+  const lines = markdown.replace(/\r\n?/g, "\n").split("\n");
+  const html = [];
+  let index = 0;
+
+  while (index < lines.length) {
+    const line = lines[index].trim();
+
+    if (!line) {
+      index += 1;
+      continue;
+    }
+
+    const heading = line.match(/^(#{1,3})\s+(.+)$/);
+    if (heading) {
+      const level = heading[1].length;
+      html.push(`<h${level}>${reportInlineHtml(heading[2])}</h${level}>`);
+      index += 1;
+      continue;
+    }
+
+    if (line.startsWith("|")) {
+      const tableLines = [];
+      while (index < lines.length && lines[index].trim().startsWith("|")) {
+        tableLines.push(lines[index]);
+        index += 1;
+      }
+
+      const [headers, ...rows] = markdownTableRows(tableLines.join("\n"));
+      if (headers) {
+        html.push('<div class="report-table-wrap"><table><thead><tr>');
+        html.push(headers.map((cell) => `<th>${reportInlineHtml(cell)}</th>`).join(""));
+        html.push("</tr></thead><tbody>");
+        rows.forEach((row) => {
+          html.push("<tr>");
+          html.push(headers.map((_, cellIndex) => (
+            `<td>${reportInlineHtml(row[cellIndex] ?? "")}</td>`
+          )).join(""));
+          html.push("</tr>");
+        });
+        html.push("</tbody></table></div>");
+      }
+      continue;
+    }
+
+    if (line.startsWith("```")) {
+      const code = [];
+      index += 1;
+      while (index < lines.length && !lines[index].trim().startsWith("```")) {
+        code.push(lines[index]);
+        index += 1;
+      }
+      html.push(`<pre><code>${escapeHtml(code.join("\n"))}</code></pre>`);
+      if (index < lines.length) index += 1;
+      continue;
+    }
+
+    if (/^-{3,}$/.test(line)) {
+      html.push("<hr>");
+      index += 1;
+      continue;
+    }
+
+    if (line.startsWith("- ")) {
+      const items = [];
+      while (index < lines.length && lines[index].trim().startsWith("- ")) {
+        items.push(`<li>${reportInlineHtml(lines[index].trim().slice(2))}</li>`);
+        index += 1;
+      }
+      html.push(`<ul>${items.join("")}</ul>`);
+      continue;
+    }
+
+    const paragraph = [];
+    while (index < lines.length) {
+      const text = lines[index].trim();
+      if (!text || /^(?:#{1,3}\s|\||```|- )/.test(text)) break;
+      paragraph.push(text);
+      index += 1;
+    }
+    html.push(`<p>${reportInlineHtml(paragraph.join(" "))}</p>`);
+  }
+
+  return html.join("\n");
+}
+
+
+function markdownReportOverview(markdown, fallbackTitle) {
+  const title = markdown.match(/^# (.+)$/m)?.[1] ?? fallbackTitle;
+  const safeTitle = escapeHtml(title);
+
+  if (title === "Benchmark Comparison Report") {
+    const corpusRows = markdownTableRows(
+      markdownSection(markdown, "Corpus overview"),
+    ).slice(1);
+    const caseRows = markdownTableRows(
+      markdownSection(markdown, "Per-case results"),
+    ).slice(1);
+    const scannerRows = markdownTableRows(
+      markdownSection(markdown, "Overall scanner summary"),
+    );
+    const f1Column = scannerRows[0]?.indexOf("Micro F1") ?? -1;
+    const caseCount = corpusRows.reduce(
+      (total, row) => total + (Number(row[1]) || 0),
+      0,
+    );
+
+    const scannerSummary = scannerRows.slice(1).map((row) => `
+      <div class="run-summary-item">
+        <strong>${escapeHtml(scannerName(row[0]))}</strong>
+        <span>Micro F1 ${escapeHtml(f1Column >= 0 ? row[f1Column] : "—")}</span>
+      </div>
+    `).join("");
+
+    return `
+      <div class="run-summary-head"><strong>${safeTitle}</strong></div>
+      <div class="normalised-stats">
+        <span><strong>${caseCount}</strong> cases</span>
+        <span><strong>${caseRows.length}</strong> scanner-case results</span>
+      </div>
+      <div class="report-overview-scanners">${scannerSummary}</div>
+    `;
+  }
+
+  const caseId = markdown.match(/^\*\*Case:\*\*\s*`([^`]+)`/m)?.[1];
+  const counts = markdownSection(markdown, "Results summary");
+  const metrics = markdownSection(markdown, "Performance metrics");
+
+  if (caseId && counts && metrics) {
+    const countItems = [
+      ["True positives", "TP"],
+      ["False positives", "FP"],
+      ["False negatives", "FN"],
+    ].map(([label, short]) => `
+      <span>
+        <strong>${escapeHtml(markdownTableValue(counts, label))}</strong>
+        ${short}
+      </span>
+    `).join("");
+
+    const scoreItems = [
+      ["Precision", "Precision"],
+      ["Recall", "Recall"],
+      ["F1 score", "F1"],
+    ].map(([label, short]) => `
+      <span>
+        ${short} ${escapeHtml(markdownTableValue(metrics, label, 2))}
+      </span>
+    `).join("");
+
+    return `
+      <div class="run-summary-head">
+        <strong>${escapeHtml(caseId)}</strong>
+        <span>${safeTitle.replace("Benchmark Report: ", "")}</span>
+      </div>
+      <div class="normalised-stats">${countItems}</div>
+      <div class="run-summary-metrics">${scoreItems}</div>
+    `;
+  }
+
+  return `
+    <div class="run-summary-head"><strong>${safeTitle}</strong></div>
+    <p>Open the full Markdown report for its contents.</p>
+  `;
+}
+
+
+function resetMarkdownPreview(summaryId, detailsId, viewerId) {
+  const summary = $(summaryId);
+  const details = $(detailsId);
+  const viewer = $(viewerId);
+
+  if (summary) {
+    summary.hidden = true;
+  }
+
+  if (details) {
+    details.hidden = true;
+    details.open = false;
+  }
+
+  if (viewer) {
+    viewer.hidden = false;
+  }
+}
+
+
+function showMarkdownPreview(markdown, title, ids) {
+  const summary = $(ids.summary);
+  const details = $(ids.details);
+  const full = $(ids.full);
+  const viewer = $(ids.viewer);
+
+  if (!summary || !details || !full || !viewer) {
+    return false;
+  }
+
+  summary.innerHTML = markdownReportOverview(markdown, title);
+  full.innerHTML = renderReportMarkdown(markdown);
+  summary.hidden = false;
+  details.hidden = false;
+  details.open = false;
+  viewer.hidden = true;
+
+  return true;
+}
+
+
 async function loadComparisonMarkdown() {
   const viewer = $(
     "comparisonMarkdown",
@@ -2403,6 +3088,12 @@ async function loadComparisonMarkdown() {
   if (!viewer) {
     return;
   }
+
+  resetMarkdownPreview(
+    "comparisonMarkdownSummary",
+    "comparisonMarkdownDetails",
+    "comparisonMarkdown",
+  );
 
   viewer.textContent = (
     "Loading comparison report…"
@@ -2423,9 +3114,20 @@ async function loadComparisonMarkdown() {
       );
     }
 
-    viewer.textContent = (
-      await response.text()
-    );
+    const markdown = await response.text();
+
+    if (!showMarkdownPreview(
+      markdown,
+      "Benchmark Comparison Report",
+      {
+        summary: "comparisonMarkdownSummary",
+        details: "comparisonMarkdownDetails",
+        full: "comparisonMarkdownFull",
+        viewer: "comparisonMarkdown",
+      },
+    )) {
+      viewer.textContent = markdown;
+    }
   } catch (error) {
     viewer.textContent = (
       "Could not load comparison Markdown.\n\n"
@@ -2605,6 +3307,12 @@ async function openReport(
     return;
   }
 
+  resetMarkdownPreview(
+    "reportSummary",
+    "reportDetails",
+    "reportViewer",
+  );
+
   viewer.textContent = (
     "Loading report…"
   );
@@ -2626,9 +3334,20 @@ async function openReport(
       );
     }
 
-    viewer.textContent = (
-      await response.text()
-    );
+    const markdown = await response.text();
+
+    if (!showMarkdownPreview(
+      markdown,
+      reportName ?? "Report preview",
+      {
+        summary: "reportSummary",
+        details: "reportDetails",
+        full: "reportFull",
+        viewer: "reportViewer",
+      },
+    )) {
+      viewer.textContent = markdown;
+    }
   } catch (error) {
     viewer.textContent = (
       "Could not load report.\n\n"
@@ -2927,6 +3646,14 @@ function bindControls() {
         consoleElement.textContent = (
           "Ready to run a benchmark."
         );
+      }
+
+      setRunMessage("Ready to run a benchmark.");
+
+      const logDetails = $("consoleDetails");
+
+      if (logDetails) {
+        logDetails.open = false;
       }
     },
   );

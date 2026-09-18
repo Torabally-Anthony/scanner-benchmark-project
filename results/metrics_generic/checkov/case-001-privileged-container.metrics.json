@@ -5,8 +5,8 @@
   "scanner_version": "2.5.20",
   "artifact_type": "kubernetes_yaml",
   "matching_mode": "strict",
-  "generated_at": "2026-08-02T19:37:34.536393+00:00",
-  "source_file": "results\\matched_generic\\checkov\\case-001-privileged-container.matched.json",
+  "generated_at": "2026-09-17T06:13:14.576966+00:00",
+  "source_file": "results/matched_generic/checkov/case-001-privileged-container.matched.json",
   "evaluation_status": "complete",
   "counts": {
     "total_normalised_findings": 20,
@@ -44,7 +44,6 @@
     "f1_score": "F1 is the harmonic mean of precision and recall.",
     "precision_denominator": "TP + FP = 20",
     "recall_denominator": "TP + FN = 1",
-    "review_mode_note": "In review mode, unmapped findings are stored as unlabelled extras and are not counted as false positives.",
     "strict_mode_note": "In strict mode, unmapped findings are classified as false positives.",
     "duplicate_note": "Duplicate matches are reported separately and are not counted as additional true positives or false positives.",
     "ambiguous_note": "Ambiguous matches are reported separately and are not included in precision, recall or F1 calculations."

@@ -24,7 +24,6 @@ SUPPORTED_SCANNERS = {
 }
 
 SUPPORTED_MATCHING_MODES = {
-    "review",
     "strict",
 }
 
@@ -249,7 +248,7 @@ def resolve_matching_mode(
 ) -> str:
     """Resolve the matching mode from arguments or configuration."""
 
-    # A command-line mode overrides the configured mode and its review fallback.
+    # A command-line mode overrides the configured default.
     if arguments.matching_mode:
         matching_mode = arguments.matching_mode
 
@@ -264,7 +263,7 @@ def resolve_matching_mode(
 
         matching_mode = defaults.get(
             "matching_mode",
-            "review",
+            "strict",
         )
 
     matching_mode = str(
@@ -273,7 +272,7 @@ def resolve_matching_mode(
 
     if matching_mode not in SUPPORTED_MATCHING_MODES:
         raise DockerfilePipelineError(
-            "Matching mode must be 'review' or 'strict'."
+            "Matching mode must be 'strict'."
         )
 
     return matching_mode

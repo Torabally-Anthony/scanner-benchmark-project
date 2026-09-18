@@ -5,14 +5,13 @@
   "scanner_version": "Your current version is: v4.0.10\nBuild commit: f956507357091c3806777fe13ddf5e65efe36e44\nBuild date: 2026-06-30T05:17:15Z",
   "artifact_type": "helm_chart",
   "matching_mode": "strict",
-  "generated_at": "2026-08-02T19:42:57.448354+00:00",
-  "source_file": "results\\normalised_helm\\kubescape\\case-helm-002-host-pid.normalised.json",
+  "generated_at": "2026-09-17T06:12:36.948055+00:00",
+  "source_file": "results/normalised_helm/kubescape/case-helm-002-host-pid.normalised.json",
   "ground_truth_source": "corpus/helm/case-helm-002-host-pid/ground_truth.yaml",
   "classification_policy": {
     "true_positive": "The first valid scanner finding mapped to a ground-truth issue.",
     "false_negative": "A ground-truth issue with no valid scanner detection.",
-    "unlabelled_extra": "An unmapped finding retained for review.",
-    "false_positive": "An unmapped finding classified as incorrect in strict mode.",
+    "false_positive": "An unmapped finding counted as incorrect.",
     "duplicate_match": "An additional finding mapped to a ground-truth issue already detected.",
     "ambiguous_match": "A finding with inconsistent or incomplete mapping information."
   },
@@ -99,7 +98,7 @@
       "score": 100,
       "compliance_score": 0,
       "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification_reason": "The finding has no ground-truth mapping, so it is counted as a false positive."
     },
     {
       "finding_id": "kubescape-case-helm-002-host-pid-0003",
@@ -133,7 +132,7 @@
       "score": 100,
       "compliance_score": 0,
       "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification_reason": "The finding has no ground-truth mapping, so it is counted as a false positive."
     },
     {
       "finding_id": "kubescape-case-helm-002-host-pid-0004",
@@ -167,7 +166,7 @@
       "score": 100,
       "compliance_score": 0,
       "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification_reason": "The finding has no ground-truth mapping, so it is counted as a false positive."
     },
     {
       "finding_id": "kubescape-case-helm-002-host-pid-0005",
@@ -201,7 +200,7 @@
       "score": 100,
       "compliance_score": 0,
       "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification_reason": "The finding has no ground-truth mapping, so it is counted as a false positive."
     },
     {
       "finding_id": "kubescape-case-helm-002-host-pid-0006",
@@ -235,7 +234,7 @@
       "score": 100,
       "compliance_score": 0,
       "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification_reason": "The finding has no ground-truth mapping, so it is counted as a false positive."
     },
     {
       "finding_id": "kubescape-case-helm-002-host-pid-0007",
@@ -269,7 +268,7 @@
       "score": 100,
       "compliance_score": 0,
       "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification_reason": "The finding has no ground-truth mapping, so it is counted as a false positive."
     }
   ],
   "false_negatives": [],

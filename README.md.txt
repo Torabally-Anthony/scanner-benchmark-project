@@ -194,21 +194,11 @@ python scripts/run_helm_benchmark.py `
 
 Add `--continue-on-error` to continue processing the remaining scanners when one scanner fails.
 
-## Matching modes
+## Matching policy
 
-The default matching mode is `review` and is configured in `config/benchmark_config.yaml`.
+The benchmark uses strict matching: findings without a ground-truth mapping count as false positives. The policy is configured in `config/benchmark_config.yaml`.
 
-- `review`: unmapped scanner findings are recorded as unlabelled extras and are not automatically counted as false positives.
-- `strict`: unmapped findings are counted as false positives.
-
-Choose a mode on the command line:
-
-```powershell
-python scripts/run_benchmark.py `
-  --case case-001-privileged-container `
-  --scanners trivy `
-  --matching-mode strict
-```
+Reprocess any results created in review mode before generating a new comparison report.
 
 ## Pipeline stages
 
@@ -277,9 +267,8 @@ The dashboard's Run/Process action does **not** execute scanner CLI tools. If a 
 ## Result classifications
 
 - **True positive (TP):** the scanner finding matches a labelled ground-truth issue.
-- **False positive (FP):** a reported finding counted as incorrect under the selected matching mode.
+- **False positive (FP):** a reported finding without a ground-truth mapping.
 - **False negative (FN):** a labelled ground-truth issue that the scanner did not detect.
-- **Unlabelled extra:** a scanner finding without a configured ground-truth mapping; retained for review in review mode.
 - **Duplicate match:** more than one finding matches the same ground-truth issue.
 - **Ambiguous match:** a finding cannot be assigned confidently to exactly one ground-truth item.
 
@@ -303,6 +292,10 @@ The binaries are not stored in Git. Download them locally or install them throug
 ### Port already in use
 
 If port 5500 is occupied, run the application on port 8000 as shown above. You may choose another free port if necessary.
+
+### Dashboard still shows review mode
+
+Reload the page with `Cmd+Shift+R` on macOS or `Ctrl+Shift+R` on Windows/Linux. An older open tab can keep running its previous JavaScript until it is reloaded.
 
 ### Comparison generation fails
 

@@ -17,7 +17,7 @@
 
   <link
     rel="stylesheet"
-    href="/styles.css"
+    href="/styles.css?v=formatted-reports"
   >
 </head>
 
@@ -107,19 +107,19 @@
         <button
           class="nav"
           type="button"
-          data-view="comparison"
+          data-view="reports"
         >
-          <span aria-hidden="true">⇄</span>
-          Comparison Report
+          <span aria-hidden="true">▤</span>
+          Reports
         </button>
 
         <button
           class="nav"
           type="button"
-          data-view="reports"
+          data-view="comparison"
         >
-          <span aria-hidden="true">▤</span>
-          Reports
+          <span aria-hidden="true">⇄</span>
+          Comparison Report
         </button>
 
         <button
@@ -365,11 +365,6 @@
               <div>
                 <dt>Scanner</dt>
                 <dd id="latestScanner">—</dd>
-              </div>
-
-              <div>
-                <dt>Matching mode</dt>
-                <dd id="latestMode">Review</dd>
               </div>
 
               <div>
@@ -644,8 +639,7 @@
                 <h3>Processing configuration</h3>
 
                 <p>
-                  Select a configured case, applicable scanners, and
-                  matching mode.
+                  Select a configured case and applicable scanners.
                 </p>
               </div>
 
@@ -731,30 +725,6 @@
               </fieldset>
 
 
-              <label class="field">
-
-                <span>Matching mode</span>
-
-                <select id="modeSelect">
-
-                  <option value="review">
-                    Review mode
-                  </option>
-
-                  <option value="strict">
-                    Strict mode
-                  </option>
-
-                </select>
-
-                <small>
-                  Review mode records unmapped scanner findings as
-                  unlabelled extras rather than automatic false positives.
-                </small>
-
-              </label>
-
-
               <div class="notice">
 
                 <strong>Processing scope</strong>
@@ -762,7 +732,8 @@
                 <p>
                   This action processes existing raw JSON outputs. It runs
                   normalisation, ground-truth matching, metric calculation,
-                  and report generation.
+                  and report generation. Unmapped findings count as false
+                  positives.
                 </p>
 
               </div>
@@ -793,17 +764,17 @@
           </article>
 
 
-          <!-- Console -->
+        <!-- Processing results and diagnostic log -->
 
           <article class="panel">
 
             <div class="panel-head">
 
               <div>
-                <h3>Processing console</h3>
+                <h3>Processing results</h3>
 
                 <p>
-                  Messages returned by the artifact-specific pipeline
+                  Scanner results with the full log available below
                 </p>
               </div>
 
@@ -824,7 +795,17 @@
               <span id="progressBar"></span>
             </div>
 
-            <pre id="console">Ready to run a benchmark.</pre>
+            <div
+              id="runSummary"
+              class="run-summary"
+              role="status"
+              aria-live="polite"
+            >Ready to run a benchmark.</div>
+
+            <details id="consoleDetails" class="console-details">
+              <summary>Full processing log</summary>
+              <pre id="console">Ready to run a benchmark.</pre>
+            </details>
 
           </article>
 
@@ -930,6 +911,36 @@
           </div>
 
 
+          <div
+            id="normalisedSummary"
+            class="run-summary normalised-summary"
+            hidden
+          ></div>
+
+          <details
+            id="normalisedDetails"
+            class="console-details"
+            hidden
+          >
+            <summary>Full normalised JSON</summary>
+            <pre id="normalisedJson" class="viewer"></pre>
+          </details>
+
+          <div
+            id="matchedSummary"
+            class="run-summary matched-summary"
+            hidden
+          ></div>
+
+          <details
+            id="matchedDetails"
+            class="console-details"
+            hidden
+          >
+            <summary>Full matching JSON</summary>
+            <pre id="matchedJson" class="viewer"></pre>
+          </details>
+
           <pre
             id="outputViewer"
             class="viewer"
@@ -955,7 +966,7 @@
             <h2>Per-case metrics</h2>
 
             <p>
-              Compare scanner precision, recall, F1, and review burden
+              Compare scanner precision, recall, and F1
               for an individual benchmark case.
             </p>
           </div>
@@ -1418,6 +1429,21 @@
 
           </div>
 
+          <div
+            id="comparisonMarkdownSummary"
+            class="run-summary report-summary"
+            hidden
+          ></div>
+
+          <details
+            id="comparisonMarkdownDetails"
+            class="console-details"
+            hidden
+          >
+            <summary>Full comparison report</summary>
+            <div id="comparisonMarkdownFull" class="report-document"></div>
+          </details>
+
           <pre
             id="comparisonMarkdown"
             class="report-viewer"
@@ -1497,11 +1523,26 @@
                 </h3>
 
                 <p>
-                  Markdown content is displayed below
+                  A summary appears below, with the formatted report available to expand
                 </p>
               </div>
 
             </div>
+
+            <div
+              id="reportSummary"
+              class="run-summary report-summary"
+              hidden
+            ></div>
+
+            <details
+              id="reportDetails"
+              class="console-details"
+              hidden
+            >
+              <summary>Full report</summary>
+              <div id="reportFull" class="report-document"></div>
+            </details>
 
             <pre
               id="reportViewer"
@@ -1905,7 +1946,7 @@
 
 
   <script
-    src="/app.js"
+    src="/app.js?v=formatted-reports"
     defer
   ></script>
 

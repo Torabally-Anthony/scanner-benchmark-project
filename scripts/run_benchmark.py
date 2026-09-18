@@ -26,7 +26,6 @@ SUPPORTED_SCANNERS = {
 
 # modes
 SUPPORTED_MATCHING_MODES = {
-    "review",
     "strict",
 }
 
@@ -232,7 +231,7 @@ def resolve_matching_mode(
 ) -> str:
     """Resolve matching mode from CLI or configuration."""
 
-    # A command-line mode overrides the configured mode and its review fallback.
+    # A command-line mode overrides the configured default.
     if arguments.matching_mode:
         mode = arguments.matching_mode
     else:
@@ -246,15 +245,14 @@ def resolve_matching_mode(
 
         mode = defaults.get(
             "matching_mode",
-            "review",
+            "strict",
         )
 
     mode = str(mode).strip().lower()
 
     if mode not in SUPPORTED_MATCHING_MODES:
         raise PipelineError(
-            "Matching mode must be 'review' "
-            "or 'strict'."
+            "Matching mode must be 'strict'."
         )
 
     return mode

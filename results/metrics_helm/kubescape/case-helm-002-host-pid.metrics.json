@@ -5,8 +5,8 @@
   "scanner_version": "Your current version is: v4.0.10\nBuild commit: f956507357091c3806777fe13ddf5e65efe36e44\nBuild date: 2026-06-30T05:17:15Z",
   "artifact_type": "helm_chart",
   "matching_mode": "strict",
-  "generated_at": "2026-08-02T19:42:57.865473+00:00",
-  "source_file": "results\\matched_helm\\kubescape\\case-helm-002-host-pid.matched.json",
+  "generated_at": "2026-09-17T06:12:36.985447+00:00",
+  "source_file": "results/matched_helm/kubescape/case-helm-002-host-pid.matched.json",
   "evaluation_status": "complete",
   "counts": {
     "total_normalised_findings": 7,
@@ -44,7 +44,6 @@
     "f1_score": "F1 is the harmonic mean of precision and recall.",
     "precision_denominator": "TP + FP = 7",
     "recall_denominator": "TP + FN = 1",
-    "review_mode_note": "In review mode, unmapped findings are stored as unlabelled extras and are not counted as false positives.",
     "strict_mode_note": "In strict mode, unmapped findings are classified as false positives.",
     "duplicate_note": "Duplicate matches are reported separately and are not counted as additional true positives or false positives.",
     "ambiguous_note": "Ambiguous matches are reported separately and are not included in precision, recall or F1 calculations."

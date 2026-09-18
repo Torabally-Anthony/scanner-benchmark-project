@@ -2,22 +2,9 @@
 
 **Case:** `case-002-runs-as-root`
 
-## Benchmark information
+Artifact: `kubernetes_yaml` · Mode: `strict` · Status: `complete`
 
-| Property | Value |
-| --- | --- |
-| Case ID | case-002-runs-as-root |
-| Scanner | Checkov |
-| Artifact type | kubernetes_yaml |
-| Matching mode | strict |
-| Evaluation status | complete |
-| Report generated | 2026-08-05T14:10:59.811622+00:00 |
-
-### Scanner version
-
-```text
-2.5.20
-```
+Scanner version: `2.5.20`
 
 ## Results summary
 
@@ -42,71 +29,27 @@
 
 ## Ground-truth evaluation
 
-This table shows whether each known benchmark issue was detected by the scanner.
+| Ground truth | Issue | Resource | Result | Scanner rule |
+| --- | --- | --- | --- | --- |
+| GT-002 | RunsAsRoot | Deployment.scanner-benchmark.runs-as-root-demo-app | Detected | CKV_K8S_23 |
 
-| Ground truth | Category | Subcategory | Severity | Resource | Container | Field path | Result | Scanner rule |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| GT-002 | PodSecurity | RunsAsRoot | High | Deployment.scanner-benchmark.runs-as-root-demo-app | demo-container | spec.template.spec.containers[0].securityContext.runAsNonRoot | Detected | CKV_K8S_23 |
+## True positives (1)
 
-## True positives
+| Finding | Rule | Ground truth | Resource |
+| --- | --- | --- | --- |
+| checkov-case-002-runs-as-root-0003 | CKV_K8S_23 | GT-002 | Deployment.scanner-benchmark.runs-as-root-demo-app |
 
-These findings correctly matched a known ground-truth issue.
+## False positives (4)
 
-| Finding | Rule | Rule name | Ground truth | Severity | Resource | Container | Field path |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| checkov-case-002-runs-as-root-0003 | CKV_K8S_23 | Minimize the admission of root containers | GT-002 | High | Deployment.scanner-benchmark.runs-as-root-demo-app | demo-container | spec.template.spec.containers[0].securityContext.runAsNonRoot |
-
-## False positives
-
-These findings were classified as incorrect according to the selected matching policy.
-
-| Finding | Rule | Rule name | Severity | Resource | Reason |
-| --- | --- | --- | --- | --- | --- |
-| checkov-case-002-runs-as-root-0001 | CKV_K8S_43 | Image should use digest | — | Deployment.scanner-benchmark.runs-as-root-demo-app | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
-| checkov-case-002-runs-as-root-0002 | CKV_K8S_15 | Image Pull Policy should be Always | — | Deployment.scanner-benchmark.runs-as-root-demo-app | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
-| checkov-case-002-runs-as-root-0004 | CKV_K8S_40 | Containers should run as a high UID to avoid host conflict | — | Deployment.scanner-benchmark.runs-as-root-demo-app | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
-| checkov-case-002-runs-as-root-0005 | CKV2_K8S_6 | Minimize the admission of pods which lack an associated NetworkPolicy | — | Pod.default.runs-as-root-demo-app.app-runs-as-root-demo-app | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
-
-## False negatives
-
-These ground-truth issues were not detected by the scanner.
-
-No findings were recorded in this category.
-
-## Unlabelled extra findings
-
-These scanner findings do not yet have an approved mapping to the benchmark ground truth.
-
-No findings were recorded in this category.
-
-## Duplicate matches
-
-These additional findings matched an issue that had already been counted as a true positive.
-
-No findings were recorded in this category.
-
-## Ambiguous matches
-
-These findings contained incomplete or inconsistent mapping information.
-
-No findings were recorded in this category.
-
-## Interpretation and methodological notes
-
-- **Precision:** Precision measures the proportion of classified positive findings that were true positives.
-- **Recall:** Recall measures the proportion of ground-truth issues detected by the scanner.
-- **F1 score:** F1 is the harmonic mean of precision and recall.
-- **Strict-mode policy:** Unmapped findings are counted as false positives.
-- **Duplicate policy:** Only the first valid finding mapped to a ground-truth issue is counted as a true positive. Additional detections of the same issue are stored as duplicate matches.
-- **Ambiguous findings:** Ambiguous matches are reported separately and are excluded from the precision, recall and F1 calculations.
-
-## Input provenance
-
-| Input | Path | Generated at |
+| Finding | Rule | Resource |
 | --- | --- | --- |
-| Matched findings | results\matched_generic\checkov\case-002-runs-as-root.matched.json | 2026-08-05T14:10:58.949091+00:00 |
-| Metrics | results\metrics_generic\checkov\case-002-runs-as-root.metrics.json | 2026-08-05T14:10:59.410154+00:00 |
+| checkov-case-002-runs-as-root-0001 | CKV_K8S_43 | Deployment.scanner-benchmark.runs-as-root-demo-app |
+| checkov-case-002-runs-as-root-0002 | CKV_K8S_15 | Deployment.scanner-benchmark.runs-as-root-demo-app |
+| checkov-case-002-runs-as-root-0004 | CKV_K8S_40 | Deployment.scanner-benchmark.runs-as-root-demo-app |
+| checkov-case-002-runs-as-root-0005 | CKV2_K8S_6 | Pod.default.runs-as-root-demo-app.app-runs-as-root-demo-app |
 
----
+Unmapped findings count as false positives; duplicate and ambiguous matches are excluded from the scores.
 
-Report generated by the generic scanner benchmark reporting pipeline.
+- Full findings: `results/matched_generic/checkov/case-002-runs-as-root.matched.json`
+- Full metrics: `results/metrics_generic/checkov/case-002-runs-as-root.metrics.json`
+- Generated: `2026-09-17T06:59:44.010601+00:00`

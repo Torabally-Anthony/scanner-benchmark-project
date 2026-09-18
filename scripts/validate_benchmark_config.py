@@ -21,7 +21,6 @@ SUPPORTED_SCANNERS = {
 }
 
 SUPPORTED_MATCHING_MODES = {
-    "review",
     "strict",
 }
 
@@ -153,7 +152,7 @@ def validate_defaults(
     if matching_mode not in SUPPORTED_MATCHING_MODES:
         raise ConfigurationValidationError(
             "defaults.matching_mode must be "
-            "'review' or 'strict'."
+            "'strict'."
         )
 
     print(

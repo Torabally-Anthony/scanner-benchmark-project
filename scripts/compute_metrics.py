@@ -22,7 +22,6 @@ SUPPORTED_SCANNERS = {
 }
 
 SUPPORTED_MATCHING_MODES = {
-    "review",
     "strict",
 }
 
@@ -277,7 +276,7 @@ def validate_matched_document(
     if matching_mode not in SUPPORTED_MATCHING_MODES:
         raise MetricsError(
             "The matched file matching_mode must be "
-            "'review' or 'strict'."
+            "'strict'."
         )
 
     return matching_mode
@@ -617,13 +616,7 @@ def run() -> Path:
         f1_score=f1_score,
     )
 
-    requires_manual_review = (
-        ambiguous_match_count > 0
-        or (
-            matching_mode == "review"
-            and unlabelled_extra_count > 0
-        )
-    )
+    requires_manual_review = ambiguous_match_count > 0
 
     evaluation_status = (
         "requires_manual_review"
@@ -721,12 +714,6 @@ def run() -> Path:
 
         "interpretation": {
             **explanations,
-
-            "review_mode_note": (
-                "In review mode, unmapped findings are "
-                "stored as unlabelled extras and are not "
-                "counted as false positives."
-            ),
 
             "strict_mode_note": (
                 "In strict mode, unmapped findings are "

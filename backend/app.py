@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any, Literal
 
 import yaml
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import PlainTextResponse
 from fastapi.staticfiles import StaticFiles
@@ -36,12 +36,6 @@ OUTPUT_STAGES = (
     "matched",
     "metrics",
 )
-
-MATCHING_MODES = (
-    "review",
-    "strict",
-)
-
 
 ARTIFACT_SETTINGS: dict[str, dict[str, Any]] = {
     "kubernetes_yaml": {
@@ -137,6 +131,18 @@ app.add_middleware(
 )
 
 
+@app.middleware("http")
+async def prevent_frontend_cache(request: Request, call_next):
+    """Fetch the current dashboard files after a page reload."""
+
+    response = await call_next(request)
+
+    if request.url.path in ("/", "/index.html", "/app.js"):
+        response.headers["Cache-Control"] = "no-store"
+
+    return response
+
+
 # ---------------------------------------------------------------------------
 # Request models
 # ---------------------------------------------------------------------------
@@ -148,7 +154,6 @@ ScannerName = Literal[
 ]
 
 MatchingMode = Literal[
-    "review",
     "strict",
 ]
 
@@ -170,10 +175,9 @@ class ProcessRequest(BaseModel):
     )
 
     matching_mode: MatchingMode = Field(
-        default="review",
+        default="strict",
         description=(
-            "Review mode keeps unmapped findings as unlabelled extras. "
-            "Strict mode treats them as false positives."
+            "Unmapped findings are counted as false positives."
         ),
     )
 

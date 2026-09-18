@@ -2,24 +2,9 @@
 
 **Case:** `case-002-runs-as-root`
 
-## Benchmark information
+Artifact: `kubernetes_yaml` · Mode: `strict` · Status: `complete`
 
-| Property | Value |
-| --- | --- |
-| Case ID | case-002-runs-as-root |
-| Scanner | Kubescape |
-| Artifact type | kubernetes_yaml |
-| Matching mode | strict |
-| Evaluation status | complete |
-| Report generated | 2026-08-05T14:11:04.972842+00:00 |
-
-### Scanner version
-
-```text
-Your current version is: v4.0.10
-Build commit: f956507357091c3806777fe13ddf5e65efe36e44
-Build date: 2026-06-30T05:17:15Z
-```
+Scanner version: `v4.0.10`
 
 ## Results summary
 
@@ -44,72 +29,28 @@ Build date: 2026-06-30T05:17:15Z
 
 ## Ground-truth evaluation
 
-This table shows whether each known benchmark issue was detected by the scanner.
+| Ground truth | Issue | Resource | Result | Scanner rule |
+| --- | --- | --- | --- | --- |
+| GT-002 | RunsAsRoot | Deployment.scanner-benchmark.runs-as-root-demo-app | Detected | C-0013 |
 
-| Ground truth | Category | Subcategory | Severity | Resource | Container | Field path | Result | Scanner rule |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| GT-002 | PodSecurity | RunsAsRoot | High | Deployment.scanner-benchmark.runs-as-root-demo-app | demo-container | spec.template.spec.containers[0].securityContext.runAsNonRoot | Detected | C-0013 |
+## True positives (1)
 
-## True positives
+| Finding | Rule | Ground truth | Resource |
+| --- | --- | --- | --- |
+| kubescape-case-002-runs-as-root-0001 | C-0013 | GT-002 | Deployment.scanner-benchmark.runs-as-root-demo-app |
 
-These findings correctly matched a known ground-truth issue.
+## False positives (5)
 
-| Finding | Rule | Rule name | Ground truth | Severity | Resource | Container | Field path |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| kubescape-case-002-runs-as-root-0001 | C-0013 | Non-root containers | GT-002 | High | Deployment.scanner-benchmark.runs-as-root-demo-app | demo-container | spec.template.spec.containers[0].securityContext.runAsNonRoot |
-
-## False positives
-
-These findings were classified as incorrect according to the selected matching policy.
-
-| Finding | Rule | Rule name | Severity | Resource | Reason |
-| --- | --- | --- | --- | --- | --- |
-| kubescape-case-002-runs-as-root-0002 | C-0030 | Ingress and Egress blocked | Medium | Unknown | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
-| kubescape-case-002-runs-as-root-0003 | C-0077 | K8s common labels usage | Low | Unknown | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
-| kubescape-case-002-runs-as-root-0004 | C-0211 | Apply Security Context to Your Pods and Containers | High | Unknown | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
-| kubescape-case-002-runs-as-root-0005 | C-0237 | Check if signature exists | High | Unknown | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
-| kubescape-case-002-runs-as-root-0006 | C-0260 | Missing network policy | Medium | Unknown | The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives. |
-
-## False negatives
-
-These ground-truth issues were not detected by the scanner.
-
-No findings were recorded in this category.
-
-## Unlabelled extra findings
-
-These scanner findings do not yet have an approved mapping to the benchmark ground truth.
-
-No findings were recorded in this category.
-
-## Duplicate matches
-
-These additional findings matched an issue that had already been counted as a true positive.
-
-No findings were recorded in this category.
-
-## Ambiguous matches
-
-These findings contained incomplete or inconsistent mapping information.
-
-No findings were recorded in this category.
-
-## Interpretation and methodological notes
-
-- **Precision:** Precision measures the proportion of classified positive findings that were true positives.
-- **Recall:** Recall measures the proportion of ground-truth issues detected by the scanner.
-- **F1 score:** F1 is the harmonic mean of precision and recall.
-- **Strict-mode policy:** Unmapped findings are counted as false positives.
-- **Duplicate policy:** Only the first valid finding mapped to a ground-truth issue is counted as a true positive. Additional detections of the same issue are stored as duplicate matches.
-- **Ambiguous findings:** Ambiguous matches are reported separately and are excluded from the precision, recall and F1 calculations.
-
-## Input provenance
-
-| Input | Path | Generated at |
+| Finding | Rule | Resource |
 | --- | --- | --- |
-| Matched findings | results\matched_generic\kubescape\case-002-runs-as-root.matched.json | 2026-08-05T14:11:04.150248+00:00 |
-| Metrics | results\metrics_generic\kubescape\case-002-runs-as-root.metrics.json | 2026-08-05T14:11:04.563662+00:00 |
+| kubescape-case-002-runs-as-root-0002 | C-0030 | Unknown |
+| kubescape-case-002-runs-as-root-0003 | C-0077 | Unknown |
+| kubescape-case-002-runs-as-root-0004 | C-0211 | Unknown |
+| kubescape-case-002-runs-as-root-0005 | C-0237 | Unknown |
+| kubescape-case-002-runs-as-root-0006 | C-0260 | Unknown |
 
----
+Unmapped findings count as false positives; duplicate and ambiguous matches are excluded from the scores.
 
-Report generated by the generic scanner benchmark reporting pipeline.
+- Full findings: `results/matched_generic/kubescape/case-002-runs-as-root.matched.json`
+- Full metrics: `results/metrics_generic/kubescape/case-002-runs-as-root.metrics.json`
+- Generated: `2026-09-17T06:59:44.122614+00:00`

@@ -24,7 +24,6 @@ SUPPORTED_SCANNERS = {
 }
 
 SUPPORTED_MATCHING_MODES = {
-    "review",
     "strict",
 }
 
@@ -213,18 +212,12 @@ def create_false_negative(
 def match_findings_to_ground_truth(
     findings: list[dict[str, Any]],
     ground_truth_items: dict[str, dict[str, Any]],
-    matching_mode: str,
 ) -> dict[str, list[dict[str, Any]]]:
     """
     Classify normalised findings.
 
-    Review mode:
-        mapped finding   -> true positive or duplicate
-        unmapped finding -> unlabelled extra
-
-    Strict mode:
-        mapped finding   -> true positive or duplicate
-        unmapped finding -> false positive
+    Mapped findings become true positives or duplicates.
+    Unmapped findings become false positives.
 
     Any undetected ground-truth item becomes a false negative.
     """
@@ -337,33 +330,16 @@ def match_findings_to_ground_truth(
 
                 continue
 
-            # Review preserves unverified extras; strict mode assumes every extra is an FP.
-            if matching_mode == "review":
-                unlabelled_extras.append(
-                    create_classified_finding(
-                        finding=finding,
-                        classification="unlabelled_extra",
-                        reason=(
-                            "The finding has no approved "
-                            "ground-truth mapping. In review mode, "
-                            "it is stored as an unlabelled extra "
-                            "rather than a false positive."
-                        ),
-                    )
+            false_positives.append(
+                create_classified_finding(
+                    finding=finding,
+                    classification="false_positive",
+                    reason=(
+                        "The finding has no ground-truth mapping, "
+                        "so it is counted as a false positive."
+                    ),
                 )
-
-            else:
-                false_positives.append(
-                    create_classified_finding(
-                        finding=finding,
-                        classification="false_positive",
-                        reason=(
-                            "The finding has no ground-truth "
-                            "mapping and strict mode treats all "
-                            "unmapped findings as false positives."
-                        ),
-                    )
-                )
+            )
 
             continue
 
@@ -511,7 +487,7 @@ def run() -> Path:
     matching_mode = (
         arguments.matching_mode
         or defaults.get("matching_mode")
-        or "review"
+        or "strict"
     )
 
     matching_mode = str(
@@ -520,7 +496,7 @@ def run() -> Path:
 
     if matching_mode not in SUPPORTED_MATCHING_MODES:
         raise MatchingError(
-            "Matching mode must be 'review' or 'strict'."
+            "Matching mode must be 'strict'."
         )
 
     ground_truth = load_case_ground_truth(
@@ -561,7 +537,6 @@ def run() -> Path:
         match_findings_to_ground_truth(
             findings=findings,
             ground_truth_items=ground_truth_items,
-            matching_mode=matching_mode,
         )
     )
 
@@ -645,12 +620,8 @@ def run() -> Path:
                 "A ground-truth issue with no valid "
                 "scanner detection."
             ),
-            "unlabelled_extra": (
-                "An unmapped finding retained for review."
-            ),
             "false_positive": (
-                "An unmapped finding classified as "
-                "incorrect in strict mode."
+                "An unmapped finding counted as incorrect."
             ),
             "duplicate_match": (
                 "An additional finding mapped to a "
