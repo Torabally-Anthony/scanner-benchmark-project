@@ -1,7 +1,7 @@
 case_id: case-helm-006-hostpath-volume
-artifact_type: helm
+artifact_type: helm_chart
 
-ground_truth:
+misconfigurations:
   - id: GT-HELM-006
     title: Helm chart mounts host filesystem using hostPath
     category: PodSecurity
@@ -14,7 +14,7 @@ ground_truth:
     field_path: spec.template.spec.volumes[0].hostPath.path
 
     bad_value: "/"
-    expected_value: null
+    expected_secure_value: null
 
     rationale: >
       The rendered workload exposes the Kubernetes node filesystem

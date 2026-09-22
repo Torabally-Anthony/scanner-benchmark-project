@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0",
+  "case_id": "case-003-rbac-wildcard",
+  "tool": "checkov",
+  "scanner_version": "3.3.10",
+  "artifact_type": "kubernetes_yaml",
+  "generated_at": "2026-09-22T12:10:26.895746+00:00",
+  "source_file": "results/raw/checkov/case-003-rbac-wildcard.json",
+  "summary": {
+    "normalised_findings_count": 3,
+    "mapped_findings_count": 1,
+    "unmapped_findings_count": 2
+  },
+  "findings": [
+    {
+      "finding_id": "checkov-case-003-rbac-wildcard-0001",
+      "tool": "checkov",
+      "case_id": "case-003-rbac-wildcard",
+      "artifact_type": "kubernetes_yaml",
+      "rule_id": "CKV_K8S_158",
+      "rule_name": "Minimize Roles and ClusterRoles that grant permissions to escalate Roles or ClusterRoles",
+      "status": "FAILED",
+      "message": "Minimize Roles and ClusterRoles that grant permissions to escalate Roles or ClusterRoles",
+      "category": null,
+      "subcategory": null,
+      "severity": null,
+      "resource": "Role.benchmark.wildcard-role",
+      "container": null,
+      "field_path": null,
+      "bad_value": null,
+      "expected_secure_value": null,
+      "ground_truth_id": null,
+      "mapping_status": "unmapped",
+      "original_category": null,
+      "original_subcategory": null,
+      "original_severity": null,
+      "original_resource": "Role.benchmark.wildcard-role",
+      "source_file": "/corpus/kubernetes/case-003-rbac-wildcard/artifact.yaml",
+      "line_start": 1,
+      "line_end": 12,
+      "failed_resources": null,
+      "passed_resources": null,
+      "skipped_resources": null,
+      "score": null,
+      "compliance_score": null
+    },
+    {
+      "finding_id": "checkov-case-003-rbac-wildcard-0002",
+      "tool": "checkov",
+      "case_id": "case-003-rbac-wildcard",
+      "artifact_type": "kubernetes_yaml",
+      "rule_id": "CKV_K8S_157",
+      "rule_name": "Minimize Roles and ClusterRoles that grant permissions to bind RoleBindings or ClusterRoleBindings",
+      "status": "FAILED",
+      "message": "Minimize Roles and ClusterRoles that grant permissions to bind RoleBindings or ClusterRoleBindings",
+      "category": null,
+      "subcategory": null,
+      "severity": null,
+      "resource": "Role.benchmark.wildcard-role",
+      "container": null,
+      "field_path": null,
+      "bad_value": null,
+      "expected_secure_value": null,
+      "ground_truth_id": null,
+      "mapping_status": "unmapped",
+      "original_category": null,
+      "original_subcategory": null,
+      "original_severity": null,
+      "original_resource": "Role.benchmark.wildcard-role",
+      "source_file": "/corpus/kubernetes/case-003-rbac-wildcard/artifact.yaml",
+      "line_start": 1,
+      "line_end": 12,
+      "failed_resources": null,
+      "passed_resources": null,
+      "skipped_resources": null,
+      "score": null,
+      "compliance_score": null
+    },
+    {
+      "finding_id": "checkov-case-003-rbac-wildcard-0003",
+      "tool": "checkov",
+      "case_id": "case-003-rbac-wildcard",
+      "artifact_type": "kubernetes_yaml",
+      "rule_id": "CKV_K8S_49",
+      "rule_name": "Minimize wildcard use in Roles and ClusterRoles",
+      "status": "FAILED",
+      "message": "Minimize wildcard use in Roles and ClusterRoles",
+      "category": "AccessControl",
+      "subcategory": "RBACWildcard",
+      "severity": "High",
+      "resource": "Role.benchmark.wildcard-role",
+      "container": null,
+      "field_path": "rules[0]",
+      "bad_value": {
+        "resources": [
+          "*"
+        ],
+        "verbs": [
+          "*"
+        ]
+      },
+      "expected_secure_value": {
+        "resources": [
+          "required-resource"
+        ],
+        "verbs": [
+          "required-verbs"
+        ]
+      },
+      "ground_truth_id": "GT-003",
+      "mapping_status": "mapped",
+      "original_category": null,
+      "original_subcategory": null,
+      "original_severity": null,
+      "original_resource": "Role.benchmark.wildcard-role",
+      "source_file": "/corpus/kubernetes/case-003-rbac-wildcard/artifact.yaml",
+      "line_start": 1,
+      "line_end": 12,
+      "failed_resources": null,
+      "passed_resources": null,
+      "skipped_resources": null,
+      "score": null,
+      "compliance_score": null
+    }
+  ]
+}

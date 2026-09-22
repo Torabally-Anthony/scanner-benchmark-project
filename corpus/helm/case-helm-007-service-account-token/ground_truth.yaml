@@ -1,7 +1,7 @@
 case_id: case-helm-007-service-account-token
-artifact_type: helm
+artifact_type: helm_chart
 
-ground_truth:
+misconfigurations:
   - id: GT-HELM-007
     title: Helm chart automatically mounts service account token
     category: IdentityAccess
@@ -13,7 +13,7 @@ ground_truth:
     field_path: spec.template.spec.automountServiceAccountToken
 
     bad_value: true
-    expected_value: false
+    expected_secure_value: false
 
     rationale: >
       Automatically mounting a Kubernetes service account token

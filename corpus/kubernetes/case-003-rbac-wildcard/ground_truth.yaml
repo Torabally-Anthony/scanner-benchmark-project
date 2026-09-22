@@ -1,7 +1,7 @@
 case_id: case-003-rbac-wildcard
 artifact_type: kubernetes_yaml
 
-ground_truth:
+misconfigurations:
   - id: GT-003
     title: RBAC role grants wildcard permissions
     category: AccessControl
@@ -18,7 +18,7 @@ ground_truth:
       verbs:
         - "*"
 
-    expected_value:
+    expected_secure_value:
       resources:
         - required-resource
       verbs:

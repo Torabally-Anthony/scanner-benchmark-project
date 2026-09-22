@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "case_id": "case-docker-009-duplicate-stage-alias",
+  "tool": "trivy",
+  "scanner_version": "Version: 0.74.0\nCheck Bundle:\n  Digest: sha256:1583562f8b90ed2a071b99f0e5ffff6b57e4ceb6ca3e4796577b4e6a339eb74c\n  DownloadedAt: 2026-09-22 11:08:49.192012 +0000 UTC",
+  "artifact_type": "dockerfile",
+  "generated_at": "2026-09-22T12:10:37.355281+00:00",
+  "source_file": "results/raw/trivy/case-docker-009-duplicate-stage-alias.json",
+  "summary": {
+    "normalised_findings_count": 0,
+    "mapped_findings_count": 0,
+    "unmapped_findings_count": 0
+  },
+  "findings": []
+}

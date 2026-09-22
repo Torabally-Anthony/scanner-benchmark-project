@@ -1,7 +1,7 @@
 case_id: case-005-hardcoded-secret
 artifact_type: kubernetes_yaml
 
-ground_truth:
+misconfigurations:
   - id: GT-005
     title: Hardcoded secret stored in Kubernetes manifest
     category: Secrets
@@ -13,7 +13,7 @@ ground_truth:
     field_path: stringData.password
 
     bad_value: "SuperSecretPassword123!"
-    expected_value: external-secret-reference
+    expected_secure_value: external-secret-reference
 
     rationale: >
       Sensitive credentials should not be stored directly in

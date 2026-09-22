@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "case_id": "case-docker-003-latest-base-image",
+  "tool": "checkov",
+  "scanner_version": "3.3.10",
+  "artifact_type": "dockerfile",
+  "generated_at": "2026-09-22T12:10:33.405156+00:00",
+  "source_file": "results/raw/checkov/case-docker-003-latest-base-image.json",
+  "summary": {
+    "normalised_findings_count": 1,
+    "mapped_findings_count": 1,
+    "unmapped_findings_count": 0
+  },
+  "findings": [
+    {
+      "finding_id": "checkov-case-docker-003-latest-base-image-0001",
+      "tool": "checkov",
+      "case_id": "case-docker-003-latest-base-image",
+      "artifact_type": "dockerfile",
+      "rule_id": "CKV_DOCKER_7",
+      "rule_name": "Ensure the base image uses a non latest version tag",
+      "status": "FAILED",
+      "message": "Ensure the base image uses a non latest version tag",
+      "category": "SupplyChain",
+      "subcategory": "UnpinnedBaseImage",
+      "severity": "Medium",
+      "resource": "Dockerfile",
+      "container": null,
+      "field_path": "FROM[0].image",
+      "bad_value": "nginx:latest",
+      "expected_secure_value": "nginx:<fixed-version-or-digest>",
+      "ground_truth_id": "GT-DOCKER-003",
+      "mapping_status": "mapped",
+      "original_category": null,
+      "original_subcategory": null,
+      "original_severity": null,
+      "original_resource": "corpus/dockerfiles/case-docker-003-latest-base-image/Dockerfile.FROM",
+      "source_file": "/corpus/dockerfiles/case-docker-003-latest-base-image/Dockerfile",
+      "line_start": 1,
+      "line_end": 1,
+      "failed_resources": null,
+      "passed_resources": null,
+      "skipped_resources": null,
+      "score": null,
+      "compliance_score": null
+    }
+  ]
+}

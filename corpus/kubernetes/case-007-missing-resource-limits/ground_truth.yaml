@@ -1,7 +1,7 @@
 case_id: case-007-missing-resource-limits
 artifact_type: kubernetes_yaml
 
-ground_truth:
+misconfigurations:
   - id: GT-007
     title: Container does not define resource limits
     category: ResourceManagement
@@ -16,7 +16,7 @@ ground_truth:
 
     bad_value: null
 
-    expected_value:
+    expected_secure_value:
       cpu: defined
       memory: defined
 

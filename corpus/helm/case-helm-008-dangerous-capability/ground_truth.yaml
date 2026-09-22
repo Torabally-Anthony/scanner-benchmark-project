@@ -1,7 +1,7 @@
 case_id: case-helm-008-dangerous-capability
-artifact_type: helm
+artifact_type: helm_chart
 
-ground_truth:
+misconfigurations:
   - id: GT-HELM-008
     title: Helm chart grants dangerous Linux capability
     category: PodSecurity
@@ -16,7 +16,7 @@ ground_truth:
     bad_value:
       - SYS_ADMIN
 
-    expected_value: []
+    expected_secure_value: []
 
     rationale: >
       SYS_ADMIN provides a broad collection of privileged Linux

@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "case_id": "case-docker-007-deprecated-maintainer",
+  "tool": "checkov",
+  "scanner_version": "3.3.10",
+  "artifact_type": "dockerfile",
+  "generated_at": "2026-09-22T12:10:36.040156+00:00",
+  "source_file": "results/raw/checkov/case-docker-007-deprecated-maintainer.json",
+  "summary": {
+    "normalised_findings_count": 1,
+    "mapped_findings_count": 1,
+    "unmapped_findings_count": 0
+  },
+  "findings": [
+    {
+      "finding_id": "checkov-case-docker-007-deprecated-maintainer-0001",
+      "tool": "checkov",
+      "case_id": "case-docker-007-deprecated-maintainer",
+      "artifact_type": "dockerfile",
+      "rule_id": "CKV_DOCKER_6",
+      "rule_name": "Ensure that LABEL maintainer is used instead of MAINTAINER (deprecated)",
+      "status": "FAILED",
+      "message": "Ensure that LABEL maintainer is used instead of MAINTAINER (deprecated)",
+      "category": "BuildPractice",
+      "subcategory": "DeprecatedMaintainer",
+      "severity": "Low",
+      "resource": "Dockerfile",
+      "container": null,
+      "field_path": "MAINTAINER",
+      "bad_value": "benchmark@example.invalid",
+      "expected_secure_value": "LABEL maintainer=<value>",
+      "ground_truth_id": "GT-DOCKER-007",
+      "mapping_status": "mapped",
+      "original_category": null,
+      "original_subcategory": null,
+      "original_severity": null,
+      "original_resource": "corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile.MAINTAINER",
+      "source_file": "/corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile",
+      "line_start": 3,
+      "line_end": 3,
+      "failed_resources": null,
+      "passed_resources": null,
+      "skipped_resources": null,
+      "score": null,
+      "compliance_score": null
+    }
+  ]
+}

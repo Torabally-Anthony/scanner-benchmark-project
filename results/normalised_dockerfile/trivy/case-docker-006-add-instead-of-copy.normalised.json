@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "case_id": "case-docker-006-add-instead-of-copy",
+  "tool": "trivy",
+  "scanner_version": "Version: 0.74.0\nCheck Bundle:\n  Digest: sha256:1583562f8b90ed2a071b99f0e5ffff6b57e4ceb6ca3e4796577b4e6a339eb74c\n  DownloadedAt: 2026-09-22 11:08:49.192012 +0000 UTC",
+  "artifact_type": "dockerfile",
+  "generated_at": "2026-09-22T12:10:35.798346+00:00",
+  "source_file": "results/raw/trivy/case-docker-006-add-instead-of-copy.json",
+  "summary": {
+    "normalised_findings_count": 1,
+    "mapped_findings_count": 1,
+    "unmapped_findings_count": 0
+  },
+  "findings": [
+    {
+      "finding_id": "trivy-case-docker-006-add-instead-of-copy-0001",
+      "tool": "trivy",
+      "case_id": "case-docker-006-add-instead-of-copy",
+      "artifact_type": "dockerfile",
+      "rule_id": "DS-0005",
+      "rule_name": "ADD instead of COPY",
+      "status": "FAIL",
+      "message": "Consider using 'COPY app.conf /app/app.conf' command instead of 'ADD app.conf /app/app.conf'",
+      "category": "BuildSecurity",
+      "subcategory": "AddInsteadOfCopy",
+      "severity": "Low",
+      "resource": "Dockerfile",
+      "container": null,
+      "field_path": "ADD[0]",
+      "bad_value": "ADD app.conf /app/app.conf",
+      "expected_secure_value": "COPY app.conf /app/app.conf",
+      "ground_truth_id": "GT-DOCKER-006",
+      "mapping_status": "mapped",
+      "original_category": "config",
+      "original_subcategory": "dockerfile",
+      "original_severity": "LOW",
+      "original_resource": "Dockerfile",
+      "source_file": "Dockerfile",
+      "line_start": 5,
+      "line_end": 5,
+      "failed_resources": null,
+      "passed_resources": null,
+      "skipped_resources": null,
+      "score": null,
+      "compliance_score": null
+    }
+  ]
+}

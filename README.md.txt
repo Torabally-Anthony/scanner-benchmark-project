@@ -154,7 +154,7 @@ Run the legacy validation for `case-001-privileged-container`:
 python scripts/validate_case.py
 ```
 
-`validate_case.py` is currently hard-coded to the first Kubernetes case. The configuration validator also expects a mapping entry for every default scanner; because Kubescape is intentionally not applicable to Dockerfiles, the current Dockerfile configuration may be reported as missing a Kubescape mapping even though the Dockerfile runner correctly supports only Checkov and Trivy.
+`validate_case.py` is currently hard-coded to the first Kubernetes case. Kubescape is not applicable to Dockerfiles, so the Dockerfile runner processes only Checkov and Trivy.
 
 ## Run the benchmark pipelines
 
@@ -193,6 +193,22 @@ python scripts/run_helm_benchmark.py `
 ```
 
 Add `--continue-on-error` to continue processing the remaining scanners when one scanner fails.
+
+### Batch cases 003 through 010
+
+Generate fresh raw scanner JSON and process Kubernetes, Dockerfile, and Helm cases 003 through 010:
+
+```bash
+.venv/bin/python scripts/run_cases_03_to_10.py
+```
+
+The batch uses Checkov, Trivy, and Kubescape for Kubernetes and Helm. Dockerfiles use Checkov and Trivy because Kubescape is not applicable. Checkov's Helm scans also require the `helm` executable. Preview all 64 scanner-case commands without executing them:
+
+```bash
+.venv/bin/python scripts/run_cases_03_to_10.py --dry-run
+```
+
+Use `--mode scan` to generate raw JSON only, `--mode process` to process existing raw JSON only, `--reuse-raw` to keep valid raw files that already exist, or `--scanners checkov` to run one or more named scanners.
 
 ## Matching policy
 

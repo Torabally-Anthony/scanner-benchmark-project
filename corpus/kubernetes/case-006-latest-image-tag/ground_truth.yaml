@@ -1,7 +1,7 @@
 case_id: case-006-latest-image-tag
 artifact_type: kubernetes_yaml
 
-ground_truth:
+misconfigurations:
   - id: GT-006
     title: Container image uses latest tag
     category: SupplyChain
@@ -15,7 +15,7 @@ ground_truth:
     field_path: spec.template.spec.containers[0].image
 
     bad_value: nginx:latest
-    expected_value: nginx:<fixed-version-or-digest>
+    expected_secure_value: nginx:<fixed-version-or-digest>
 
     rationale: >
       The latest tag is mutable and does not uniquely identify

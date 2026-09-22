@@ -1,7 +1,7 @@
 case_id: case-docker-005-missing-healthcheck
 artifact_type: dockerfile
 
-ground_truth:
+misconfigurations:
   - id: GT-DOCKER-005
     title: Dockerfile does not define a health check
     category: Reliability
@@ -13,7 +13,7 @@ ground_truth:
     field_path: HEALTHCHECK
 
     bad_value: null
-    expected_value: defined
+    expected_secure_value: defined
 
     rationale: >
       A container health check provides a mechanism for determining

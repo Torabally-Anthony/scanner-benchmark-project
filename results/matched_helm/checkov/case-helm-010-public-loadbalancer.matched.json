@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.0",
+  "case_id": "case-helm-010-public-loadbalancer",
+  "tool": "checkov",
+  "scanner_version": "3.3.10",
+  "artifact_type": "helm_chart",
+  "matching_mode": "strict",
+  "generated_at": "2026-09-22T12:10:59.053241+00:00",
+  "source_file": "results/normalised_helm/checkov/case-helm-010-public-loadbalancer.normalised.json",
+  "ground_truth_source": "corpus/helm/case-helm-010-public-loadbalancer/ground_truth.yaml",
+  "classification_policy": {
+    "true_positive": "The first valid scanner finding mapped to a ground-truth issue.",
+    "false_negative": "A ground-truth issue with no valid scanner detection.",
+    "false_positive": "An unmapped finding counted as incorrect.",
+    "duplicate_match": "An additional finding mapped to a ground-truth issue already detected.",
+    "ambiguous_match": "A finding with inconsistent or incomplete mapping information."
+  },
+  "counts": {
+    "total_normalised_findings": 1,
+    "ground_truth_issue_count": 1,
+    "true_positive_count": 0,
+    "false_positive_count": 1,
+    "false_negative_count": 1,
+    "unlabelled_extra_findings_count": 0,
+    "duplicate_match_count": 0,
+    "ambiguous_match_count": 0
+  },
+  "matched_ground_truth_ids": [],
+  "unmatched_ground_truth_ids": [
+    "GT-HELM-010"
+  ],
+  "true_positives": [],
+  "false_positives": [
+    {
+      "finding_id": "checkov-case-helm-010-public-loadbalancer-0001",
+      "tool": "checkov",
+      "case_id": "case-helm-010-public-loadbalancer",
+      "artifact_type": "helm_chart",
+      "rule_id": "CKV_K8S_21",
+      "rule_name": "The default namespace should not be used",
+      "status": "FAILED",
+      "message": "The default namespace should not be used",
+      "category": null,
+      "subcategory": null,
+      "severity": null,
+      "resource": "Service.default.public-helm-service",
+      "container": null,
+      "field_path": null,
+      "bad_value": null,
+      "expected_secure_value": null,
+      "ground_truth_id": null,
+      "mapping_status": "unmapped",
+      "original_category": null,
+      "original_subcategory": null,
+      "original_severity": null,
+      "original_resource": "Service.default.public-helm-service",
+      "source_file": "/templates/service.yaml",
+      "line_start": 3,
+      "line_end": 13,
+      "failed_resources": null,
+      "passed_resources": null,
+      "skipped_resources": null,
+      "score": null,
+      "compliance_score": null,
+      "classification": "false_positive",
+      "classification_reason": "The finding has no ground-truth mapping, so it is counted as a false positive."
+    }
+  ],
+  "false_negatives": [
+    {
+      "classification": "false_negative",
+      "classification_reason": "No scanner finding matched this ground-truth issue.",
+      "ground_truth_id": "GT-HELM-010",
+      "category": "Network",
+      "subcategory": "ExternalExposure",
+      "severity": "High",
+      "resource": "Service.default.public-helm-service",
+      "container": null,
+      "field_path": "spec.type",
+      "bad_value": "LoadBalancer",
+      "expected_secure_value": "ClusterIP",
+      "ground_truth": {
+        "id": "GT-HELM-010",
+        "title": "Helm chart exposes service using LoadBalancer",
+        "category": "Network",
+        "subcategory": "ExternalExposure",
+        "severity": "High",
+        "resource": "Service.default.public-helm-service",
+        "field_path": "spec.type",
+        "bad_value": "LoadBalancer",
+        "expected_secure_value": "ClusterIP",
+        "rationale": "The Helm configuration renders a LoadBalancer service, potentially exposing the workload externally. Internal applications should avoid direct external exposure unless it is specifically required.\n",
+        "applicable_scanners": [
+          "checkov",
+          "trivy",
+          "kubescape"
+        ]
+      }
+    }
+  ],
+  "unlabelled_extras": [],
+  "duplicate_matches": [],
+  "ambiguous_matches": []
+}

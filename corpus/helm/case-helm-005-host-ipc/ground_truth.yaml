@@ -1,7 +1,7 @@
 case_id: case-helm-005-host-ipc
-artifact_type: helm
+artifact_type: helm_chart
 
-ground_truth:
+misconfigurations:
   - id: GT-HELM-005
     title: Helm chart enables host IPC namespace
     category: PodSecurity
@@ -13,7 +13,7 @@ ground_truth:
     field_path: spec.template.spec.hostIPC
 
     bad_value: true
-    expected_value: false
+    expected_secure_value: false
 
     rationale: >
       Sharing the host IPC namespace reduces isolation between

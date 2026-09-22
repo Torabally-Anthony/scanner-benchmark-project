@@ -259,6 +259,30 @@ def require_number(
     return float(value)
 
 
+def require_optional_number(
+    mapping: dict[str, Any],
+    field_name: str,
+    metrics_path: Path,
+) -> float | None:
+    """Read a metric that may be undefined when its denominator is zero."""
+
+    if field_name not in mapping:
+        raise ComparisonReportError(
+            f"'{field_name}' is missing in {metrics_path}."
+        )
+
+    value = mapping[field_name]
+    if value is None:
+        return None
+
+    if not isinstance(value, (int, float)):
+        raise ComparisonReportError(
+            f"'{field_name}' is non-numeric in {metrics_path}."
+        )
+
+    return float(value)
+
+
 # This function loads one scanner-case metrics result.
 def load_metric_row(
     case_id: str,
@@ -332,7 +356,7 @@ def load_metric_row(
         )
 
     for field_name in METRIC_FIELDS:
-        row[field_name] = require_number(
+        row[field_name] = require_optional_number(
             metrics,
             field_name,
             metrics_path,
@@ -440,6 +464,15 @@ def aggregate_rows(
             )
         )
 
+    defined_metrics = {
+        field_name: [
+            row[field_name]
+            for row in rows
+            if row[field_name] is not None
+        ]
+        for field_name in METRIC_FIELDS
+    }
+
     return {
         "applicable_case_count": len(rows),
 
@@ -474,29 +507,20 @@ def aggregate_rows(
 
         # Macro metrics give every case equal weight by averaging its score.
         "macro_precision": (
-            mean(
-                row["precision"]
-                for row in rows
-            )
-            if rows
+            mean(defined_metrics["precision"])
+            if defined_metrics["precision"]
             else None
         ),
 
         "macro_recall": (
-            mean(
-                row["recall"]
-                for row in rows
-            )
-            if rows
+            mean(defined_metrics["recall"])
+            if defined_metrics["recall"]
             else None
         ),
 
         "macro_f1_score": (
-            mean(
-                row["f1_score"]
-                for row in rows
-            )
-            if rows
+            mean(defined_metrics["f1_score"])
+            if defined_metrics["f1_score"]
             else None
         ),
     }
@@ -766,6 +790,17 @@ def format_metric(
     return f"{float(value):.4f}"
 
 
+def format_percentage(
+    value: Any,
+) -> str:
+    """Format a decimal metric as a percentage."""
+
+    if value is None:
+        return "N/A"
+
+    return f"{float(value) * 100:.2f}%"
+
+
 # This function builds a Markdown table.
 def markdown_table(
     headers: list[str],
@@ -852,8 +887,8 @@ def render_markdown(
             report["scanner_summaries"][scanner]["true_positive_count"],
             report["scanner_summaries"][scanner]["false_positive_count"],
             report["scanner_summaries"][scanner]["false_negative_count"],
-            format_metric(report["scanner_summaries"][scanner]["micro_f1_score"]),
-            format_metric(report["scanner_summaries"][scanner]["macro_f1_score"]),
+            format_percentage(report["scanner_summaries"][scanner]["micro_f1_score"]),
+            format_percentage(report["scanner_summaries"][scanner]["macro_f1_score"]),
         ]
         for scanner in SCANNERS
     ]

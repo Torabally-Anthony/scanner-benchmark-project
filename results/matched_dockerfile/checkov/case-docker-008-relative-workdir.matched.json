@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0",
+  "case_id": "case-docker-008-relative-workdir",
+  "tool": "checkov",
+  "scanner_version": "3.3.10",
+  "artifact_type": "dockerfile",
+  "matching_mode": "strict",
+  "generated_at": "2026-09-22T12:10:36.657390+00:00",
+  "source_file": "results/normalised_dockerfile/checkov/case-docker-008-relative-workdir.normalised.json",
+  "ground_truth_source": "corpus/dockerfiles/case-docker-008-relative-workdir/ground_truth.yaml",
+  "classification_policy": {
+    "true_positive": "The first valid scanner finding mapped to a ground-truth issue.",
+    "false_negative": "A ground-truth issue with no valid scanner detection.",
+    "false_positive": "An unmapped finding counted as incorrect.",
+    "duplicate_match": "An additional finding mapped to a ground-truth issue already detected.",
+    "ambiguous_match": "A finding with inconsistent or incomplete mapping information."
+  },
+  "counts": {
+    "total_normalised_findings": 1,
+    "ground_truth_issue_count": 1,
+    "true_positive_count": 1,
+    "false_positive_count": 0,
+    "false_negative_count": 0,
+    "unlabelled_extra_findings_count": 0,
+    "duplicate_match_count": 0,
+    "ambiguous_match_count": 0
+  },
+  "matched_ground_truth_ids": [
+    "GT-DOCKER-008"
+  ],
+  "unmatched_ground_truth_ids": [],
+  "true_positives": [
+    {
+      "finding_id": "checkov-case-docker-008-relative-workdir-0001",
+      "tool": "checkov",
+      "case_id": "case-docker-008-relative-workdir",
+      "artifact_type": "dockerfile",
+      "rule_id": "CKV_DOCKER_10",
+      "rule_name": "Ensure that WORKDIR values are absolute paths",
+      "status": "FAILED",
+      "message": "Ensure that WORKDIR values are absolute paths",
+      "category": "BuildPractice",
+      "subcategory": "RelativeWorkdir",
+      "severity": "Medium",
+      "resource": "Dockerfile",
+      "container": null,
+      "field_path": "WORKDIR[0]",
+      "bad_value": "app",
+      "expected_secure_value": "/app",
+      "ground_truth_id": "GT-DOCKER-008",
+      "mapping_status": "mapped",
+      "original_category": null,
+      "original_subcategory": null,
+      "original_severity": null,
+      "original_resource": "corpus/dockerfiles/case-docker-008-relative-workdir/Dockerfile.WORKDIR",
+      "source_file": "/corpus/dockerfiles/case-docker-008-relative-workdir/Dockerfile",
+      "line_start": 3,
+      "line_end": 3,
+      "failed_resources": null,
+      "passed_resources": null,
+      "skipped_resources": null,
+      "score": null,
+      "compliance_score": null,
+      "classification": "true_positive",
+      "classification_reason": "The scanner rule correctly matched ground-truth issue 'GT-DOCKER-008'."
+    }
+  ],
+  "false_positives": [],
+  "false_negatives": [],
+  "unlabelled_extras": [],
+  "duplicate_matches": [],
+  "ambiguous_matches": []
+}

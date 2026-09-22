@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "case_id": "case-docker-008-relative-workdir",
+  "tool": "checkov",
+  "scanner_version": "3.3.10",
+  "artifact_type": "dockerfile",
+  "generated_at": "2026-09-22T12:10:36.608659+00:00",
+  "source_file": "results/raw/checkov/case-docker-008-relative-workdir.json",
+  "summary": {
+    "normalised_findings_count": 1,
+    "mapped_findings_count": 1,
+    "unmapped_findings_count": 0
+  },
+  "findings": [
+    {
+      "finding_id": "checkov-case-docker-008-relative-workdir-0001",
+      "tool": "checkov",
+      "case_id": "case-docker-008-relative-workdir",
+      "artifact_type": "dockerfile",
+      "rule_id": "CKV_DOCKER_10",
+      "rule_name": "Ensure that WORKDIR values are absolute paths",
+      "status": "FAILED",
+      "message": "Ensure that WORKDIR values are absolute paths",
+      "category": "BuildPractice",
+      "subcategory": "RelativeWorkdir",
+      "severity": "Medium",
+      "resource": "Dockerfile",
+      "container": null,
+      "field_path": "WORKDIR[0]",
+      "bad_value": "app",
+      "expected_secure_value": "/app",
+      "ground_truth_id": "GT-DOCKER-008",
+      "mapping_status": "mapped",
+      "original_category": null,
+      "original_subcategory": null,
+      "original_severity": null,
+      "original_resource": "corpus/dockerfiles/case-docker-008-relative-workdir/Dockerfile.WORKDIR",
+      "source_file": "/corpus/dockerfiles/case-docker-008-relative-workdir/Dockerfile",
+      "line_start": 3,
+      "line_end": 3,
+      "failed_resources": null,
+      "passed_resources": null,
+      "skipped_resources": null,
+      "score": null,
+      "compliance_score": null
+    }
+  ]
+}

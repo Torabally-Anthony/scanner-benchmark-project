@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "case_id": "case-docker-009-duplicate-stage-alias",
+  "tool": "checkov",
+  "scanner_version": "3.3.10",
+  "artifact_type": "dockerfile",
+  "generated_at": "2026-09-22T12:10:37.109957+00:00",
+  "source_file": "results/raw/checkov/case-docker-009-duplicate-stage-alias.json",
+  "summary": {
+    "normalised_findings_count": 0,
+    "mapped_findings_count": 0,
+    "unmapped_findings_count": 0
+  },
+  "findings": []
+}

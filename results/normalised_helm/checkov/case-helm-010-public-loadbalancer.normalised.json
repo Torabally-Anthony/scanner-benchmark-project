@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "case_id": "case-helm-010-public-loadbalancer",
+  "tool": "checkov",
+  "scanner_version": "3.3.10",
+  "artifact_type": "helm_chart",
+  "generated_at": "2026-09-22T12:10:59.004989+00:00",
+  "source_file": "results/raw/checkov/case-helm-010-public-loadbalancer.json",
+  "summary": {
+    "normalised_findings_count": 1,
+    "mapped_findings_count": 0,
+    "unmapped_findings_count": 1
+  },
+  "findings": [
+    {
+      "finding_id": "checkov-case-helm-010-public-loadbalancer-0001",
+      "tool": "checkov",
+      "case_id": "case-helm-010-public-loadbalancer",
+      "artifact_type": "helm_chart",
+      "rule_id": "CKV_K8S_21",
+      "rule_name": "The default namespace should not be used",
+      "status": "FAILED",
+      "message": "The default namespace should not be used",
+      "category": null,
+      "subcategory": null,
+      "severity": null,
+      "resource": "Service.default.public-helm-service",
+      "container": null,
+      "field_path": null,
+      "bad_value": null,
+      "expected_secure_value": null,
+      "ground_truth_id": null,
+      "mapping_status": "unmapped",
+      "original_category": null,
+      "original_subcategory": null,
+      "original_severity": null,
+      "original_resource": "Service.default.public-helm-service",
+      "source_file": "/templates/service.yaml",
+      "line_start": 3,
+      "line_end": 13,
+      "failed_resources": null,
+      "passed_resources": null,
+      "skipped_resources": null,
+      "score": null,
+      "compliance_score": null
+    }
+  ]
+}

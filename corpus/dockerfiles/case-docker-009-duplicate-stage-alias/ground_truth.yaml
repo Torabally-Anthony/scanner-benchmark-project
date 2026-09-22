@@ -1,7 +1,7 @@
 case_id: case-docker-009-duplicate-stage-alias
 artifact_type: dockerfile
 
-ground_truth:
+misconfigurations:
   - id: GT-DOCKER-009
     title: Multi-stage Dockerfile contains duplicate stage aliases
     category: BuildIntegrity
@@ -16,7 +16,7 @@ ground_truth:
       - builder
       - builder
 
-    expected_value:
+    expected_secure_value:
       - builder
       - runtime
 

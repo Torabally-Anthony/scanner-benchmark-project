@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0",
+  "case_id": "case-004-public-loadbalancer",
+  "tool": "checkov",
+  "scanner_version": "3.3.10",
+  "artifact_type": "kubernetes_yaml",
+  "matching_mode": "strict",
+  "generated_at": "2026-09-22T12:10:27.730405+00:00",
+  "source_file": "results/normalised_generic/checkov/case-004-public-loadbalancer.normalised.json",
+  "ground_truth_source": "corpus/kubernetes/case-004-public-loadbalancer/ground_truth.yaml",
+  "classification_policy": {
+    "true_positive": "The first valid scanner finding mapped to a ground-truth issue.",
+    "false_negative": "A ground-truth issue with no valid scanner detection.",
+    "false_positive": "An unmapped finding counted as incorrect.",
+    "duplicate_match": "An additional finding mapped to a ground-truth issue already detected.",
+    "ambiguous_match": "A finding with inconsistent or incomplete mapping information."
+  },
+  "counts": {
+    "total_normalised_findings": 0,
+    "ground_truth_issue_count": 1,
+    "true_positive_count": 0,
+    "false_positive_count": 0,
+    "false_negative_count": 1,
+    "unlabelled_extra_findings_count": 0,
+    "duplicate_match_count": 0,
+    "ambiguous_match_count": 0
+  },
+  "matched_ground_truth_ids": [],
+  "unmatched_ground_truth_ids": [
+    "GT-004"
+  ],
+  "true_positives": [],
+  "false_positives": [],
+  "false_negatives": [
+    {
+      "classification": "false_negative",
+      "classification_reason": "No scanner finding matched this ground-truth issue.",
+      "ground_truth_id": "GT-004",
+      "category": "Network",
+      "subcategory": "ExternalExposure",
+      "severity": "High",
+      "resource": "Service.benchmark.public-demo-service",
+      "container": null,
+      "field_path": "spec.type",
+      "bad_value": "LoadBalancer",
+      "expected_secure_value": "ClusterIP",
+      "ground_truth": {
+        "id": "GT-004",
+        "title": "Service unnecessarily exposed using LoadBalancer",
+        "category": "Network",
+        "subcategory": "ExternalExposure",
+        "severity": "High",
+        "resource": "Service.benchmark.public-demo-service",
+        "field_path": "spec.type",
+        "bad_value": "LoadBalancer",
+        "expected_secure_value": "ClusterIP",
+        "rationale": "A LoadBalancer service can expose the application outside the cluster. Services that do not require direct external access should use an internal service type such as ClusterIP and be exposed through controlled ingress mechanisms where appropriate.\n",
+        "applicable_scanners": [
+          "checkov",
+          "trivy",
+          "kubescape"
+        ]
+      }
+    }
+  ],
+  "unlabelled_extras": [],
+  "duplicate_matches": [],
+  "ambiguous_matches": []
+}

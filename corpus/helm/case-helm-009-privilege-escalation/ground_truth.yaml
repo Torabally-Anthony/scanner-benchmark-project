@@ -1,7 +1,7 @@
 case_id: case-helm-009-privilege-escalation
-artifact_type: helm
+artifact_type: helm_chart
 
-ground_truth:
+misconfigurations:
   - id: GT-HELM-009
     title: Helm chart permits container privilege escalation
     category: PodSecurity
@@ -14,7 +14,7 @@ ground_truth:
     field_path: spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation
 
     bad_value: true
-    expected_value: false
+    expected_secure_value: false
 
     rationale: >
       Allowing privilege escalation permits a process inside the

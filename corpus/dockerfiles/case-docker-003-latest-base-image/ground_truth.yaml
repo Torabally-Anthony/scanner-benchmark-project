@@ -1,7 +1,7 @@
 case_id: case-docker-003-latest-base-image
 artifact_type: dockerfile
 
-ground_truth:
+misconfigurations:
   - id: GT-DOCKER-003
     title: Dockerfile uses latest base image tag
     category: SupplyChain
@@ -13,7 +13,7 @@ ground_truth:
     field_path: FROM[0].image
 
     bad_value: nginx:latest
-    expected_value: nginx:<fixed-version-or-digest>
+    expected_secure_value: nginx:<fixed-version-or-digest>
 
     rationale: >
       Using the latest tag makes the exact base image unpredictable

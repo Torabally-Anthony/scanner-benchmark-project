@@ -127,6 +127,17 @@ function metric(value, decimalPlaces = 2) {
 }
 
 
+function percentage(value, decimalPlaces = 2) {
+  const number = Number(value);
+
+  if (!Number.isFinite(number)) {
+    return "—";
+  }
+
+  return `${(number * 100).toFixed(decimalPlaces)}%`;
+}
+
+
 function integer(value) {
   const number = Number(value);
 
@@ -2456,8 +2467,8 @@ function renderOverallScannerSummary(
 
           <td>${metric(summary.micro_precision, 4)}</td>
           <td>${metric(summary.micro_recall, 4)}</td>
-          <td>${metric(summary.micro_f1_score, 4)}</td>
-          <td>${metric(summary.macro_f1_score, 4)}</td>
+          <td>${percentage(summary.micro_f1_score)}</td>
+          <td>${percentage(summary.macro_f1_score)}</td>
         </tr>
       `;
     })
@@ -2606,8 +2617,8 @@ function renderArtifactSummary(
 
             <td>${metric(summary.micro_precision, 4)}</td>
             <td>${metric(summary.micro_recall, 4)}</td>
-            <td>${metric(summary.micro_f1_score, 4)}</td>
-            <td>${metric(summary.macro_f1_score, 4)}</td>
+            <td>${percentage(summary.micro_f1_score)}</td>
+            <td>${percentage(summary.macro_f1_score)}</td>
           </tr>
         `);
       },

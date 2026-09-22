@@ -1,7 +1,7 @@
 case_id: case-010-dangerous-capability
 artifact_type: kubernetes_yaml
 
-ground_truth:
+misconfigurations:
   - id: GT-010
     title: Container granted dangerous Linux capability
     category: PodSecurity
@@ -17,7 +17,7 @@ ground_truth:
     bad_value:
       - SYS_ADMIN
 
-    expected_value: []
+    expected_secure_value: []
 
     rationale: >
       Containers should operate with the minimum Linux

@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0",
+  "case_id": "case-docker-003-latest-base-image",
+  "tool": "checkov",
+  "scanner_version": "3.3.10",
+  "artifact_type": "dockerfile",
+  "matching_mode": "strict",
+  "generated_at": "2026-09-22T12:10:33.452781+00:00",
+  "source_file": "results/normalised_dockerfile/checkov/case-docker-003-latest-base-image.normalised.json",
+  "ground_truth_source": "corpus/dockerfiles/case-docker-003-latest-base-image/ground_truth.yaml",
+  "classification_policy": {
+    "true_positive": "The first valid scanner finding mapped to a ground-truth issue.",
+    "false_negative": "A ground-truth issue with no valid scanner detection.",
+    "false_positive": "An unmapped finding counted as incorrect.",
+    "duplicate_match": "An additional finding mapped to a ground-truth issue already detected.",
+    "ambiguous_match": "A finding with inconsistent or incomplete mapping information."
+  },
+  "counts": {
+    "total_normalised_findings": 1,
+    "ground_truth_issue_count": 1,
+    "true_positive_count": 1,
+    "false_positive_count": 0,
+    "false_negative_count": 0,
+    "unlabelled_extra_findings_count": 0,
+    "duplicate_match_count": 0,
+    "ambiguous_match_count": 0
+  },
+  "matched_ground_truth_ids": [
+    "GT-DOCKER-003"
+  ],
+  "unmatched_ground_truth_ids": [],
+  "true_positives": [
+    {
+      "finding_id": "checkov-case-docker-003-latest-base-image-0001",
+      "tool": "checkov",
+      "case_id": "case-docker-003-latest-base-image",
+      "artifact_type": "dockerfile",
+      "rule_id": "CKV_DOCKER_7",
+      "rule_name": "Ensure the base image uses a non latest version tag",
+      "status": "FAILED",
+      "message": "Ensure the base image uses a non latest version tag",
+      "category": "SupplyChain",
+      "subcategory": "UnpinnedBaseImage",
+      "severity": "Medium",
+      "resource": "Dockerfile",
+      "container": null,
+      "field_path": "FROM[0].image",
+      "bad_value": "nginx:latest",
+      "expected_secure_value": "nginx:<fixed-version-or-digest>",
+      "ground_truth_id": "GT-DOCKER-003",
+      "mapping_status": "mapped",
+      "original_category": null,
+      "original_subcategory": null,
+      "original_severity": null,
+      "original_resource": "corpus/dockerfiles/case-docker-003-latest-base-image/Dockerfile.FROM",
+      "source_file": "/corpus/dockerfiles/case-docker-003-latest-base-image/Dockerfile",
+      "line_start": 1,
+      "line_end": 1,
+      "failed_resources": null,
+      "passed_resources": null,
+      "skipped_resources": null,
+      "score": null,
+      "compliance_score": null,
+      "classification": "true_positive",
+      "classification_reason": "The scanner rule correctly matched ground-truth issue 'GT-DOCKER-003'."
+    }
+  ],
+  "false_positives": [],
+  "false_negatives": [],
+  "unlabelled_extras": [],
+  "duplicate_matches": [],
+  "ambiguous_matches": []
+}

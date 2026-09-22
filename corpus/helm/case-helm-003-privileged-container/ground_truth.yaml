@@ -1,7 +1,7 @@
 case_id: case-helm-003-privileged-container
-artifact_type: helm
+artifact_type: helm_chart
 
-ground_truth:
+misconfigurations:
   - id: GT-HELM-003
     title: Helm chart renders a privileged container
     category: PodSecurity
@@ -14,7 +14,7 @@ ground_truth:
     field_path: spec.template.spec.containers[0].securityContext.privileged
 
     bad_value: true
-    expected_value: false
+    expected_secure_value: false
 
     rationale: >
       The Helm value enables privileged execution. When rendered,

@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "case_id": "case-docker-004-exposed-ssh-port",
+  "tool": "checkov",
+  "scanner_version": "3.3.10",
+  "artifact_type": "dockerfile",
+  "generated_at": "2026-09-22T12:10:34.548309+00:00",
+  "source_file": "results/raw/checkov/case-docker-004-exposed-ssh-port.json",
+  "summary": {
+    "normalised_findings_count": 1,
+    "mapped_findings_count": 1,
+    "unmapped_findings_count": 0
+  },
+  "findings": [
+    {
+      "finding_id": "checkov-case-docker-004-exposed-ssh-port-0001",
+      "tool": "checkov",
+      "case_id": "case-docker-004-exposed-ssh-port",
+      "artifact_type": "dockerfile",
+      "rule_id": "CKV_DOCKER_1",
+      "rule_name": "Ensure port 22 is not exposed",
+      "status": "FAILED",
+      "message": "Ensure port 22 is not exposed",
+      "category": "Network",
+      "subcategory": "SSHExposure",
+      "severity": "High",
+      "resource": "Dockerfile",
+      "container": null,
+      "field_path": "EXPOSE[0]",
+      "bad_value": 22,
+      "expected_secure_value": null,
+      "ground_truth_id": "GT-DOCKER-004",
+      "mapping_status": "mapped",
+      "original_category": null,
+      "original_subcategory": null,
+      "original_severity": null,
+      "original_resource": "corpus/dockerfiles/case-docker-004-exposed-ssh-port/Dockerfile.EXPOSE",
+      "source_file": "/corpus/dockerfiles/case-docker-004-exposed-ssh-port/Dockerfile",
+      "line_start": 5,
+      "line_end": 5,
+      "failed_resources": null,
+      "passed_resources": null,
+      "skipped_resources": null,
+      "score": null,
+      "compliance_score": null
+    }
+  ]
+}

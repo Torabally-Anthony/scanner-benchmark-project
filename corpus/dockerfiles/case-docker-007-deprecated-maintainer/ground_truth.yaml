@@ -1,7 +1,7 @@
 case_id: case-docker-007-deprecated-maintainer
 artifact_type: dockerfile
 
-ground_truth:
+misconfigurations:
   - id: GT-DOCKER-007
     title: Dockerfile uses deprecated MAINTAINER instruction
     category: BuildPractice
@@ -13,7 +13,7 @@ ground_truth:
     field_path: MAINTAINER
 
     bad_value: benchmark@example.invalid
-    expected_value: LABEL maintainer=<value>
+    expected_secure_value: LABEL maintainer=<value>
 
     rationale: >
       The MAINTAINER Dockerfile instruction is deprecated.

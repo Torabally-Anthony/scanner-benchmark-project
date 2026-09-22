@@ -1,7 +1,7 @@
 case_id: case-docker-006-add-instead-of-copy
 artifact_type: dockerfile
 
-ground_truth:
+misconfigurations:
   - id: GT-DOCKER-006
     title: Dockerfile uses ADD where COPY is sufficient
     category: BuildSecurity
@@ -13,7 +13,7 @@ ground_truth:
     field_path: ADD[0]
 
     bad_value: "ADD app.conf /app/app.conf"
-    expected_value: "COPY app.conf /app/app.conf"
+    expected_secure_value: "COPY app.conf /app/app.conf"
 
     rationale: >
       ADD has additional behaviour such as automatic archive

@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0",
+  "case_id": "case-003-rbac-wildcard",
+  "tool": "trivy",
+  "scanner_version": "Version: 0.74.0\nCheck Bundle:\n  Digest: sha256:1583562f8b90ed2a071b99f0e5ffff6b57e4ceb6ca3e4796577b4e6a339eb74c\n  DownloadedAt: 2026-09-22 11:08:49.192012 +0000 UTC",
+  "artifact_type": "kubernetes_yaml",
+  "generated_at": "2026-09-22T12:10:27.186719+00:00",
+  "source_file": "results/raw/trivy/case-003-rbac-wildcard.json",
+  "summary": {
+    "normalised_findings_count": 2,
+    "mapped_findings_count": 1,
+    "unmapped_findings_count": 1
+  },
+  "findings": [
+    {
+      "finding_id": "trivy-case-003-rbac-wildcard-0001",
+      "tool": "trivy",
+      "case_id": "case-003-rbac-wildcard",
+      "artifact_type": "kubernetes_yaml",
+      "rule_id": "KSV-0044",
+      "rule_name": "No wildcard verb and resource roles",
+      "status": "FAIL",
+      "message": "Role permits wildcard verb on wildcard resource",
+      "category": "AccessControl",
+      "subcategory": "RBACWildcard",
+      "severity": "High",
+      "resource": "Role.benchmark.wildcard-role",
+      "container": null,
+      "field_path": "rules[0]",
+      "bad_value": {
+        "resources": [
+          "*"
+        ],
+        "verbs": [
+          "*"
+        ]
+      },
+      "expected_secure_value": {
+        "resources": [
+          "required-resource"
+        ],
+        "verbs": [
+          "required-verbs"
+        ]
+      },
+      "ground_truth_id": "GT-003",
+      "mapping_status": "mapped",
+      "original_category": "config",
+      "original_subcategory": "kubernetes",
+      "original_severity": "CRITICAL",
+      "original_resource": "artifact.yaml",
+      "source_file": "artifact.yaml",
+      "line_start": 7,
+      "line_end": 12,
+      "failed_resources": null,
+      "passed_resources": null,
+      "skipped_resources": null,
+      "score": null,
+      "compliance_score": null
+    },
+    {
+      "finding_id": "trivy-case-003-rbac-wildcard-0002",
+      "tool": "trivy",
+      "case_id": "case-003-rbac-wildcard",
+      "artifact_type": "kubernetes_yaml",
+      "rule_id": "KSV-0112",
+      "rule_name": "Manage all resources at the namespace",
+      "status": "FAIL",
+      "message": "Role 'wildcard-role' shouldn't manage all resources at the namespace 'benchmark'",
+      "category": "config",
+      "subcategory": "kubernetes",
+      "severity": "CRITICAL",
+      "resource": "artifact.yaml",
+      "container": null,
+      "field_path": null,
+      "bad_value": null,
+      "expected_secure_value": null,
+      "ground_truth_id": null,
+      "mapping_status": "unmapped",
+      "original_category": "config",
+      "original_subcategory": "kubernetes",
+      "original_severity": "CRITICAL",
+      "original_resource": "artifact.yaml",
+      "source_file": "artifact.yaml",
+      "line_start": 7,
+      "line_end": 12,
+      "failed_resources": null,
+      "passed_resources": null,
+      "skipped_resources": null,
+      "score": null,
+      "compliance_score": null
+    }
+  ]
+}

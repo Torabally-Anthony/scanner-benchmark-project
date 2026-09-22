@@ -1,7 +1,7 @@
 case_id: case-009-automount-service-account-token
 artifact_type: kubernetes_yaml
 
-ground_truth:
+misconfigurations:
   - id: GT-009
     title: Service account token automatically mounted into pod
     category: IdentityAccess
@@ -13,7 +13,7 @@ ground_truth:
     field_path: spec.template.spec.automountServiceAccountToken
 
     bad_value: true
-    expected_value: false
+    expected_secure_value: false
 
     rationale: >
       Kubernetes service account tokens should not automatically
