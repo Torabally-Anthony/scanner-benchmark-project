@@ -4,9 +4,9 @@
   "tool": "kubescape",
   "scanner_version": "Your current version is: v4.0.10\nBuild commit: f956507357091c3806777fe13ddf5e65efe36e44\nBuild date: 2026-06-30T05:17:15Z",
   "artifact_type": "kubernetes_yaml",
-  "matching_mode": "strict",
-  "generated_at": "2026-08-02T19:37:37.479930+00:00",
-  "source_file": "results\\normalised_generic\\kubescape\\case-001-privileged-container.normalised.json",
+  "matching_mode": "review",
+  "generated_at": "2026-09-22T09:47:32.390431+00:00",
+  "source_file": "results/normalised_generic/kubescape/case-001-privileged-container.normalised.json",
   "ground_truth_source": "corpus/kubernetes/case-001-privileged-container/ground_truth.yaml",
   "classification_policy": {
     "true_positive": "The first valid scanner finding mapped to a ground-truth issue.",
@@ -20,9 +20,9 @@
     "total_normalised_findings": 23,
     "ground_truth_issue_count": 1,
     "true_positive_count": 1,
-    "false_positive_count": 22,
+    "false_positive_count": 0,
     "false_negative_count": 0,
-    "unlabelled_extra_findings_count": 0,
+    "unlabelled_extra_findings_count": 22,
     "duplicate_match_count": 0,
     "ambiguous_match_count": 0
   },
@@ -66,7 +66,9 @@
       "classification_reason": "The scanner rule correctly matched ground-truth issue 'GT-001'."
     }
   ],
-  "false_positives": [
+  "false_positives": [],
+  "false_negatives": [],
+  "unlabelled_extras": [
     {
       "finding_id": "kubescape-case-001-privileged-container-0001",
       "tool": "kubescape",
@@ -98,8 +100,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "kubescape-case-001-privileged-container-0002",
@@ -132,8 +134,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "kubescape-case-001-privileged-container-0003",
@@ -166,8 +168,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "kubescape-case-001-privileged-container-0004",
@@ -200,8 +202,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "kubescape-case-001-privileged-container-0005",
@@ -234,8 +236,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "kubescape-case-001-privileged-container-0006",
@@ -268,8 +270,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "kubescape-case-001-privileged-container-0007",
@@ -302,8 +304,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "kubescape-case-001-privileged-container-0008",
@@ -336,8 +338,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "kubescape-case-001-privileged-container-0009",
@@ -370,8 +372,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "kubescape-case-001-privileged-container-0010",
@@ -404,8 +406,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "kubescape-case-001-privileged-container-0011",
@@ -438,8 +440,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "kubescape-case-001-privileged-container-0013",
@@ -472,8 +474,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "kubescape-case-001-privileged-container-0014",
@@ -506,8 +508,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "kubescape-case-001-privileged-container-0015",
@@ -540,8 +542,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "kubescape-case-001-privileged-container-0016",
@@ -574,8 +576,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "kubescape-case-001-privileged-container-0017",
@@ -608,8 +610,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "kubescape-case-001-privileged-container-0018",
@@ -642,8 +644,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "kubescape-case-001-privileged-container-0019",
@@ -676,8 +678,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "kubescape-case-001-privileged-container-0020",
@@ -710,8 +712,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "kubescape-case-001-privileged-container-0021",
@@ -744,8 +746,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "kubescape-case-001-privileged-container-0022",
@@ -778,8 +780,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "kubescape-case-001-privileged-container-0023",
@@ -812,12 +814,10 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     }
   ],
-  "false_negatives": [],
-  "unlabelled_extras": [],
   "duplicate_matches": [],
   "ambiguous_matches": []
 }

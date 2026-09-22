@@ -5,8 +5,8 @@
   "scanner_version": "2.5.20",
   "artifact_type": "kubernetes_yaml",
   "matching_mode": "strict",
-  "generated_at": "2026-08-02T19:37:34.252579+00:00",
-  "source_file": "results\\normalised_generic\\checkov\\case-001-privileged-container.normalised.json",
+  "generated_at": "2026-09-22T09:48:49.258354+00:00",
+  "source_file": "results/normalised_generic/checkov/case-001-privileged-container.normalised.json",
   "ground_truth_source": "corpus/kubernetes/case-001-privileged-container/ground_truth.yaml",
   "classification_policy": {
     "true_positive": "The first valid scanner finding mapped to a ground-truth issue.",

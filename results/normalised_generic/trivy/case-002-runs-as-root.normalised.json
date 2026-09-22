@@ -4,8 +4,8 @@
   "tool": "trivy",
   "scanner_version": "Unknown",
   "artifact_type": "kubernetes_yaml",
-  "generated_at": "2026-08-05T14:11:00.683548+00:00",
-  "source_file": "results\\raw\\trivy\\case-002-runs-as-root.json",
+  "generated_at": "2026-09-22T09:46:34.725217+00:00",
+  "source_file": "results/raw/trivy/case-002-runs-as-root.json",
   "summary": {
     "normalised_findings_count": 4,
     "mapped_findings_count": 1,

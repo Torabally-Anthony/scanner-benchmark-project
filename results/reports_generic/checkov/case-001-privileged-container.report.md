@@ -11,7 +11,7 @@
 | Artifact type | kubernetes_yaml |
 | Matching mode | strict |
 | Evaluation status | complete |
-| Report generated | 2026-08-02T19:37:34.824821+00:00 |
+| Report generated | 2026-09-22T09:48:49.345932+00:00 |
 
 ### Scanner version
 
@@ -119,8 +119,8 @@ No findings were recorded in this category.
 
 | Input | Path | Generated at |
 | --- | --- | --- |
-| Matched findings | results\matched_generic\checkov\case-001-privileged-container.matched.json | 2026-08-02T19:37:34.252579+00:00 |
-| Metrics | results\metrics_generic\checkov\case-001-privileged-container.metrics.json | 2026-08-02T19:37:34.536393+00:00 |
+| Matched findings | results/matched_generic/checkov/case-001-privileged-container.matched.json | 2026-09-22T09:48:49.258354+00:00 |
+| Metrics | results/metrics_generic/checkov/case-001-privileged-container.metrics.json | 2026-09-22T09:48:49.301937+00:00 |
 
 ---
 

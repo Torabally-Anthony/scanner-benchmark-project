@@ -4,9 +4,9 @@
   "tool": "trivy",
   "scanner_version": "Unknown",
   "artifact_type": "kubernetes_yaml",
-  "matching_mode": "strict",
-  "generated_at": "2026-08-05T14:11:01.150359+00:00",
-  "source_file": "results\\normalised_generic\\trivy\\case-002-runs-as-root.normalised.json",
+  "matching_mode": "review",
+  "generated_at": "2026-09-22T09:46:34.768186+00:00",
+  "source_file": "results/normalised_generic/trivy/case-002-runs-as-root.normalised.json",
   "ground_truth_source": "corpus/kubernetes/case-002-runs-as-root/ground_truth.yaml",
   "classification_policy": {
     "true_positive": "The first valid scanner finding mapped to a ground-truth issue.",
@@ -20,9 +20,9 @@
     "total_normalised_findings": 4,
     "ground_truth_issue_count": 1,
     "true_positive_count": 1,
-    "false_positive_count": 3,
+    "false_positive_count": 0,
     "false_negative_count": 0,
-    "unlabelled_extra_findings_count": 0,
+    "unlabelled_extra_findings_count": 3,
     "duplicate_match_count": 0,
     "ambiguous_match_count": 0
   },
@@ -66,7 +66,9 @@
       "classification_reason": "The scanner rule correctly matched ground-truth issue 'GT-002'."
     }
   ],
-  "false_positives": [
+  "false_positives": [],
+  "false_negatives": [],
+  "unlabelled_extras": [
     {
       "finding_id": "trivy-case-002-runs-as-root-0002",
       "tool": "trivy",
@@ -98,8 +100,8 @@
       "skipped_resources": null,
       "score": null,
       "compliance_score": null,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "trivy-case-002-runs-as-root-0003",
@@ -132,8 +134,8 @@
       "skipped_resources": null,
       "score": null,
       "compliance_score": null,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "trivy-case-002-runs-as-root-0004",
@@ -166,12 +168,10 @@
       "skipped_resources": null,
       "score": null,
       "compliance_score": null,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     }
   ],
-  "false_negatives": [],
-  "unlabelled_extras": [],
   "duplicate_matches": [],
   "ambiguous_matches": []
 }

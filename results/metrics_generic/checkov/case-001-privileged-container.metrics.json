@@ -5,8 +5,8 @@
   "scanner_version": "2.5.20",
   "artifact_type": "kubernetes_yaml",
   "matching_mode": "strict",
-  "generated_at": "2026-08-02T19:37:34.536393+00:00",
-  "source_file": "results\\matched_generic\\checkov\\case-001-privileged-container.matched.json",
+  "generated_at": "2026-09-22T09:48:49.301937+00:00",
+  "source_file": "results/matched_generic/checkov/case-001-privileged-container.matched.json",
   "evaluation_status": "complete",
   "counts": {
     "total_normalised_findings": 20,

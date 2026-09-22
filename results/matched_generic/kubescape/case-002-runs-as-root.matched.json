@@ -4,9 +4,9 @@
   "tool": "kubescape",
   "scanner_version": "Your current version is: v4.0.10\nBuild commit: f956507357091c3806777fe13ddf5e65efe36e44\nBuild date: 2026-06-30T05:17:15Z",
   "artifact_type": "kubernetes_yaml",
-  "matching_mode": "strict",
-  "generated_at": "2026-08-05T14:11:04.150248+00:00",
-  "source_file": "results\\normalised_generic\\kubescape\\case-002-runs-as-root.normalised.json",
+  "matching_mode": "review",
+  "generated_at": "2026-09-22T09:46:34.989828+00:00",
+  "source_file": "results/normalised_generic/kubescape/case-002-runs-as-root.normalised.json",
   "ground_truth_source": "corpus/kubernetes/case-002-runs-as-root/ground_truth.yaml",
   "classification_policy": {
     "true_positive": "The first valid scanner finding mapped to a ground-truth issue.",
@@ -20,9 +20,9 @@
     "total_normalised_findings": 6,
     "ground_truth_issue_count": 1,
     "true_positive_count": 1,
-    "false_positive_count": 5,
+    "false_positive_count": 0,
     "false_negative_count": 0,
-    "unlabelled_extra_findings_count": 0,
+    "unlabelled_extra_findings_count": 5,
     "duplicate_match_count": 0,
     "ambiguous_match_count": 0
   },
@@ -66,7 +66,9 @@
       "classification_reason": "The scanner rule correctly matched ground-truth issue 'GT-002'."
     }
   ],
-  "false_positives": [
+  "false_positives": [],
+  "false_negatives": [],
+  "unlabelled_extras": [
     {
       "finding_id": "kubescape-case-002-runs-as-root-0002",
       "tool": "kubescape",
@@ -98,8 +100,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "kubescape-case-002-runs-as-root-0003",
@@ -132,8 +134,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "kubescape-case-002-runs-as-root-0004",
@@ -166,8 +168,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "kubescape-case-002-runs-as-root-0005",
@@ -200,8 +202,8 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     },
     {
       "finding_id": "kubescape-case-002-runs-as-root-0006",
@@ -234,12 +236,10 @@
       "skipped_resources": 0,
       "score": 100,
       "compliance_score": 0,
-      "classification": "false_positive",
-      "classification_reason": "The finding has no ground-truth mapping and strict mode treats all unmapped findings as false positives."
+      "classification": "unlabelled_extra",
+      "classification_reason": "The finding has no approved ground-truth mapping. In review mode, it is stored as an unlabelled extra rather than a false positive."
     }
   ],
-  "false_negatives": [],
-  "unlabelled_extras": [],
   "duplicate_matches": [],
   "ambiguous_matches": []
 }
