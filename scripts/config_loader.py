@@ -136,17 +136,17 @@ def get_ground_truth_items(
 ) -> dict[str, dict[str, Any]]:
     """Index ground-truth items by their IDs."""
 
-    misconfigurations = ground_truth.get(
+    misconfigurations = ground_truth.get( #fetches the entire misconfiguration list and stores it in misconfigurations
         "misconfigurations"
     )
 
-    if not isinstance(misconfigurations, list):
+    if not isinstance(misconfigurations, list): #ensures that misconfigurations values is in a list
         raise ConfigurationError(
             "Ground truth must contain a "
             "'misconfigurations' list."
         )
-
-    indexed_items: dict[str, dict[str, Any]] = {}
+    #create a new lookup dictionary for ground_truth misconfiguration
+    indexed_items: dict[str, dict[str, Any]] = {} #creates an empty dictionary called indexed_items
 
     for item in misconfigurations:
         if not isinstance(item, dict):
@@ -154,18 +154,19 @@ def get_ground_truth_items(
 
         ground_truth_id = item.get("id")
 
-        if (
+        if ( #checks to ensure that the id is a valid non-empty string before using it as a lookup key
             isinstance(ground_truth_id, str)
-            and ground_truth_id.strip()
+            and ground_truth_id.strip() #check if its empty
         ):
-            indexed_items[ground_truth_id.strip()] = item
+            indexed_items[ground_truth_id.strip()] = item #indexed_items id becomes the KEY and item becomes the VALUE
 
     if not indexed_items:
         raise ConfigurationError(
             "No valid ground-truth items were found."
         )
 
-    return indexed_items
+    return indexed_items #function builds a dictionary at runtime so the program can query its [rule_id] to find misconfigurations quicker
+    #without having to search the entire program for a [rule_id]
 
 
 # This function converts scanner rule mappings into a lookup from rule IDs to ground-truth IDs.
@@ -180,7 +181,7 @@ def build_rule_to_ground_truth_map(
     """
 
     mappings = case_configuration.get("rule_mappings")
-
+    #needs to be a dict where the grund_truth ids map to the scanner specific rule mappings
     if not isinstance(mappings, dict):
         raise ConfigurationError(
             "The case has no valid rule_mappings."
