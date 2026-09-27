@@ -1,0 +1,24 @@
+case_id: case-docker-013-out-of-range-port
+artifact_type: dockerfile
+
+misconfigurations:
+  - id: GT-DOCKER-013
+    title: Dockerfile exposes an invalid network port
+    category: NetworkConfiguration
+    subcategory: PortOutOfRange
+    severity: Critical
+
+    resource: Dockerfile
+
+    field_path: EXPOSE[0]
+    bad_value: 70000
+    expected_secure_value: port-in-range-0-to-65535
+
+    rationale: >
+      TCP and UDP port numbers are limited to the range 0 through 65535.
+      Declaring a value outside that range is invalid and indicates a broken
+      or misleading container network configuration.
+
+    applicable_scanners:
+      - checkov
+      - trivy

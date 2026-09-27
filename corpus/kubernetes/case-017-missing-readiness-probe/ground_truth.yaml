@@ -1,0 +1,26 @@
+case_id: case-017-missing-readiness-probe
+artifact_type: kubernetes_yaml
+
+misconfigurations:
+  - id: GT-017
+    title: Container has no readiness probe
+    category: WorkloadReliability
+    subcategory: MissingReadinessProbe
+    severity: Medium
+
+    resource: Pod.benchmark.missing-readiness-probe-demo
+    container: demo-container
+
+    field_path: spec.containers[0].readinessProbe
+    bad_value: null
+    expected_secure_value: configured-probe
+
+    rationale: >
+      Without a readiness probe, Kubernetes may route traffic to a container
+      before it can safely serve requests or while it is temporarily unable
+      to handle them.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

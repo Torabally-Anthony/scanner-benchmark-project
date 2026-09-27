@@ -1,0 +1,24 @@
+case_id: case-docker-014-sudo-in-run
+artifact_type: dockerfile
+
+misconfigurations:
+  - id: GT-DOCKER-014
+    title: Dockerfile invokes sudo during the image build
+    category: BuildSecurity
+    subcategory: SudoInRun
+    severity: Critical
+
+    resource: Dockerfile
+
+    field_path: RUN[0]
+    bad_value: "apk add --no-cache sudo && sudo true"
+    expected_secure_value: run-required-command-directly
+
+    rationale: >
+      Docker build instructions normally execute as root unless USER changes
+      the build context. Invoking sudo is unnecessary, adds software and
+      configuration to the image, and can create unpredictable behaviour.
+
+    applicable_scanners:
+      - checkov
+      - trivy

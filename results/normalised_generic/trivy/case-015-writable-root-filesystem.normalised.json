@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "case_id": "case-015-writable-root-filesystem",
+  "tool": "trivy",
+  "scanner_version": "Version: 0.74.0\nCheck Bundle:\n  Digest: sha256:1583562f8b90ed2a071b99f0e5ffff6b57e4ceb6ca3e4796577b4e6a339eb74c\n  DownloadedAt: 2026-09-22 11:08:49.192012 +0000 UTC",
+  "artifact_type": "kubernetes_yaml",
+  "generated_at": "2026-09-26T15:47:05.644927+00:00",
+  "source_file": "results/raw/trivy/case-015-writable-root-filesystem.json",
+  "summary": {
+    "normalised_findings_count": 1,
+    "mapped_findings_count": 1,
+    "unmapped_findings_count": 0
+  },
+  "findings": [
+    {
+      "finding_id": "trivy-case-015-writable-root-filesystem-0001",
+      "tool": "trivy",
+      "case_id": "case-015-writable-root-filesystem",
+      "artifact_type": "kubernetes_yaml",
+      "rule_id": "KSV-0014",
+      "rule_name": "Root file system is not read-only",
+      "status": "FAIL",
+      "message": "Container 'demo-container' of Pod 'writable-root-filesystem-demo' should set 'securityContext.readOnlyRootFilesystem' to true",
+      "category": "PodSecurity",
+      "subcategory": "WritableRootFilesystem",
+      "severity": "Medium",
+      "resource": "Pod.benchmark.writable-root-filesystem-demo",
+      "container": "demo-container",
+      "field_path": "spec.containers[0].securityContext.readOnlyRootFilesystem",
+      "bad_value": false,
+      "expected_secure_value": true,
+      "ground_truth_id": "GT-015",
+      "mapping_status": "mapped",
+      "original_category": "config",
+      "original_subcategory": "kubernetes",
+      "original_severity": "HIGH",
+      "original_resource": "artifact.yaml",
+      "source_file": "artifact.yaml",
+      "line_start": 21,
+      "line_end": 46,
+      "failed_resources": null,
+      "passed_resources": null,
+      "skipped_resources": null,
+      "score": null,
+      "compliance_score": null
+    }
+  ]
+}

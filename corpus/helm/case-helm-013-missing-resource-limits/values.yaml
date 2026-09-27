@@ -1,0 +1,4 @@
+namespace: benchmark
+image:
+  repository: nginx
+  tag: "1.25.5"

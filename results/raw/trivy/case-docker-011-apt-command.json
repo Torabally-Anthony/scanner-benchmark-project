@@ -1,0 +1,21 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.74.0"
+  },
+  "ReportID": "01a0de6a-f81f-7e9e-b0b7-d985028cc062",
+  "CreatedAt": "2026-09-26T17:52:27.42396+02:00",
+  "ArtifactName": "corpus/dockerfiles/case-docker-011-apt-command/Dockerfile",
+  "ArtifactType": "filesystem",
+  "Results": [
+    {
+      "Target": "Dockerfile",
+      "Class": "config",
+      "Type": "dockerfile",
+      "MisconfSummary": {
+        "Successes": 27,
+        "Failures": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+case_id: case-014-privilege-escalation
+artifact_type: kubernetes_yaml
+
+misconfigurations:
+  - id: GT-014
+    title: Container permits privilege escalation
+    category: PodSecurity
+    subcategory: PrivilegeEscalation
+    severity: High
+
+    resource: Pod.benchmark.privilege-escalation-demo
+    container: demo-container
+
+    field_path: spec.containers[0].securityContext.allowPrivilegeEscalation
+    bad_value: true
+    expected_secure_value: false
+
+    rationale: >
+      Allowing privilege escalation permits a process in the container to
+      gain more privileges than its parent process. Workloads should
+      explicitly disable privilege escalation.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

@@ -1,0 +1,21 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.74.0"
+  },
+  "ReportID": "01a0de75-8cbf-74b7-a85d-4611ceaf1409",
+  "CreatedAt": "2026-09-26T18:04:00.83131+02:00",
+  "ArtifactName": "corpus/helm/case-helm-019-missing-network-policy",
+  "ArtifactType": "filesystem",
+  "Results": [
+    {
+      "Target": "templates/deployment.yaml",
+      "Class": "config",
+      "Type": "helm",
+      "MisconfSummary": {
+        "Successes": 98,
+        "Failures": 0
+      }
+    }
+  ]
+}

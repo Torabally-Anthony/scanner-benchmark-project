@@ -1,0 +1,360 @@
+{
+    "check_type": "kubernetes",
+    "results": {
+        "passed_checks": [
+            {
+                "check_id": "CKV_K8S_21",
+                "bc_check_id": "BC_K8S_20",
+                "check_name": "The default namespace should not be used",
+                "check_result": {
+                    "result": "PASSED",
+                    "evaluated_keys": []
+                },
+                "code_block": [
+                    [
+                        1,
+                        "apiVersion: rbac.authorization.k8s.io/v1\n"
+                    ],
+                    [
+                        2,
+                        "kind: Role\n"
+                    ],
+                    [
+                        3,
+                        "metadata:\n"
+                    ],
+                    [
+                        4,
+                        "  name: wildcard-role\n"
+                    ],
+                    [
+                        5,
+                        "  namespace: benchmark\n"
+                    ],
+                    [
+                        6,
+                        "rules:\n"
+                    ],
+                    [
+                        7,
+                        "  - apiGroups:\n"
+                    ],
+                    [
+                        8,
+                        "      - \"*\"\n"
+                    ],
+                    [
+                        9,
+                        "    resources:\n"
+                    ],
+                    [
+                        10,
+                        "      - \"*\"\n"
+                    ],
+                    [
+                        11,
+                        "    verbs:\n"
+                    ],
+                    [
+                        12,
+                        "      - \"*\""
+                    ]
+                ],
+                "file_path": "/corpus/kubernetes/case-003-rbac-wildcard/artifact.yaml",
+                "file_abs_path": "/Users/anthonytorabally/Desktop/workspace/UJ/scanner-benchmark-project/scanner-benchmark-project/corpus/kubernetes/case-003-rbac-wildcard/artifact.yaml",
+                "repo_file_path": "/corpus/kubernetes/case-003-rbac-wildcard/artifact.yaml",
+                "file_line_range": [
+                    1,
+                    12
+                ],
+                "resource": "Role.benchmark.wildcard-role",
+                "evaluations": {},
+                "check_class": "checkov.kubernetes.checks.resource.k8s.DefaultNamespace",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-20",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": null
+            }
+        ],
+        "failed_checks": [
+            {
+                "check_id": "CKV_K8S_158",
+                "bc_check_id": "BC_K8S_114",
+                "check_name": "Minimize Roles and ClusterRoles that grant permissions to escalate Roles or ClusterRoles",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": [
+                    [
+                        1,
+                        "apiVersion: rbac.authorization.k8s.io/v1\n"
+                    ],
+                    [
+                        2,
+                        "kind: Role\n"
+                    ],
+                    [
+                        3,
+                        "metadata:\n"
+                    ],
+                    [
+                        4,
+                        "  name: wildcard-role\n"
+                    ],
+                    [
+                        5,
+                        "  namespace: benchmark\n"
+                    ],
+                    [
+                        6,
+                        "rules:\n"
+                    ],
+                    [
+                        7,
+                        "  - apiGroups:\n"
+                    ],
+                    [
+                        8,
+                        "      - \"*\"\n"
+                    ],
+                    [
+                        9,
+                        "    resources:\n"
+                    ],
+                    [
+                        10,
+                        "      - \"*\"\n"
+                    ],
+                    [
+                        11,
+                        "    verbs:\n"
+                    ],
+                    [
+                        12,
+                        "      - \"*\""
+                    ]
+                ],
+                "file_path": "/corpus/kubernetes/case-003-rbac-wildcard/artifact.yaml",
+                "file_abs_path": "/Users/anthonytorabally/Desktop/workspace/UJ/scanner-benchmark-project/scanner-benchmark-project/corpus/kubernetes/case-003-rbac-wildcard/artifact.yaml",
+                "repo_file_path": "/corpus/kubernetes/case-003-rbac-wildcard/artifact.yaml",
+                "file_line_range": [
+                    1,
+                    12
+                ],
+                "resource": "Role.benchmark.wildcard-role",
+                "evaluations": {},
+                "check_class": "checkov.kubernetes.checks.resource.k8s.RbacEscalateRoles",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/ensure-roles-and-clusterroles-that-grant-permissions-to-escalate-roles-or-clusterrole-are-minimized",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": null
+            },
+            {
+                "check_id": "CKV_K8S_157",
+                "bc_check_id": "BC_K8S_113",
+                "check_name": "Minimize Roles and ClusterRoles that grant permissions to bind RoleBindings or ClusterRoleBindings",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": [
+                    [
+                        1,
+                        "apiVersion: rbac.authorization.k8s.io/v1\n"
+                    ],
+                    [
+                        2,
+                        "kind: Role\n"
+                    ],
+                    [
+                        3,
+                        "metadata:\n"
+                    ],
+                    [
+                        4,
+                        "  name: wildcard-role\n"
+                    ],
+                    [
+                        5,
+                        "  namespace: benchmark\n"
+                    ],
+                    [
+                        6,
+                        "rules:\n"
+                    ],
+                    [
+                        7,
+                        "  - apiGroups:\n"
+                    ],
+                    [
+                        8,
+                        "      - \"*\"\n"
+                    ],
+                    [
+                        9,
+                        "    resources:\n"
+                    ],
+                    [
+                        10,
+                        "      - \"*\"\n"
+                    ],
+                    [
+                        11,
+                        "    verbs:\n"
+                    ],
+                    [
+                        12,
+                        "      - \"*\""
+                    ]
+                ],
+                "file_path": "/corpus/kubernetes/case-003-rbac-wildcard/artifact.yaml",
+                "file_abs_path": "/Users/anthonytorabally/Desktop/workspace/UJ/scanner-benchmark-project/scanner-benchmark-project/corpus/kubernetes/case-003-rbac-wildcard/artifact.yaml",
+                "repo_file_path": "/corpus/kubernetes/case-003-rbac-wildcard/artifact.yaml",
+                "file_line_range": [
+                    1,
+                    12
+                ],
+                "resource": "Role.benchmark.wildcard-role",
+                "evaluations": {},
+                "check_class": "checkov.kubernetes.checks.resource.k8s.RbacBindRoleBindings",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/ensure-roles-and-clusterroles-that-grant-permissions-to-bind-rolebindings-or-clusterrolebindings-are-minimized",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": null
+            },
+            {
+                "check_id": "CKV_K8S_49",
+                "bc_check_id": "BC_K8S_107",
+                "check_name": "Minimize wildcard use in Roles and ClusterRoles",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": [
+                    [
+                        1,
+                        "apiVersion: rbac.authorization.k8s.io/v1\n"
+                    ],
+                    [
+                        2,
+                        "kind: Role\n"
+                    ],
+                    [
+                        3,
+                        "metadata:\n"
+                    ],
+                    [
+                        4,
+                        "  name: wildcard-role\n"
+                    ],
+                    [
+                        5,
+                        "  namespace: benchmark\n"
+                    ],
+                    [
+                        6,
+                        "rules:\n"
+                    ],
+                    [
+                        7,
+                        "  - apiGroups:\n"
+                    ],
+                    [
+                        8,
+                        "      - \"*\"\n"
+                    ],
+                    [
+                        9,
+                        "    resources:\n"
+                    ],
+                    [
+                        10,
+                        "      - \"*\"\n"
+                    ],
+                    [
+                        11,
+                        "    verbs:\n"
+                    ],
+                    [
+                        12,
+                        "      - \"*\""
+                    ]
+                ],
+                "file_path": "/corpus/kubernetes/case-003-rbac-wildcard/artifact.yaml",
+                "file_abs_path": "/Users/anthonytorabally/Desktop/workspace/UJ/scanner-benchmark-project/scanner-benchmark-project/corpus/kubernetes/case-003-rbac-wildcard/artifact.yaml",
+                "repo_file_path": "/corpus/kubernetes/case-003-rbac-wildcard/artifact.yaml",
+                "file_line_range": [
+                    1,
+                    12
+                ],
+                "resource": "Role.benchmark.wildcard-role",
+                "evaluations": {},
+                "check_class": "checkov.kubernetes.checks.resource.k8s.WildcardRoles",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/ensure-minimized-wildcard-use-in-roles-and-clusterroles",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": null
+            }
+        ],
+        "skipped_checks": [],
+        "parsing_errors": []
+    },
+    "summary": {
+        "passed": 1,
+        "failed": 3,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 1,
+        "checkov_version": "3.3.10"
+    },
+    "url": "Add an api key '--bc-api-key <api-key>' to see more detailed insights via https://bridgecrew.cloud"
+}

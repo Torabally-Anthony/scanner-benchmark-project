@@ -1,0 +1,60 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.74.0"
+  },
+  "ReportID": "01a0c8f5-204d-714f-836b-d084753b2d47",
+  "CreatedAt": "2026-09-22T13:51:42.925087+02:00",
+  "ArtifactName": "corpus/dockerfiles/case-docker-008-relative-workdir/Dockerfile",
+  "ArtifactType": "filesystem",
+  "Results": [
+    {
+      "Target": "Dockerfile",
+      "Class": "config",
+      "Type": "dockerfile",
+      "MisconfSummary": {
+        "Successes": 26,
+        "Failures": 1
+      },
+      "Misconfigurations": [
+        {
+          "Type": "Dockerfile Security Check",
+          "ID": "DS-0009",
+          "Title": "WORKDIR path not absolute",
+          "Description": "For clarity and reliability, you should always use absolute paths for your WORKDIR.",
+          "Message": "WORKDIR path 'app' should be absolute",
+          "Namespace": "builtin.dockerfile.DS009",
+          "Query": "data.builtin.dockerfile.DS009.deny",
+          "Resolution": "Use absolute paths for your WORKDIR",
+          "Severity": "HIGH",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ds-0009",
+          "References": [
+            "https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#workdir",
+            "https://avd.aquasec.com/misconfig/ds-0009"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Dockerfile",
+            "Service": "general",
+            "StartLine": 3,
+            "EndLine": 3,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 3,
+                  "Content": "WORKDIR app",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[38;5;64mWORKDIR\u001b[0m\u001b[38;5;37m app\u001b[0m",
+                  "FirstCause": true,
+                  "LastCause": true
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+case_id: case-011-host-network
+artifact_type: kubernetes_yaml
+
+misconfigurations:
+  - id: GT-011
+    title: Pod shares the host network namespace
+    category: PodSecurity
+    subcategory: HostNetwork
+    severity: High
+
+    resource: Pod.benchmark.host-network-demo
+    container: null
+
+    field_path: spec.hostNetwork
+    bad_value: true
+    expected_secure_value: false
+
+    rationale: >
+      Sharing the host network namespace exposes the pod to the node's
+      network interfaces and ports, weakening network isolation and
+      increasing the impact of a container compromise.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

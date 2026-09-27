@@ -1,0 +1,70 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.74.0"
+  },
+  "ReportID": "01a0de6a-fe5e-749f-901e-6f175bccdeda",
+  "CreatedAt": "2026-09-26T17:52:29.022304+02:00",
+  "ArtifactName": "corpus/dockerfiles/case-docker-014-sudo-in-run/Dockerfile",
+  "ArtifactType": "filesystem",
+  "Results": [
+    {
+      "Target": "Dockerfile",
+      "Class": "config",
+      "Type": "dockerfile",
+      "MisconfSummary": {
+        "Successes": 26,
+        "Failures": 1
+      },
+      "Misconfigurations": [
+        {
+          "Type": "Dockerfile Security Check",
+          "ID": "DS-0010",
+          "Title": "RUN using 'sudo'",
+          "Description": "Avoid using 'RUN' with 'sudo' commands, as it can lead to unpredictable behavior.",
+          "Message": "Using 'sudo' in Dockerfile should be avoided",
+          "Namespace": "builtin.dockerfile.DS010",
+          "Query": "data.builtin.dockerfile.DS010.deny",
+          "Resolution": "Don't use sudo",
+          "Severity": "CRITICAL",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ds-0010",
+          "References": [
+            "https://docs.docker.com/engine/reference/builder/#run",
+            "https://avd.aquasec.com/misconfig/ds-0010"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Dockerfile",
+            "Service": "general",
+            "StartLine": 3,
+            "EndLine": 4,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 3,
+                  "Content": "RUN apk add --no-cache sudo \\",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[38;5;64mRUN\u001b[0m apk add --no-cache sudo \u001b[38;5;124m\\",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 4,
+                  "Content": "    \u0026\u0026 sudo true",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m    \u001b[38;5;245m\u0026\u0026\u001b[0m sudo true",
+                  "FirstCause": false,
+                  "LastCause": true
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

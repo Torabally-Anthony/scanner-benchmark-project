@@ -1,0 +1,26 @@
+case_id: case-012-host-pid
+artifact_type: kubernetes_yaml
+
+misconfigurations:
+  - id: GT-012
+    title: Pod shares the host process namespace
+    category: PodSecurity
+    subcategory: HostPID
+    severity: High
+
+    resource: Pod.benchmark.host-pid-demo
+    container: null
+
+    field_path: spec.hostPID
+    bad_value: true
+    expected_secure_value: false
+
+    rationale: >
+      Sharing the host PID namespace allows processes in the pod to observe
+      and potentially interact with processes running on the Kubernetes
+      node, reducing workload isolation.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

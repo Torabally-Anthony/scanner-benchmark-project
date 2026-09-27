@@ -1,0 +1,26 @@
+case_id: case-docker-012-multiple-entrypoints
+artifact_type: dockerfile
+
+misconfigurations:
+  - id: GT-DOCKER-012
+    title: Dockerfile declares multiple ENTRYPOINT instructions
+    category: BuildConfiguration
+    subcategory: MultipleEntrypoints
+    severity: Critical
+
+    resource: Dockerfile
+
+    field_path: ENTRYPOINT[1]
+    bad_value:
+      - '["/bin/sh", "-c"]'
+      - '["/bin/echo"]'
+    expected_secure_value: one-effective-entrypoint
+
+    rationale: >
+      Only the final ENTRYPOINT in a build stage is effective. Multiple
+      declarations obscure the container's actual startup behaviour and can
+      cause a reviewer to assess an instruction that Docker later replaces.
+
+    applicable_scanners:
+      - checkov
+      - trivy

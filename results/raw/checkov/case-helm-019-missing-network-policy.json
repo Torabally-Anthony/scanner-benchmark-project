@@ -1,0 +1,274 @@
+{
+    "check_type": "helm",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_K8S_43",
+                "bc_check_id": null,
+                "check_name": "Image should use digest",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/template/spec/containers/[0]/image"
+                    ]
+                },
+                "code_block": [
+                    [
+                        3,
+                        "apiVersion: apps/v1\n"
+                    ],
+                    [
+                        4,
+                        "kind: Deployment\n"
+                    ],
+                    [
+                        5,
+                        "metadata:\n"
+                    ],
+                    [
+                        6,
+                        "  name: missing-network-policy-helm-demo\n"
+                    ],
+                    [
+                        7,
+                        "  namespace: benchmark\n"
+                    ],
+                    [
+                        8,
+                        "  labels:\n"
+                    ],
+                    [
+                        9,
+                        "    app: missing-network-policy-helm-demo\n"
+                    ],
+                    [
+                        10,
+                        "spec:\n"
+                    ],
+                    [
+                        11,
+                        "  replicas: 1\n"
+                    ],
+                    [
+                        12,
+                        "  selector:\n"
+                    ],
+                    [
+                        13,
+                        "    matchLabels:\n"
+                    ],
+                    [
+                        14,
+                        "      app: missing-network-policy-helm-demo\n"
+                    ],
+                    [
+                        15,
+                        "  template:\n"
+                    ],
+                    [
+                        16,
+                        "    metadata:\n"
+                    ],
+                    [
+                        17,
+                        "      labels:\n"
+                    ],
+                    [
+                        18,
+                        "        app: missing-network-policy-helm-demo\n"
+                    ],
+                    [
+                        19,
+                        "    spec:\n"
+                    ],
+                    [
+                        20,
+                        "      automountServiceAccountToken: false\n"
+                    ],
+                    [
+                        21,
+                        "      securityContext:\n"
+                    ],
+                    [
+                        22,
+                        "        runAsNonRoot: true\n"
+                    ],
+                    [
+                        23,
+                        "        runAsUser: 10001\n"
+                    ],
+                    [
+                        24,
+                        "        runAsGroup: 10001\n"
+                    ],
+                    [
+                        25,
+                        "        fsGroup: 10001\n"
+                    ],
+                    [
+                        26,
+                        "        seccompProfile:\n"
+                    ],
+                    [
+                        27,
+                        "          type: RuntimeDefault\n"
+                    ],
+                    [
+                        28,
+                        "      containers:\n"
+                    ],
+                    [
+                        29,
+                        "        - name: demo-container\n"
+                    ],
+                    [
+                        30,
+                        "          image: \"nginx:1.25.5\"\n"
+                    ],
+                    [
+                        31,
+                        "          imagePullPolicy: Always\n"
+                    ],
+                    [
+                        32,
+                        "          ports:\n"
+                    ],
+                    [
+                        33,
+                        "            - name: http\n"
+                    ],
+                    [
+                        34,
+                        "              containerPort: 8080\n"
+                    ],
+                    [
+                        35,
+                        "              protocol: TCP\n"
+                    ],
+                    [
+                        36,
+                        "          securityContext:\n"
+                    ],
+                    [
+                        37,
+                        "            privileged: false\n"
+                    ],
+                    [
+                        38,
+                        "            allowPrivilegeEscalation: false\n"
+                    ],
+                    [
+                        39,
+                        "            readOnlyRootFilesystem: true\n"
+                    ],
+                    [
+                        40,
+                        "            capabilities:\n"
+                    ],
+                    [
+                        41,
+                        "              drop:\n"
+                    ],
+                    [
+                        42,
+                        "                - ALL\n"
+                    ],
+                    [
+                        43,
+                        "          resources:\n"
+                    ],
+                    [
+                        44,
+                        "            requests:\n"
+                    ],
+                    [
+                        45,
+                        "              cpu: 100m\n"
+                    ],
+                    [
+                        46,
+                        "              memory: 128Mi\n"
+                    ],
+                    [
+                        47,
+                        "            limits:\n"
+                    ],
+                    [
+                        48,
+                        "              cpu: 200m\n"
+                    ],
+                    [
+                        49,
+                        "              memory: 256Mi\n"
+                    ],
+                    [
+                        50,
+                        "          readinessProbe:\n"
+                    ],
+                    [
+                        51,
+                        "            httpGet:\n"
+                    ],
+                    [
+                        52,
+                        "              path: /\n"
+                    ],
+                    [
+                        53,
+                        "              port: http\n"
+                    ],
+                    [
+                        54,
+                        "          livenessProbe:\n"
+                    ],
+                    [
+                        55,
+                        "            httpGet:\n"
+                    ],
+                    [
+                        56,
+                        "              path: /\n"
+                    ],
+                    [
+                        57,
+                        "              port: http\n"
+                    ]
+                ],
+                "file_path": "/templates/deployment.yaml",
+                "file_abs_path": "corpus/helm/case-helm-019-missing-network-policy/templates/deployment.yaml",
+                "repo_file_path": "/templates/deployment.yaml",
+                "file_line_range": [
+                    3,
+                    57
+                ],
+                "resource": "Deployment.benchmark.missing-network-policy-helm-demo",
+                "evaluations": {},
+                "check_class": "checkov.kubernetes.checks.resource.k8s.ImageDigest",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": null,
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": null
+            }
+        ]
+    },
+    "summary": {
+        "passed": 87,
+        "failed": 1,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 2,
+        "checkov_version": "3.3.10"
+    }
+}

@@ -5,7 +5,7 @@
   "scanner_version": "3.3.10",
   "artifact_type": "kubernetes_yaml",
   "matching_mode": "strict",
-  "generated_at": "2026-09-22T12:10:27.730405+00:00",
+  "generated_at": "2026-09-27T07:00:13.565857+00:00",
   "source_file": "results/normalised_generic/checkov/case-004-public-loadbalancer.normalised.json",
   "ground_truth_source": "corpus/kubernetes/case-004-public-loadbalancer/ground_truth.yaml",
   "classification_policy": {

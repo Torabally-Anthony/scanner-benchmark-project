@@ -1,0 +1,60 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.74.0"
+  },
+  "ReportID": "01a0de6a-fa0e-73e0-8340-d9f4f96ca136",
+  "CreatedAt": "2026-09-26T17:52:27.918256+02:00",
+  "ArtifactName": "corpus/dockerfiles/case-docker-012-multiple-entrypoints/Dockerfile",
+  "ArtifactType": "filesystem",
+  "Results": [
+    {
+      "Target": "Dockerfile",
+      "Class": "config",
+      "Type": "dockerfile",
+      "MisconfSummary": {
+        "Successes": 26,
+        "Failures": 1
+      },
+      "Misconfigurations": [
+        {
+          "Type": "Dockerfile Security Check",
+          "ID": "DS-0007",
+          "Title": "Multiple ENTRYPOINT instructions listed",
+          "Description": "There can only be one ENTRYPOINT instruction in a Dockerfile. Only the last ENTRYPOINT instruction in the Dockerfile will have an effect.",
+          "Message": "There are 2 duplicate ENTRYPOINT instructions",
+          "Namespace": "builtin.dockerfile.DS007",
+          "Query": "data.builtin.dockerfile.DS007.deny",
+          "Resolution": "Remove unnecessary ENTRYPOINT instruction.",
+          "Severity": "CRITICAL",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ds-0007",
+          "References": [
+            "https://docs.docker.com/engine/reference/builder/#entrypoint",
+            "https://avd.aquasec.com/misconfig/ds-0007"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Dockerfile",
+            "Service": "general",
+            "StartLine": 6,
+            "EndLine": 6,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 6,
+                  "Content": "ENTRYPOINT [\"/bin/echo\"]",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[38;5;64mENTRYPOINT\u001b[0m [\u001b[38;5;37m\"/bin/echo\"\u001b[0m]",
+                  "FirstCause": true,
+                  "LastCause": true
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

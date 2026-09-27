@@ -1,0 +1,26 @@
+case_id: case-020-missing-network-policy
+artifact_type: kubernetes_yaml
+
+misconfigurations:
+  - id: GT-020
+    title: Pod is not selected by a NetworkPolicy
+    category: NetworkSecurity
+    subcategory: MissingNetworkPolicy
+    severity: High
+
+    resource: Pod.benchmark.missing-network-policy-demo
+    container: null
+
+    field_path: NetworkPolicy.spec.podSelector
+    bad_value: null
+    expected_secure_value: matching-network-policy
+
+    rationale: >
+      A workload with no matching NetworkPolicy may accept unrestricted
+      ingress and egress traffic, depending on cluster policy. Explicit
+      policies should define the workload's permitted network flows.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

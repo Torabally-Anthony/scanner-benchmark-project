@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "case_id": "case-docker-013-out-of-range-port",
+  "tool": "checkov",
+  "scanner_version": "3.3.10",
+  "artifact_type": "dockerfile",
+  "generated_at": "2026-09-26T15:54:10.829380+00:00",
+  "source_file": "results/raw/checkov/case-docker-013-out-of-range-port.json",
+  "summary": {
+    "normalised_findings_count": 0,
+    "mapped_findings_count": 0,
+    "unmapped_findings_count": 0
+  },
+  "findings": []
+}

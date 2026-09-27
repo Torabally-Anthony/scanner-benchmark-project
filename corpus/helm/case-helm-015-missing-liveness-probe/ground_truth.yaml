@@ -1,0 +1,24 @@
+case_id: case-helm-015-missing-liveness-probe
+artifact_type: helm_chart
+
+misconfigurations:
+  - id: GT-HELM-015
+    title: Helm chart omits a container liveness probe
+    category: Reliability
+    subcategory: MissingLivenessProbe
+    severity: Medium
+
+    resource: Deployment.benchmark.missing-liveness-probe-helm-demo
+    field_path: spec.template.spec.containers[0].livenessProbe
+    bad_value: null
+    expected_secure_value: A suitable liveness probe
+
+    rationale: >
+      Without a liveness probe, Kubernetes cannot identify and restart a
+      container that is running but no longer healthy. A workload-specific probe
+      improves automated recovery.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

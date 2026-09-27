@@ -1,0 +1,24 @@
+case_id: case-docker-020-apk-cache-not-disabled
+artifact_type: dockerfile
+
+misconfigurations:
+  - id: GT-DOCKER-020
+    title: apk package installation retains its cache
+    category: PackageManagement
+    subcategory: ApkCacheNotDisabled
+    severity: High
+
+    resource: Dockerfile
+
+    field_path: RUN[0]
+    bad_value: "apk add curl"
+    expected_secure_value: "apk add --no-cache curl"
+
+    rationale: >
+      Running apk add without --no-cache stores the package index in the
+      image layer. Disabling the cache keeps the resulting image smaller and
+      avoids retaining unnecessary package metadata.
+
+    applicable_scanners:
+      - checkov
+      - trivy

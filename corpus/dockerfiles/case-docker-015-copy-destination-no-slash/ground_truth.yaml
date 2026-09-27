@@ -1,0 +1,24 @@
+case_id: case-docker-015-copy-destination-no-slash
+artifact_type: dockerfile
+
+misconfigurations:
+  - id: GT-DOCKER-015
+    title: Multi-source COPY destination does not end with a slash
+    category: BuildConfiguration
+    subcategory: AmbiguousCopyDestination
+    severity: Critical
+
+    resource: Dockerfile
+
+    field_path: COPY[0].destination
+    bad_value: /app/config
+    expected_secure_value: /app/config/
+
+    rationale: >
+      COPY instructions with multiple source paths require an unambiguous
+      directory destination. Ending the destination with a slash makes that
+      intent explicit and avoids invalid or misleading build instructions.
+
+    applicable_scanners:
+      - checkov
+      - trivy

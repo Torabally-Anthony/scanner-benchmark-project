@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0",
+  "case_id": "case-docker-012-multiple-entrypoints",
+  "tool": "checkov",
+  "scanner_version": "3.3.10",
+  "artifact_type": "dockerfile",
+  "matching_mode": "strict",
+  "generated_at": "2026-09-26T15:54:10.385453+00:00",
+  "source_file": "results/normalised_dockerfile/checkov/case-docker-012-multiple-entrypoints.normalised.json",
+  "ground_truth_source": "corpus/dockerfiles/case-docker-012-multiple-entrypoints/ground_truth.yaml",
+  "classification_policy": {
+    "true_positive": "The first valid scanner finding mapped to a ground-truth issue.",
+    "false_negative": "A ground-truth issue with no valid scanner detection.",
+    "false_positive": "An unmapped finding counted as incorrect.",
+    "duplicate_match": "An additional finding mapped to a ground-truth issue already detected.",
+    "ambiguous_match": "A finding with inconsistent or incomplete mapping information."
+  },
+  "counts": {
+    "total_normalised_findings": 0,
+    "ground_truth_issue_count": 1,
+    "true_positive_count": 0,
+    "false_positive_count": 0,
+    "false_negative_count": 1,
+    "unlabelled_extra_findings_count": 0,
+    "duplicate_match_count": 0,
+    "ambiguous_match_count": 0
+  },
+  "matched_ground_truth_ids": [],
+  "unmatched_ground_truth_ids": [
+    "GT-DOCKER-012"
+  ],
+  "true_positives": [],
+  "false_positives": [],
+  "false_negatives": [
+    {
+      "classification": "false_negative",
+      "classification_reason": "No scanner finding matched this ground-truth issue.",
+      "ground_truth_id": "GT-DOCKER-012",
+      "category": "BuildConfiguration",
+      "subcategory": "MultipleEntrypoints",
+      "severity": "Critical",
+      "resource": "Dockerfile",
+      "container": null,
+      "field_path": "ENTRYPOINT[1]",
+      "bad_value": [
+        "[\"/bin/sh\", \"-c\"]",
+        "[\"/bin/echo\"]"
+      ],
+      "expected_secure_value": "one-effective-entrypoint",
+      "ground_truth": {
+        "id": "GT-DOCKER-012",
+        "title": "Dockerfile declares multiple ENTRYPOINT instructions",
+        "category": "BuildConfiguration",
+        "subcategory": "MultipleEntrypoints",
+        "severity": "Critical",
+        "resource": "Dockerfile",
+        "field_path": "ENTRYPOINT[1]",
+        "bad_value": [
+          "[\"/bin/sh\", \"-c\"]",
+          "[\"/bin/echo\"]"
+        ],
+        "expected_secure_value": "one-effective-entrypoint",
+        "rationale": "Only the final ENTRYPOINT in a build stage is effective. Multiple declarations obscure the container's actual startup behaviour and can cause a reviewer to assess an instruction that Docker later replaces.\n",
+        "applicable_scanners": [
+          "checkov",
+          "trivy"
+        ]
+      }
+    }
+  ],
+  "unlabelled_extras": [],
+  "duplicate_matches": [],
+  "ambiguous_matches": []
+}

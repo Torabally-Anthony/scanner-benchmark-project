@@ -1,0 +1,26 @@
+case_id: case-013-host-ipc
+artifact_type: kubernetes_yaml
+
+misconfigurations:
+  - id: GT-013
+    title: Pod shares the host IPC namespace
+    category: PodSecurity
+    subcategory: HostIPC
+    severity: High
+
+    resource: Pod.benchmark.host-ipc-demo
+    container: null
+
+    field_path: spec.hostIPC
+    bad_value: true
+    expected_secure_value: false
+
+    rationale: >
+      Sharing the host IPC namespace lets container processes access host
+      inter-process communication resources, weakening the isolation
+      boundary between the workload and the node.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

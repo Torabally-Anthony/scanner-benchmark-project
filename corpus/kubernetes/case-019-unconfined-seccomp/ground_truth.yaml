@@ -1,0 +1,26 @@
+case_id: case-019-unconfined-seccomp
+artifact_type: kubernetes_yaml
+
+misconfigurations:
+  - id: GT-019
+    title: Pod explicitly disables seccomp confinement
+    category: PodSecurity
+    subcategory: UnconfinedSeccomp
+    severity: High
+
+    resource: Pod.benchmark.unconfined-seccomp-demo
+    container: demo-container
+
+    field_path: spec.securityContext.seccompProfile.type
+    bad_value: Unconfined
+    expected_secure_value: RuntimeDefault
+
+    rationale: >
+      An Unconfined seccomp profile disables system-call filtering for the
+      workload. RuntimeDefault or an appropriate Localhost profile should be
+      used to reduce the container's kernel attack surface.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

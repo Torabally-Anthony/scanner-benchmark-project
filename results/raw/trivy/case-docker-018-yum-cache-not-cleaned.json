@@ -1,0 +1,60 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.74.0"
+  },
+  "ReportID": "01a0de6b-07f5-748f-a573-a6780f45d3fb",
+  "CreatedAt": "2026-09-26T17:52:31.477302+02:00",
+  "ArtifactName": "corpus/dockerfiles/case-docker-018-yum-cache-not-cleaned/Dockerfile",
+  "ArtifactType": "filesystem",
+  "Results": [
+    {
+      "Target": "Dockerfile",
+      "Class": "config",
+      "Type": "dockerfile",
+      "MisconfSummary": {
+        "Successes": 26,
+        "Failures": 1
+      },
+      "Misconfigurations": [
+        {
+          "Type": "Dockerfile Security Check",
+          "ID": "DS-0015",
+          "Title": "'yum clean all' missing",
+          "Description": "You should use 'yum clean all' after using a 'yum install' command to clean package cached data and reduce image size.",
+          "Message": "'yum clean all' is missed: yum install -y curl",
+          "Namespace": "builtin.dockerfile.DS015",
+          "Query": "data.builtin.dockerfile.DS015.deny",
+          "Resolution": "Add 'yum clean all' to Dockerfile",
+          "Severity": "HIGH",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ds-0015",
+          "References": [
+            "https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#run",
+            "https://avd.aquasec.com/misconfig/ds-0015"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Dockerfile",
+            "Service": "general",
+            "StartLine": 3,
+            "EndLine": 3,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 3,
+                  "Content": "RUN yum install -y curl",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[38;5;64mRUN\u001b[0m yum install -y curl",
+                  "FirstCause": true,
+                  "LastCause": true
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

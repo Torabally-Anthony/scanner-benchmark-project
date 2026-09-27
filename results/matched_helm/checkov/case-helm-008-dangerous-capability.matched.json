@@ -5,7 +5,7 @@
   "scanner_version": "3.3.10",
   "artifact_type": "helm_chart",
   "matching_mode": "strict",
-  "generated_at": "2026-09-22T12:10:57.493757+00:00",
+  "generated_at": "2026-09-27T07:13:19.703958+00:00",
   "source_file": "results/normalised_helm/checkov/case-helm-008-dangerous-capability.normalised.json",
   "ground_truth_source": "corpus/helm/case-helm-008-dangerous-capability/ground_truth.yaml",
   "classification_policy": {

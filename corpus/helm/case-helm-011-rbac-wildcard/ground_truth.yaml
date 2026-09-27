@@ -1,0 +1,27 @@
+case_id: case-helm-011-rbac-wildcard
+artifact_type: helm_chart
+
+misconfigurations:
+  - id: GT-HELM-011
+    title: Helm chart grants wildcard RBAC permissions
+    category: AccessControl
+    subcategory: ExcessiveRBACPermissions
+    severity: High
+
+    resource: Role.benchmark.wildcard-helm-role
+    field_path: rules[0]
+    bad_value:
+      apiGroups: ["*"]
+      resources: ["*"]
+      verbs: ["*"]
+    expected_secure_value: Explicitly scoped API groups, resources, and verbs
+
+    rationale: >
+      Wildcard RBAC permissions grant the role authority over current and future
+      resources and operations. Permissions should be restricted to only those
+      API groups, resources, and verbs required by the workload.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

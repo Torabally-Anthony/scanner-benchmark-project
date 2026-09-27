@@ -1,0 +1,4 @@
+namespace: benchmark
+image:
+  repository: nginx
+  tag: latest

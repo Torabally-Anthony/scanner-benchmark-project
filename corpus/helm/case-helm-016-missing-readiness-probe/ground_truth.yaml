@@ -1,0 +1,24 @@
+case_id: case-helm-016-missing-readiness-probe
+artifact_type: helm_chart
+
+misconfigurations:
+  - id: GT-HELM-016
+    title: Helm chart omits a container readiness probe
+    category: Reliability
+    subcategory: MissingReadinessProbe
+    severity: Medium
+
+    resource: Deployment.benchmark.missing-readiness-probe-helm-demo
+    field_path: spec.template.spec.containers[0].readinessProbe
+    bad_value: null
+    expected_secure_value: A suitable readiness probe
+
+    rationale: >
+      Without a readiness probe, Kubernetes can route traffic to a container
+      before it is able to serve requests. A workload-specific probe prevents
+      unready instances from receiving traffic.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

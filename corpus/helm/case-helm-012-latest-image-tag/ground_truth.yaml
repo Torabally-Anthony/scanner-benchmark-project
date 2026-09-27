@@ -1,0 +1,24 @@
+case_id: case-helm-012-latest-image-tag
+artifact_type: helm_chart
+
+misconfigurations:
+  - id: GT-HELM-012
+    title: Helm chart uses the mutable latest image tag
+    category: SupplyChain
+    subcategory: MutableImageReference
+    severity: Medium
+
+    resource: Deployment.benchmark.latest-image-tag-helm-demo
+    field_path: spec.template.spec.containers[0].image
+    bad_value: nginx:latest
+    expected_secure_value: A fixed image tag or digest
+
+    rationale: >
+      The latest tag is mutable and can resolve to different image contents over
+      time. A fixed version or digest makes deployments reproducible and reduces
+      the risk of unexpected image changes.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

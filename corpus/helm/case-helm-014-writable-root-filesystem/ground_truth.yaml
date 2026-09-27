@@ -1,0 +1,24 @@
+case_id: case-helm-014-writable-root-filesystem
+artifact_type: helm_chart
+
+misconfigurations:
+  - id: GT-HELM-014
+    title: Helm chart permits a writable container root filesystem
+    category: ContainerSecurity
+    subcategory: WritableRootFilesystem
+    severity: Medium
+
+    resource: Deployment.benchmark.writable-root-filesystem-helm-demo
+    field_path: spec.template.spec.containers[0].securityContext.readOnlyRootFilesystem
+    bad_value: false
+    expected_secure_value: true
+
+    rationale: >
+      A writable root filesystem allows processes to alter files in the container
+      image at runtime. Making it read-only reduces persistence opportunities and
+      limits the effect of a container compromise.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

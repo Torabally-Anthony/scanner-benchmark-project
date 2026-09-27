@@ -4,6 +4,8 @@
 
 Artifact: `kubernetes_yaml` · Mode: `strict` · Status: `complete`
 
+Scanner version: `Version: 0.74.0`
+
 ## Results summary
 
 | Measure | Count |
@@ -49,4 +51,4 @@ Unmapped findings count as false positives; duplicate and ambiguous matches are 
 
 - Full findings: `results/matched_generic/trivy/case-002-runs-as-root.matched.json`
 - Full metrics: `results/metrics_generic/trivy/case-002-runs-as-root.metrics.json`
-- Generated: `2026-09-17T06:59:44.234898+00:00`
+- Generated: `2026-09-27T11:13:21.846064+00:00`

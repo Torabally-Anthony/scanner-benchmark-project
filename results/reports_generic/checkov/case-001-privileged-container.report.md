@@ -4,7 +4,7 @@
 
 Artifact: `kubernetes_yaml` · Mode: `strict` · Status: `complete`
 
-Scanner version: `2.5.20`
+Scanner version: `3.3.10`
 
 ## Results summary
 
@@ -55,4 +55,4 @@ Unmapped findings count as false positives; duplicate and ambiguous matches are 
 
 - Full findings: `results/matched_generic/checkov/case-001-privileged-container.matched.json`
 - Full metrics: `results/metrics_generic/checkov/case-001-privileged-container.metrics.json`
-- Generated: `2026-09-17T06:59:43.954172+00:00`
+- Generated: `2026-09-27T11:13:34.200153+00:00`

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: missing-liveness-probe-demo
+description: Controlled Helm benchmark case without a liveness probe
+type: application
+version: 0.1.0
+appVersion: "1.0.0"

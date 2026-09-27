@@ -1,0 +1,24 @@
+case_id: case-helm-018-unconfined-seccomp
+artifact_type: helm_chart
+
+misconfigurations:
+  - id: GT-HELM-018
+    title: Helm chart disables syscall filtering with unconfined seccomp
+    category: ContainerSecurity
+    subcategory: UnconfinedSeccomp
+    severity: High
+
+    resource: Deployment.benchmark.unconfined-seccomp-helm-demo
+    field_path: spec.template.spec.securityContext.seccompProfile.type
+    bad_value: Unconfined
+    expected_secure_value: RuntimeDefault
+
+    rationale: >
+      An unconfined seccomp profile disables syscall filtering and exposes the
+      container to the full kernel syscall surface. RuntimeDefault or a tailored
+      local profile should be used instead.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

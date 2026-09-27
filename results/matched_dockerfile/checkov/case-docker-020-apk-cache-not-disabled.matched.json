@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "case_id": "case-docker-020-apk-cache-not-disabled",
+  "tool": "checkov",
+  "scanner_version": "3.3.10",
+  "artifact_type": "dockerfile",
+  "matching_mode": "strict",
+  "generated_at": "2026-09-26T15:54:14.811336+00:00",
+  "source_file": "results/normalised_dockerfile/checkov/case-docker-020-apk-cache-not-disabled.normalised.json",
+  "ground_truth_source": "corpus/dockerfiles/case-docker-020-apk-cache-not-disabled/ground_truth.yaml",
+  "classification_policy": {
+    "true_positive": "The first valid scanner finding mapped to a ground-truth issue.",
+    "false_negative": "A ground-truth issue with no valid scanner detection.",
+    "false_positive": "An unmapped finding counted as incorrect.",
+    "duplicate_match": "An additional finding mapped to a ground-truth issue already detected.",
+    "ambiguous_match": "A finding with inconsistent or incomplete mapping information."
+  },
+  "counts": {
+    "total_normalised_findings": 0,
+    "ground_truth_issue_count": 1,
+    "true_positive_count": 0,
+    "false_positive_count": 0,
+    "false_negative_count": 1,
+    "unlabelled_extra_findings_count": 0,
+    "duplicate_match_count": 0,
+    "ambiguous_match_count": 0
+  },
+  "matched_ground_truth_ids": [],
+  "unmatched_ground_truth_ids": [
+    "GT-DOCKER-020"
+  ],
+  "true_positives": [],
+  "false_positives": [],
+  "false_negatives": [
+    {
+      "classification": "false_negative",
+      "classification_reason": "No scanner finding matched this ground-truth issue.",
+      "ground_truth_id": "GT-DOCKER-020",
+      "category": "PackageManagement",
+      "subcategory": "ApkCacheNotDisabled",
+      "severity": "High",
+      "resource": "Dockerfile",
+      "container": null,
+      "field_path": "RUN[0]",
+      "bad_value": "apk add curl",
+      "expected_secure_value": "apk add --no-cache curl",
+      "ground_truth": {
+        "id": "GT-DOCKER-020",
+        "title": "apk package installation retains its cache",
+        "category": "PackageManagement",
+        "subcategory": "ApkCacheNotDisabled",
+        "severity": "High",
+        "resource": "Dockerfile",
+        "field_path": "RUN[0]",
+        "bad_value": "apk add curl",
+        "expected_secure_value": "apk add --no-cache curl",
+        "rationale": "Running apk add without --no-cache stores the package index in the image layer. Disabling the cache keeps the resulting image smaller and avoids retaining unnecessary package metadata.\n",
+        "applicable_scanners": [
+          "checkov",
+          "trivy"
+        ]
+      }
+    }
+  ],
+  "unlabelled_extras": [],
+  "duplicate_matches": [],
+  "ambiguous_matches": []
+}

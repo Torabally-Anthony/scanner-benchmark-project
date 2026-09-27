@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0",
+  "case_id": "case-helm-011-rbac-wildcard",
+  "tool": "kubescape",
+  "scanner_version": "Your current version is: 4.0.14\nBuild commit: 031cd40cc8de696fa30a648001853443019ec97a\nBuild date: 2026-09-09T12:24:41Z",
+  "artifact_type": "helm_chart",
+  "matching_mode": "strict",
+  "generated_at": "2026-09-26T16:07:28.324467+00:00",
+  "source_file": "results/normalised_helm/kubescape/case-helm-011-rbac-wildcard.normalised.json",
+  "ground_truth_source": "corpus/helm/case-helm-011-rbac-wildcard/ground_truth.yaml",
+  "classification_policy": {
+    "true_positive": "The first valid scanner finding mapped to a ground-truth issue.",
+    "false_negative": "A ground-truth issue with no valid scanner detection.",
+    "false_positive": "An unmapped finding counted as incorrect.",
+    "duplicate_match": "An additional finding mapped to a ground-truth issue already detected.",
+    "ambiguous_match": "A finding with inconsistent or incomplete mapping information."
+  },
+  "counts": {
+    "total_normalised_findings": 0,
+    "ground_truth_issue_count": 1,
+    "true_positive_count": 0,
+    "false_positive_count": 0,
+    "false_negative_count": 1,
+    "unlabelled_extra_findings_count": 0,
+    "duplicate_match_count": 0,
+    "ambiguous_match_count": 0
+  },
+  "matched_ground_truth_ids": [],
+  "unmatched_ground_truth_ids": [
+    "GT-HELM-011"
+  ],
+  "true_positives": [],
+  "false_positives": [],
+  "false_negatives": [
+    {
+      "classification": "false_negative",
+      "classification_reason": "No scanner finding matched this ground-truth issue.",
+      "ground_truth_id": "GT-HELM-011",
+      "category": "AccessControl",
+      "subcategory": "ExcessiveRBACPermissions",
+      "severity": "High",
+      "resource": "Role.benchmark.wildcard-helm-role",
+      "container": null,
+      "field_path": "rules[0]",
+      "bad_value": {
+        "apiGroups": [
+          "*"
+        ],
+        "resources": [
+          "*"
+        ],
+        "verbs": [
+          "*"
+        ]
+      },
+      "expected_secure_value": "Explicitly scoped API groups, resources, and verbs",
+      "ground_truth": {
+        "id": "GT-HELM-011",
+        "title": "Helm chart grants wildcard RBAC permissions",
+        "category": "AccessControl",
+        "subcategory": "ExcessiveRBACPermissions",
+        "severity": "High",
+        "resource": "Role.benchmark.wildcard-helm-role",
+        "field_path": "rules[0]",
+        "bad_value": {
+          "apiGroups": [
+            "*"
+          ],
+          "resources": [
+            "*"
+          ],
+          "verbs": [
+            "*"
+          ]
+        },
+        "expected_secure_value": "Explicitly scoped API groups, resources, and verbs",
+        "rationale": "Wildcard RBAC permissions grant the role authority over current and future resources and operations. Permissions should be restricted to only those API groups, resources, and verbs required by the workload.\n",
+        "applicable_scanners": [
+          "checkov",
+          "trivy",
+          "kubescape"
+        ]
+      }
+    }
+  ],
+  "unlabelled_extras": [],
+  "duplicate_matches": [],
+  "ambiguous_matches": []
+}

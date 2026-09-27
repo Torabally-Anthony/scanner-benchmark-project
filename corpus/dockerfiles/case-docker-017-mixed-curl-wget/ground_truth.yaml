@@ -1,0 +1,24 @@
+case_id: case-docker-017-mixed-curl-wget
+artifact_type: dockerfile
+
+misconfigurations:
+  - id: GT-DOCKER-017
+    title: Dockerfile uses both curl and wget
+    category: ImageHygiene
+    subcategory: DuplicateDownloadTools
+    severity: Low
+
+    resource: Dockerfile
+
+    field_path: RUN[0]
+    bad_value: wget-and-curl
+    expected_secure_value: one-download-tool
+
+    rationale: >
+      Installing and using multiple tools that provide the same download
+      capability unnecessarily increases image size and attack surface.
+      Builds should standardise on one suitable download utility.
+
+    applicable_scanners:
+      - checkov
+      - trivy

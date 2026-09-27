@@ -1,0 +1,26 @@
+case_id: case-015-writable-root-filesystem
+artifact_type: kubernetes_yaml
+
+misconfigurations:
+  - id: GT-015
+    title: Container root filesystem is writable
+    category: PodSecurity
+    subcategory: WritableRootFilesystem
+    severity: Medium
+
+    resource: Pod.benchmark.writable-root-filesystem-demo
+    container: demo-container
+
+    field_path: spec.containers[0].securityContext.readOnlyRootFilesystem
+    bad_value: false
+    expected_secure_value: true
+
+    rationale: >
+      A writable container root filesystem gives an attacker additional
+      opportunities to alter binaries or persist files after compromising
+      the workload. The root filesystem should normally be read-only.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

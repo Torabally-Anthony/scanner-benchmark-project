@@ -1,0 +1,26 @@
+case_id: case-018-default-namespace
+artifact_type: kubernetes_yaml
+
+misconfigurations:
+  - id: GT-018
+    title: Workload is deployed in the default namespace
+    category: ResourceIsolation
+    subcategory: DefaultNamespace
+    severity: Medium
+
+    resource: Pod.default.default-namespace-demo
+    container: null
+
+    field_path: metadata.namespace
+    bad_value: default
+    expected_secure_value: dedicated-namespace
+
+    rationale: >
+      Placing application workloads in the default namespace weakens
+      administrative and policy boundaries. Workloads should use a dedicated
+      namespace with appropriate access and network controls.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

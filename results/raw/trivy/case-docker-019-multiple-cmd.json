@@ -1,0 +1,60 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.74.0"
+  },
+  "ReportID": "01a0de6b-0a69-7cb9-8589-8f2180f2cbb0",
+  "CreatedAt": "2026-09-26T17:52:32.105836+02:00",
+  "ArtifactName": "corpus/dockerfiles/case-docker-019-multiple-cmd/Dockerfile",
+  "ArtifactType": "filesystem",
+  "Results": [
+    {
+      "Target": "Dockerfile",
+      "Class": "config",
+      "Type": "dockerfile",
+      "MisconfSummary": {
+        "Successes": 26,
+        "Failures": 1
+      },
+      "Misconfigurations": [
+        {
+          "Type": "Dockerfile Security Check",
+          "ID": "DS-0016",
+          "Title": "Multiple CMD instructions listed",
+          "Description": "There can only be one CMD instruction in a Dockerfile. If you list more than one CMD then only the last CMD will take effect.",
+          "Message": "There are 2 duplicate CMD instructions",
+          "Namespace": "builtin.dockerfile.DS016",
+          "Query": "data.builtin.dockerfile.DS016.deny",
+          "Resolution": "Dockerfile should only have one CMD instruction. Remove all the other CMD instructions",
+          "Severity": "HIGH",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ds-0016",
+          "References": [
+            "https://docs.docker.com/engine/reference/builder/#cmd",
+            "https://avd.aquasec.com/misconfig/ds-0016"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Dockerfile",
+            "Service": "general",
+            "StartLine": 10,
+            "EndLine": 10,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 10,
+                  "Content": "CMD [\"echo\", \"second command\"]",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[38;5;64mCMD\u001b[0m [\u001b[38;5;37m\"echo\"\u001b[0m, \u001b[38;5;37m\"second command\"\u001b[0m]",
+                  "FirstCause": true,
+                  "LastCause": true
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

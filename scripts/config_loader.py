@@ -130,7 +130,7 @@ def load_case_ground_truth(
     return load_yaml(ground_truth_path)
 
 
-# This function indexes ground-truth items by their IDs.
+# This function indexes ground-truth items by their IDs. (lookup address)
 def get_ground_truth_items(
     ground_truth: dict[str, Any],
 ) -> dict[str, dict[str, Any]]:
@@ -169,7 +169,7 @@ def get_ground_truth_items(
     #without having to search the entire program for a [rule_id]
 
 
-# This function converts scanner rule mappings into a lookup from rule IDs to ground-truth IDs.
+# This function converts scanner rule mappings into a lookup from rule IDs to ground-truth IDs. (reverse lookup address)
 def build_rule_to_ground_truth_map(
     case_configuration: dict[str, Any],
     scanner: str,

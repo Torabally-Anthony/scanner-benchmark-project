@@ -1,0 +1,427 @@
+{
+    "check_type": "dockerfile",
+    "results": {
+        "passed_checks": [
+            {
+                "check_id": "CKV_DOCKER_11",
+                "bc_check_id": "BC_DKR_GENERAL_9",
+                "check_name": "Ensure From Alias are unique for multistage builds.",
+                "check_result": {
+                    "result": "PASSED",
+                    "results_configuration": null
+                },
+                "code_block": [
+                    [
+                        1,
+                        "FROM alpine:3.20.3\n"
+                    ],
+                    [
+                        2,
+                        "\n"
+                    ],
+                    [
+                        3,
+                        "MAINTAINER benchmark@example.invalid\n"
+                    ],
+                    [
+                        4,
+                        "\n"
+                    ],
+                    [
+                        5,
+                        "WORKDIR /app\n"
+                    ],
+                    [
+                        6,
+                        "\n"
+                    ],
+                    [
+                        7,
+                        "USER 10001\n"
+                    ],
+                    [
+                        8,
+                        "\n"
+                    ],
+                    [
+                        9,
+                        "HEALTHCHECK CMD [\"sh\", \"-c\", \"exit 0\"]\n"
+                    ],
+                    [
+                        10,
+                        "\n"
+                    ],
+                    [
+                        11,
+                        "CMD [\"sh\"]"
+                    ]
+                ],
+                "file_path": "corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile",
+                "file_abs_path": "/Users/anthonytorabally/Desktop/workspace/UJ/scanner-benchmark-project/scanner-benchmark-project/corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile",
+                "repo_file_path": "/corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile",
+                "file_line_range": [
+                    1,
+                    11
+                ],
+                "resource": "corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile.",
+                "evaluations": null,
+                "check_class": "checkov.dockerfile.checks.AliasIsUnique",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-from-alias-is-unique-for-multistage-builds",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": null
+            },
+            {
+                "check_id": "CKV_DOCKER_7",
+                "bc_check_id": "BC_DKR_7",
+                "check_name": "Ensure the base image uses a non latest version tag",
+                "check_result": {
+                    "result": "PASSED",
+                    "results_configuration": [
+                        {
+                            "instruction": "FROM",
+                            "startline": 0,
+                            "endline": 0,
+                            "content": "FROM alpine:3.20.3\n",
+                            "value": "alpine:3.20.3"
+                        }
+                    ]
+                },
+                "code_block": [
+                    [
+                        1,
+                        "FROM alpine:3.20.3\n"
+                    ]
+                ],
+                "file_path": "corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile",
+                "file_abs_path": "/Users/anthonytorabally/Desktop/workspace/UJ/scanner-benchmark-project/scanner-benchmark-project/corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile",
+                "repo_file_path": "/corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile",
+                "file_line_range": [
+                    1,
+                    1
+                ],
+                "resource": "corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile.FROM",
+                "evaluations": null,
+                "check_class": "checkov.dockerfile.checks.ReferenceLatestTag",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-the-base-image-uses-a-non-latest-version-tag",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": null
+            },
+            {
+                "check_id": "CKV_DOCKER_10",
+                "bc_check_id": "BC_DKR_GENERAL_10",
+                "check_name": "Ensure that WORKDIR values are absolute paths",
+                "check_result": {
+                    "result": "PASSED",
+                    "results_configuration": null
+                },
+                "code_block": [
+                    [
+                        1,
+                        "FROM alpine:3.20.3\n"
+                    ],
+                    [
+                        2,
+                        "\n"
+                    ],
+                    [
+                        3,
+                        "MAINTAINER benchmark@example.invalid\n"
+                    ],
+                    [
+                        4,
+                        "\n"
+                    ],
+                    [
+                        5,
+                        "WORKDIR /app\n"
+                    ],
+                    [
+                        6,
+                        "\n"
+                    ],
+                    [
+                        7,
+                        "USER 10001\n"
+                    ],
+                    [
+                        8,
+                        "\n"
+                    ],
+                    [
+                        9,
+                        "HEALTHCHECK CMD [\"sh\", \"-c\", \"exit 0\"]\n"
+                    ],
+                    [
+                        10,
+                        "\n"
+                    ],
+                    [
+                        11,
+                        "CMD [\"sh\"]"
+                    ]
+                ],
+                "file_path": "corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile",
+                "file_abs_path": "/Users/anthonytorabally/Desktop/workspace/UJ/scanner-benchmark-project/scanner-benchmark-project/corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile",
+                "repo_file_path": "/corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile",
+                "file_line_range": [
+                    1,
+                    11
+                ],
+                "resource": "corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile.",
+                "evaluations": null,
+                "check_class": "checkov.dockerfile.checks.WorkdirIsAbsolute",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-workdir-values-are-absolute-paths",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": null
+            },
+            {
+                "check_id": "CKV_DOCKER_8",
+                "bc_check_id": "BC_DKR_8",
+                "check_name": "Ensure the last USER is not root",
+                "check_result": {
+                    "result": "PASSED",
+                    "results_configuration": [
+                        {
+                            "instruction": "USER",
+                            "startline": 6,
+                            "endline": 6,
+                            "content": "USER 10001\n",
+                            "value": "10001"
+                        }
+                    ]
+                },
+                "code_block": [
+                    [
+                        7,
+                        "USER 10001\n"
+                    ]
+                ],
+                "file_path": "corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile",
+                "file_abs_path": "/Users/anthonytorabally/Desktop/workspace/UJ/scanner-benchmark-project/scanner-benchmark-project/corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile",
+                "repo_file_path": "/corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile",
+                "file_line_range": [
+                    7,
+                    7
+                ],
+                "resource": "corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile.USER",
+                "evaluations": null,
+                "check_class": "checkov.dockerfile.checks.RootUser",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-the-last-user-is-not-root",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": null
+            },
+            {
+                "check_id": "CKV_DOCKER_2",
+                "bc_check_id": "BC_DKR_2",
+                "check_name": "Ensure that HEALTHCHECK instructions have been added to container images",
+                "check_result": {
+                    "result": "PASSED",
+                    "results_configuration": [
+                        {
+                            "instruction": "HEALTHCHECK",
+                            "startline": 8,
+                            "endline": 8,
+                            "content": "HEALTHCHECK CMD [\"sh\", \"-c\", \"exit 0\"]\n",
+                            "value": "CMD [\"sh\", \"-c\", \"exit 0\"]"
+                        }
+                    ]
+                },
+                "code_block": [
+                    [
+                        9,
+                        "HEALTHCHECK CMD [\"sh\", \"-c\", \"exit 0\"]\n"
+                    ]
+                ],
+                "file_path": "corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile",
+                "file_abs_path": "/Users/anthonytorabally/Desktop/workspace/UJ/scanner-benchmark-project/scanner-benchmark-project/corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile",
+                "repo_file_path": "/corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile",
+                "file_line_range": [
+                    9,
+                    9
+                ],
+                "resource": "corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile.HEALTHCHECK",
+                "evaluations": null,
+                "check_class": "checkov.dockerfile.checks.HealthcheckExists",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-healthcheck-instructions-have-been-added-to-container-images",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": null
+            },
+            {
+                "check_id": "CKV_DOCKER_3",
+                "bc_check_id": "BC_DKR_3",
+                "check_name": "Ensure that a user for the container has been created",
+                "check_result": {
+                    "result": "PASSED",
+                    "results_configuration": [
+                        {
+                            "instruction": "USER",
+                            "startline": 6,
+                            "endline": 6,
+                            "content": "USER 10001\n",
+                            "value": "10001"
+                        }
+                    ]
+                },
+                "code_block": [
+                    [
+                        7,
+                        "USER 10001\n"
+                    ]
+                ],
+                "file_path": "corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile",
+                "file_abs_path": "/Users/anthonytorabally/Desktop/workspace/UJ/scanner-benchmark-project/scanner-benchmark-project/corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile",
+                "repo_file_path": "/corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile",
+                "file_line_range": [
+                    7,
+                    7
+                ],
+                "resource": "corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile.USER",
+                "evaluations": null,
+                "check_class": "checkov.dockerfile.checks.UserExists",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-a-user-for-the-container-has-been-created",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": null
+            }
+        ],
+        "failed_checks": [
+            {
+                "check_id": "CKV_DOCKER_6",
+                "bc_check_id": "BC_DKR_6",
+                "check_name": "Ensure that LABEL maintainer is used instead of MAINTAINER (deprecated)",
+                "check_result": {
+                    "result": "FAILED",
+                    "results_configuration": [
+                        {
+                            "instruction": "MAINTAINER",
+                            "startline": 2,
+                            "endline": 2,
+                            "content": "MAINTAINER benchmark@example.invalid\n",
+                            "value": "benchmark@example.invalid"
+                        }
+                    ]
+                },
+                "code_block": [
+                    [
+                        3,
+                        "MAINTAINER benchmark@example.invalid\n"
+                    ]
+                ],
+                "file_path": "corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile",
+                "file_abs_path": "/Users/anthonytorabally/Desktop/workspace/UJ/scanner-benchmark-project/scanner-benchmark-project/corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile",
+                "repo_file_path": "/corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile",
+                "file_line_range": [
+                    3,
+                    3
+                ],
+                "resource": "corpus/dockerfiles/case-docker-007-deprecated-maintainer/Dockerfile.MAINTAINER",
+                "evaluations": null,
+                "check_class": "checkov.dockerfile.checks.MaintainerExists",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-label-maintainer-is-used-instead-of-maintainer-deprecated",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": null
+            }
+        ],
+        "skipped_checks": [],
+        "parsing_errors": []
+    },
+    "summary": {
+        "passed": 6,
+        "failed": 1,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 1,
+        "checkov_version": "3.3.10"
+    },
+    "url": "Add an api key '--bc-api-key <api-key>' to see more detailed insights via https://bridgecrew.cloud"
+}

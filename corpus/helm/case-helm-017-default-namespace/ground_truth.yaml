@@ -1,0 +1,24 @@
+case_id: case-helm-017-default-namespace
+artifact_type: helm_chart
+
+misconfigurations:
+  - id: GT-HELM-017
+    title: Helm workload is deployed to the default namespace
+    category: Isolation
+    subcategory: DefaultNamespace
+    severity: Low
+
+    resource: Deployment.default.default-namespace-helm-demo
+    field_path: metadata.namespace
+    bad_value: default
+    expected_secure_value: A dedicated application namespace
+
+    rationale: >
+      Placing workloads in the default namespace weakens administrative and
+      policy isolation. A dedicated namespace provides a clearer boundary for
+      access controls, quotas, and network policies.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

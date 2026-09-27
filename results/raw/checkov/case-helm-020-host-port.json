@@ -1,0 +1,541 @@
+{
+    "check_type": "helm",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_K8S_26",
+                "bc_check_id": null,
+                "check_name": "Do not specify hostPort unless absolutely necessary",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/template/spec/containers/[0]/ports/[0]/hostPort"
+                    ]
+                },
+                "code_block": [
+                    [
+                        20,
+                        "apiVersion: apps/v1\n"
+                    ],
+                    [
+                        21,
+                        "kind: Deployment\n"
+                    ],
+                    [
+                        22,
+                        "metadata:\n"
+                    ],
+                    [
+                        23,
+                        "  name: host-port-helm-demo\n"
+                    ],
+                    [
+                        24,
+                        "  namespace: benchmark\n"
+                    ],
+                    [
+                        25,
+                        "  labels:\n"
+                    ],
+                    [
+                        26,
+                        "    app: host-port-helm-demo\n"
+                    ],
+                    [
+                        27,
+                        "spec:\n"
+                    ],
+                    [
+                        28,
+                        "  replicas: 1\n"
+                    ],
+                    [
+                        29,
+                        "  selector:\n"
+                    ],
+                    [
+                        30,
+                        "    matchLabels:\n"
+                    ],
+                    [
+                        31,
+                        "      app: host-port-helm-demo\n"
+                    ],
+                    [
+                        32,
+                        "  template:\n"
+                    ],
+                    [
+                        33,
+                        "    metadata:\n"
+                    ],
+                    [
+                        34,
+                        "      labels:\n"
+                    ],
+                    [
+                        35,
+                        "        app: host-port-helm-demo\n"
+                    ],
+                    [
+                        36,
+                        "    spec:\n"
+                    ],
+                    [
+                        37,
+                        "      automountServiceAccountToken: false\n"
+                    ],
+                    [
+                        38,
+                        "      securityContext:\n"
+                    ],
+                    [
+                        39,
+                        "        runAsNonRoot: true\n"
+                    ],
+                    [
+                        40,
+                        "        runAsUser: 10001\n"
+                    ],
+                    [
+                        41,
+                        "        runAsGroup: 10001\n"
+                    ],
+                    [
+                        42,
+                        "        fsGroup: 10001\n"
+                    ],
+                    [
+                        43,
+                        "        seccompProfile:\n"
+                    ],
+                    [
+                        44,
+                        "          type: RuntimeDefault\n"
+                    ],
+                    [
+                        45,
+                        "      containers:\n"
+                    ],
+                    [
+                        46,
+                        "        - name: demo-container\n"
+                    ],
+                    [
+                        47,
+                        "          image: \"nginx:1.25.5\"\n"
+                    ],
+                    [
+                        48,
+                        "          imagePullPolicy: Always\n"
+                    ],
+                    [
+                        49,
+                        "          ports:\n"
+                    ],
+                    [
+                        50,
+                        "            - name: http\n"
+                    ],
+                    [
+                        51,
+                        "              containerPort: 8080\n"
+                    ],
+                    [
+                        52,
+                        "              hostPort: 8080\n"
+                    ],
+                    [
+                        53,
+                        "              protocol: TCP\n"
+                    ],
+                    [
+                        54,
+                        "          securityContext:\n"
+                    ],
+                    [
+                        55,
+                        "            privileged: false\n"
+                    ],
+                    [
+                        56,
+                        "            allowPrivilegeEscalation: false\n"
+                    ],
+                    [
+                        57,
+                        "            readOnlyRootFilesystem: true\n"
+                    ],
+                    [
+                        58,
+                        "            capabilities:\n"
+                    ],
+                    [
+                        59,
+                        "              drop:\n"
+                    ],
+                    [
+                        60,
+                        "                - ALL\n"
+                    ],
+                    [
+                        61,
+                        "          resources:\n"
+                    ],
+                    [
+                        62,
+                        "            requests:\n"
+                    ],
+                    [
+                        63,
+                        "              cpu: 100m\n"
+                    ],
+                    [
+                        64,
+                        "              memory: 128Mi\n"
+                    ],
+                    [
+                        65,
+                        "            limits:\n"
+                    ],
+                    [
+                        66,
+                        "              cpu: 200m\n"
+                    ],
+                    [
+                        67,
+                        "              memory: 256Mi\n"
+                    ],
+                    [
+                        68,
+                        "          readinessProbe:\n"
+                    ],
+                    [
+                        69,
+                        "            httpGet:\n"
+                    ],
+                    [
+                        70,
+                        "              path: /\n"
+                    ],
+                    [
+                        71,
+                        "              port: http\n"
+                    ],
+                    [
+                        72,
+                        "          livenessProbe:\n"
+                    ],
+                    [
+                        73,
+                        "            httpGet:\n"
+                    ],
+                    [
+                        74,
+                        "              path: /\n"
+                    ],
+                    [
+                        75,
+                        "              port: http\n"
+                    ]
+                ],
+                "file_path": "/templates/workload.yaml",
+                "file_abs_path": "corpus/helm/case-helm-020-host-port/templates/workload.yaml",
+                "repo_file_path": "/templates/workload.yaml",
+                "file_line_range": [
+                    20,
+                    75
+                ],
+                "resource": "Deployment.benchmark.host-port-helm-demo",
+                "evaluations": {},
+                "check_class": "checkov.kubernetes.checks.resource.k8s.HostPort",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": null,
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": null
+            },
+            {
+                "check_id": "CKV_K8S_43",
+                "bc_check_id": null,
+                "check_name": "Image should use digest",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/template/spec/containers/[0]/image"
+                    ]
+                },
+                "code_block": [
+                    [
+                        20,
+                        "apiVersion: apps/v1\n"
+                    ],
+                    [
+                        21,
+                        "kind: Deployment\n"
+                    ],
+                    [
+                        22,
+                        "metadata:\n"
+                    ],
+                    [
+                        23,
+                        "  name: host-port-helm-demo\n"
+                    ],
+                    [
+                        24,
+                        "  namespace: benchmark\n"
+                    ],
+                    [
+                        25,
+                        "  labels:\n"
+                    ],
+                    [
+                        26,
+                        "    app: host-port-helm-demo\n"
+                    ],
+                    [
+                        27,
+                        "spec:\n"
+                    ],
+                    [
+                        28,
+                        "  replicas: 1\n"
+                    ],
+                    [
+                        29,
+                        "  selector:\n"
+                    ],
+                    [
+                        30,
+                        "    matchLabels:\n"
+                    ],
+                    [
+                        31,
+                        "      app: host-port-helm-demo\n"
+                    ],
+                    [
+                        32,
+                        "  template:\n"
+                    ],
+                    [
+                        33,
+                        "    metadata:\n"
+                    ],
+                    [
+                        34,
+                        "      labels:\n"
+                    ],
+                    [
+                        35,
+                        "        app: host-port-helm-demo\n"
+                    ],
+                    [
+                        36,
+                        "    spec:\n"
+                    ],
+                    [
+                        37,
+                        "      automountServiceAccountToken: false\n"
+                    ],
+                    [
+                        38,
+                        "      securityContext:\n"
+                    ],
+                    [
+                        39,
+                        "        runAsNonRoot: true\n"
+                    ],
+                    [
+                        40,
+                        "        runAsUser: 10001\n"
+                    ],
+                    [
+                        41,
+                        "        runAsGroup: 10001\n"
+                    ],
+                    [
+                        42,
+                        "        fsGroup: 10001\n"
+                    ],
+                    [
+                        43,
+                        "        seccompProfile:\n"
+                    ],
+                    [
+                        44,
+                        "          type: RuntimeDefault\n"
+                    ],
+                    [
+                        45,
+                        "      containers:\n"
+                    ],
+                    [
+                        46,
+                        "        - name: demo-container\n"
+                    ],
+                    [
+                        47,
+                        "          image: \"nginx:1.25.5\"\n"
+                    ],
+                    [
+                        48,
+                        "          imagePullPolicy: Always\n"
+                    ],
+                    [
+                        49,
+                        "          ports:\n"
+                    ],
+                    [
+                        50,
+                        "            - name: http\n"
+                    ],
+                    [
+                        51,
+                        "              containerPort: 8080\n"
+                    ],
+                    [
+                        52,
+                        "              hostPort: 8080\n"
+                    ],
+                    [
+                        53,
+                        "              protocol: TCP\n"
+                    ],
+                    [
+                        54,
+                        "          securityContext:\n"
+                    ],
+                    [
+                        55,
+                        "            privileged: false\n"
+                    ],
+                    [
+                        56,
+                        "            allowPrivilegeEscalation: false\n"
+                    ],
+                    [
+                        57,
+                        "            readOnlyRootFilesystem: true\n"
+                    ],
+                    [
+                        58,
+                        "            capabilities:\n"
+                    ],
+                    [
+                        59,
+                        "              drop:\n"
+                    ],
+                    [
+                        60,
+                        "                - ALL\n"
+                    ],
+                    [
+                        61,
+                        "          resources:\n"
+                    ],
+                    [
+                        62,
+                        "            requests:\n"
+                    ],
+                    [
+                        63,
+                        "              cpu: 100m\n"
+                    ],
+                    [
+                        64,
+                        "              memory: 128Mi\n"
+                    ],
+                    [
+                        65,
+                        "            limits:\n"
+                    ],
+                    [
+                        66,
+                        "              cpu: 200m\n"
+                    ],
+                    [
+                        67,
+                        "              memory: 256Mi\n"
+                    ],
+                    [
+                        68,
+                        "          readinessProbe:\n"
+                    ],
+                    [
+                        69,
+                        "            httpGet:\n"
+                    ],
+                    [
+                        70,
+                        "              path: /\n"
+                    ],
+                    [
+                        71,
+                        "              port: http\n"
+                    ],
+                    [
+                        72,
+                        "          livenessProbe:\n"
+                    ],
+                    [
+                        73,
+                        "            httpGet:\n"
+                    ],
+                    [
+                        74,
+                        "              path: /\n"
+                    ],
+                    [
+                        75,
+                        "              port: http\n"
+                    ]
+                ],
+                "file_path": "/templates/workload.yaml",
+                "file_abs_path": "corpus/helm/case-helm-020-host-port/templates/workload.yaml",
+                "repo_file_path": "/templates/workload.yaml",
+                "file_line_range": [
+                    20,
+                    75
+                ],
+                "resource": "Deployment.benchmark.host-port-helm-demo",
+                "evaluations": {},
+                "check_class": "checkov.kubernetes.checks.resource.k8s.ImageDigest",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": null,
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": null
+            }
+        ]
+    },
+    "summary": {
+        "passed": 86,
+        "failed": 2,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 3,
+        "checkov_version": "3.3.10"
+    }
+}

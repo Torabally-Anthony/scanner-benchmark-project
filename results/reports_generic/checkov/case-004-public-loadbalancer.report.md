@@ -43,4 +43,4 @@ Unmapped findings count as false positives; duplicate and ambiguous matches are 
 
 - Full findings: `results/matched_generic/checkov/case-004-public-loadbalancer.matched.json`
 - Full metrics: `results/metrics_generic/checkov/case-004-public-loadbalancer.metrics.json`
-- Generated: `2026-09-22T12:10:27.827535+00:00`
+- Generated: `2026-09-27T07:00:13.668910+00:00`

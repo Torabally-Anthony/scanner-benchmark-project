@@ -1,0 +1,21 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.74.0"
+  },
+  "ReportID": "01a0c8f5-3109-7674-8c28-b85b5f0a0422",
+  "CreatedAt": "2026-09-22T13:51:47.209424+02:00",
+  "ArtifactName": "corpus/dockerfiles/case-docker-009-duplicate-stage-alias/Dockerfile",
+  "ArtifactType": "filesystem",
+  "Results": [
+    {
+      "Target": "Dockerfile",
+      "Class": "config",
+      "Type": "dockerfile",
+      "MisconfSummary": {
+        "Successes": 27,
+        "Failures": 0
+      }
+    }
+  ]
+}

@@ -427,3 +427,405 @@ cases:
         checkov: []
         trivy: []
         kubescape: []
+
+  case-011-host-network:
+    artifact_type: kubernetes_yaml
+    artifact_path: corpus/kubernetes/case-011-host-network/artifact.yaml
+    ground_truth_path: corpus/kubernetes/case-011-host-network/ground_truth.yaml
+
+    rule_mappings:
+      GT-011:
+        checkov:
+          - CKV_K8S_19
+        trivy:
+          - KSV-0009
+        kubescape:
+          - C-0041
+
+  case-012-host-pid:
+    artifact_type: kubernetes_yaml
+    artifact_path: corpus/kubernetes/case-012-host-pid/artifact.yaml
+    ground_truth_path: corpus/kubernetes/case-012-host-pid/ground_truth.yaml
+
+    rule_mappings:
+      GT-012:
+        checkov:
+          - CKV_K8S_17
+        trivy:
+          - KSV-0010
+        kubescape:
+          - C-0038
+          - C-0275
+
+  case-013-host-ipc:
+    artifact_type: kubernetes_yaml
+    artifact_path: corpus/kubernetes/case-013-host-ipc/artifact.yaml
+    ground_truth_path: corpus/kubernetes/case-013-host-ipc/ground_truth.yaml
+
+    rule_mappings:
+      GT-013:
+        checkov:
+          - CKV_K8S_18
+        trivy:
+          - KSV-0008
+        kubescape:
+          - C-0038
+          - C-0276
+
+  case-014-privilege-escalation:
+    artifact_type: kubernetes_yaml
+    artifact_path: corpus/kubernetes/case-014-privilege-escalation/artifact.yaml
+    ground_truth_path: corpus/kubernetes/case-014-privilege-escalation/ground_truth.yaml
+
+    rule_mappings:
+      GT-014:
+        checkov:
+          - CKV_K8S_20
+        trivy:
+          - KSV-0001
+        kubescape:
+          - C-0016
+
+  case-015-writable-root-filesystem:
+    artifact_type: kubernetes_yaml
+    artifact_path: corpus/kubernetes/case-015-writable-root-filesystem/artifact.yaml
+    ground_truth_path: corpus/kubernetes/case-015-writable-root-filesystem/ground_truth.yaml
+
+    rule_mappings:
+      GT-015:
+        checkov:
+          - CKV_K8S_22
+        trivy:
+          - KSV-0014
+        kubescape:
+          - C-0017
+
+  case-016-missing-liveness-probe:
+    artifact_type: kubernetes_yaml
+    artifact_path: corpus/kubernetes/case-016-missing-liveness-probe/artifact.yaml
+    ground_truth_path: corpus/kubernetes/case-016-missing-liveness-probe/ground_truth.yaml
+
+    rule_mappings:
+      GT-016:
+        checkov:
+          - CKV_K8S_8
+        trivy: []
+        kubescape:
+          - C-0056
+
+  case-017-missing-readiness-probe:
+    artifact_type: kubernetes_yaml
+    artifact_path: corpus/kubernetes/case-017-missing-readiness-probe/artifact.yaml
+    ground_truth_path: corpus/kubernetes/case-017-missing-readiness-probe/ground_truth.yaml
+
+    rule_mappings:
+      GT-017:
+        checkov:
+          - CKV_K8S_9
+        trivy: []
+        kubescape:
+          - C-0018
+
+  case-018-default-namespace:
+    artifact_type: kubernetes_yaml
+    artifact_path: corpus/kubernetes/case-018-default-namespace/artifact.yaml
+    ground_truth_path: corpus/kubernetes/case-018-default-namespace/ground_truth.yaml
+
+    rule_mappings:
+      GT-018:
+        checkov:
+          - CKV_K8S_21
+        trivy:
+          - KSV-0110
+        kubescape:
+          - C-0061
+
+  case-019-unconfined-seccomp:
+    artifact_type: kubernetes_yaml
+    artifact_path: corpus/kubernetes/case-019-unconfined-seccomp/artifact.yaml
+    ground_truth_path: corpus/kubernetes/case-019-unconfined-seccomp/ground_truth.yaml
+
+    rule_mappings:
+      GT-019:
+        checkov:
+          - CKV_K8S_31
+        trivy:
+          - KSV-0030
+          - KSV-0104
+        kubescape:
+          - C-0210
+
+  case-020-missing-network-policy:
+    artifact_type: kubernetes_yaml
+    artifact_path: corpus/kubernetes/case-020-missing-network-policy/artifact.yaml
+    ground_truth_path: corpus/kubernetes/case-020-missing-network-policy/ground_truth.yaml
+
+    rule_mappings:
+      GT-020:
+        checkov: []
+        trivy: []
+        kubescape:
+          - C-0030
+          - C-0260
+
+  case-docker-011-apt-command:
+    artifact_type: dockerfile
+    artifact_path: corpus/dockerfiles/case-docker-011-apt-command/Dockerfile
+    ground_truth_path: corpus/dockerfiles/case-docker-011-apt-command/ground_truth.yaml
+
+    rule_mappings:
+      GT-DOCKER-011:
+        checkov:
+          - CKV_DOCKER_9
+        trivy: []
+        kubescape: []
+
+  case-docker-012-multiple-entrypoints:
+    artifact_type: dockerfile
+    artifact_path: corpus/dockerfiles/case-docker-012-multiple-entrypoints/Dockerfile
+    ground_truth_path: corpus/dockerfiles/case-docker-012-multiple-entrypoints/ground_truth.yaml
+
+    rule_mappings:
+      GT-DOCKER-012:
+        checkov: []
+        trivy:
+          - DS-0007
+        kubescape: []
+
+  case-docker-013-out-of-range-port:
+    artifact_type: dockerfile
+    artifact_path: corpus/dockerfiles/case-docker-013-out-of-range-port/Dockerfile
+    ground_truth_path: corpus/dockerfiles/case-docker-013-out-of-range-port/ground_truth.yaml
+
+    rule_mappings:
+      GT-DOCKER-013:
+        checkov: []
+        trivy:
+          - DS-0008
+        kubescape: []
+
+  case-docker-014-sudo-in-run:
+    artifact_type: dockerfile
+    artifact_path: corpus/dockerfiles/case-docker-014-sudo-in-run/Dockerfile
+    ground_truth_path: corpus/dockerfiles/case-docker-014-sudo-in-run/ground_truth.yaml
+
+    rule_mappings:
+      GT-DOCKER-014:
+        checkov: []
+        trivy:
+          - DS-0010
+        kubescape: []
+
+  case-docker-015-copy-destination-no-slash:
+    artifact_type: dockerfile
+    artifact_path: corpus/dockerfiles/case-docker-015-copy-destination-no-slash/Dockerfile
+    ground_truth_path: corpus/dockerfiles/case-docker-015-copy-destination-no-slash/ground_truth.yaml
+
+    rule_mappings:
+      GT-DOCKER-015:
+        checkov: []
+        trivy:
+          - DS-0011
+        kubescape: []
+
+  case-docker-016-run-cd-instead-of-workdir:
+    artifact_type: dockerfile
+    artifact_path: corpus/dockerfiles/case-docker-016-run-cd-instead-of-workdir/Dockerfile
+    ground_truth_path: corpus/dockerfiles/case-docker-016-run-cd-instead-of-workdir/ground_truth.yaml
+
+    rule_mappings:
+      GT-DOCKER-016:
+        checkov: []
+        trivy:
+          - DS-0013
+        kubescape: []
+
+  case-docker-017-mixed-curl-wget:
+    artifact_type: dockerfile
+    artifact_path: corpus/dockerfiles/case-docker-017-mixed-curl-wget/Dockerfile
+    ground_truth_path: corpus/dockerfiles/case-docker-017-mixed-curl-wget/ground_truth.yaml
+
+    rule_mappings:
+      GT-DOCKER-017:
+        checkov: []
+        trivy:
+          - DS-0014
+        kubescape: []
+
+  case-docker-018-yum-cache-not-cleaned:
+    artifact_type: dockerfile
+    artifact_path: corpus/dockerfiles/case-docker-018-yum-cache-not-cleaned/Dockerfile
+    ground_truth_path: corpus/dockerfiles/case-docker-018-yum-cache-not-cleaned/ground_truth.yaml
+
+    rule_mappings:
+      GT-DOCKER-018:
+        checkov: []
+        trivy:
+          - DS-0015
+        kubescape: []
+
+  case-docker-019-multiple-cmd:
+    artifact_type: dockerfile
+    artifact_path: corpus/dockerfiles/case-docker-019-multiple-cmd/Dockerfile
+    ground_truth_path: corpus/dockerfiles/case-docker-019-multiple-cmd/ground_truth.yaml
+
+    rule_mappings:
+      GT-DOCKER-019:
+        checkov: []
+        trivy:
+          - DS-0016
+        kubescape: []
+
+  case-docker-020-apk-cache-not-disabled:
+    artifact_type: dockerfile
+    artifact_path: corpus/dockerfiles/case-docker-020-apk-cache-not-disabled/Dockerfile
+    ground_truth_path: corpus/dockerfiles/case-docker-020-apk-cache-not-disabled/ground_truth.yaml
+
+    rule_mappings:
+      GT-DOCKER-020:
+        checkov: []
+        trivy:
+          - DS-0025
+        kubescape: []
+
+  case-helm-011-rbac-wildcard:
+    artifact_type: helm_chart
+    artifact_path: corpus/helm/case-helm-011-rbac-wildcard
+    ground_truth_path: corpus/helm/case-helm-011-rbac-wildcard/ground_truth.yaml
+
+    rule_mappings:
+      GT-HELM-011:
+        checkov:
+          - CKV_K8S_49
+        trivy:
+          - KSV-0044
+        kubescape: []
+
+  case-helm-012-latest-image-tag:
+    artifact_type: helm_chart
+    artifact_path: corpus/helm/case-helm-012-latest-image-tag
+    ground_truth_path: corpus/helm/case-helm-012-latest-image-tag/ground_truth.yaml
+
+    rule_mappings:
+      GT-HELM-012:
+        checkov:
+          - CKV_K8S_14
+        trivy:
+          - KSV-0013
+        kubescape: []
+
+  case-helm-013-missing-resource-limits:
+    artifact_type: helm_chart
+    artifact_path: corpus/helm/case-helm-013-missing-resource-limits
+    ground_truth_path: corpus/helm/case-helm-013-missing-resource-limits/ground_truth.yaml
+
+    rule_mappings:
+      GT-HELM-013:
+        checkov:
+          - CKV_K8S_11
+          - CKV_K8S_13
+        trivy:
+          - KSV-0011
+          - KSV-0018
+        kubescape:
+          - C-0004
+          - C-0009
+          - C-0050
+          - C-0270
+          - C-0271
+
+  case-helm-014-writable-root-filesystem:
+    artifact_type: helm_chart
+    artifact_path: corpus/helm/case-helm-014-writable-root-filesystem
+    ground_truth_path: corpus/helm/case-helm-014-writable-root-filesystem/ground_truth.yaml
+
+    rule_mappings:
+      GT-HELM-014:
+        checkov:
+          - CKV_K8S_22
+        trivy:
+          - KSV-0014
+        kubescape:
+          - C-0017
+
+  case-helm-015-missing-liveness-probe:
+    artifact_type: helm_chart
+    artifact_path: corpus/helm/case-helm-015-missing-liveness-probe
+    ground_truth_path: corpus/helm/case-helm-015-missing-liveness-probe/ground_truth.yaml
+
+    rule_mappings:
+      GT-HELM-015:
+        checkov:
+          - CKV_K8S_8
+        trivy: []
+        kubescape:
+          - C-0056
+
+  case-helm-016-missing-readiness-probe:
+    artifact_type: helm_chart
+    artifact_path: corpus/helm/case-helm-016-missing-readiness-probe
+    ground_truth_path: corpus/helm/case-helm-016-missing-readiness-probe/ground_truth.yaml
+
+    rule_mappings:
+      GT-HELM-016:
+        checkov:
+          - CKV_K8S_9
+        trivy: []
+        kubescape:
+          - C-0018
+
+  case-helm-017-default-namespace:
+    artifact_type: helm_chart
+    artifact_path: corpus/helm/case-helm-017-default-namespace
+    ground_truth_path: corpus/helm/case-helm-017-default-namespace/ground_truth.yaml
+
+    rule_mappings:
+      GT-HELM-017:
+        checkov:
+          - CKV_K8S_21
+        trivy:
+          - KSV-0110
+        kubescape:
+          - C-0061
+
+  case-helm-018-unconfined-seccomp:
+    artifact_type: helm_chart
+    artifact_path: corpus/helm/case-helm-018-unconfined-seccomp
+    ground_truth_path: corpus/helm/case-helm-018-unconfined-seccomp/ground_truth.yaml
+
+    rule_mappings:
+      GT-HELM-018:
+        checkov:
+          - CKV_K8S_31
+        trivy:
+          - KSV-0030
+          - KSV-0104
+        kubescape:
+          - C-0210
+
+  case-helm-019-missing-network-policy:
+    artifact_type: helm_chart
+    artifact_path: corpus/helm/case-helm-019-missing-network-policy
+    ground_truth_path: corpus/helm/case-helm-019-missing-network-policy/ground_truth.yaml
+
+    rule_mappings:
+      GT-HELM-019:
+        checkov: []
+        trivy: []
+        kubescape:
+          - C-0030
+          - C-0260
+
+  case-helm-020-host-port:
+    artifact_type: helm_chart
+    artifact_path: corpus/helm/case-helm-020-host-port
+    ground_truth_path: corpus/helm/case-helm-020-host-port/ground_truth.yaml
+
+    rule_mappings:
+      GT-HELM-020:
+        checkov:
+          - CKV_K8S_26
+        trivy:
+          - KSV-0024
+        kubescape:
+          - C-0044

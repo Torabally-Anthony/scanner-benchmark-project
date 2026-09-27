@@ -1,0 +1,24 @@
+case_id: case-helm-020-host-port
+artifact_type: helm_chart
+
+misconfigurations:
+  - id: GT-HELM-020
+    title: Helm chart binds a container port directly to the node
+    category: Network
+    subcategory: HostPortExposure
+    severity: High
+
+    resource: Deployment.benchmark.host-port-helm-demo
+    field_path: spec.template.spec.containers[0].ports[0].hostPort
+    bad_value: 8080
+    expected_secure_value: null
+
+    rationale: >
+      A hostPort binds the workload directly to a port on every node where it is
+      scheduled, bypassing normal Service isolation and creating port conflicts.
+      Workloads should generally be exposed through a Kubernetes Service.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

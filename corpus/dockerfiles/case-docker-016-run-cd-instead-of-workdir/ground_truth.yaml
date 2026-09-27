@@ -1,0 +1,24 @@
+case_id: case-docker-016-run-cd-instead-of-workdir
+artifact_type: dockerfile
+
+misconfigurations:
+  - id: GT-DOCKER-016
+    title: RUN uses cd instead of a WORKDIR instruction
+    category: BuildConfiguration
+    subcategory: RunCdInsteadOfWorkdir
+    severity: Medium
+
+    resource: Dockerfile
+
+    field_path: RUN[0]
+    bad_value: 'cd /tmp && echo "benchmark" > marker.txt'
+    expected_secure_value: "WORKDIR /tmp"
+
+    rationale: >
+      Changing directories inside an individual RUN instruction makes the
+      build harder to read and maintain. WORKDIR communicates the active
+      directory explicitly and persists it for subsequent instructions.
+
+    applicable_scanners:
+      - checkov
+      - trivy

@@ -1,0 +1,60 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.74.0"
+  },
+  "ReportID": "01a0de6a-fc23-7d0b-b758-e160200e7da9",
+  "CreatedAt": "2026-09-26T17:52:28.451857+02:00",
+  "ArtifactName": "corpus/dockerfiles/case-docker-013-out-of-range-port/Dockerfile",
+  "ArtifactType": "filesystem",
+  "Results": [
+    {
+      "Target": "Dockerfile",
+      "Class": "config",
+      "Type": "dockerfile",
+      "MisconfSummary": {
+        "Successes": 26,
+        "Failures": 1
+      },
+      "Misconfigurations": [
+        {
+          "Type": "Dockerfile Security Check",
+          "ID": "DS-0008",
+          "Title": "Exposed port out of range",
+          "Description": "UNIX ports outside the range 0-65535 are exposed.",
+          "Message": "'EXPOSE' contains port which is out of range [0, 65535]: 70000",
+          "Namespace": "builtin.dockerfile.DS008",
+          "Query": "data.builtin.dockerfile.DS008.deny",
+          "Resolution": "Use port number within range",
+          "Severity": "CRITICAL",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ds-0008",
+          "References": [
+            "https://docs.docker.com/engine/reference/builder/#expose",
+            "https://avd.aquasec.com/misconfig/ds-0008"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Dockerfile",
+            "Service": "general",
+            "StartLine": 5,
+            "EndLine": 5,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 5,
+                  "Content": "EXPOSE 70000",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[38;5;64mEXPOSE\u001b[0m\u001b[38;5;37m 70000\u001b[0m",
+                  "FirstCause": true,
+                  "LastCause": true
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

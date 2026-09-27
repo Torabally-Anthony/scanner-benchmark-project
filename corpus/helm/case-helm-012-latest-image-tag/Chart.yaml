@@ -1,0 +1,6 @@
+apiVersion: v2
+name: latest-image-tag-demo
+description: Controlled Helm benchmark case using the latest image tag
+type: application
+version: 0.1.0
+appVersion: "1.0.0"

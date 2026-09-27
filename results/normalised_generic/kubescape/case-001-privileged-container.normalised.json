@@ -2,9 +2,9 @@
   "schema_version": "1.0",
   "case_id": "case-001-privileged-container",
   "tool": "kubescape",
-  "scanner_version": "Your current version is: v4.0.10\nBuild commit: f956507357091c3806777fe13ddf5e65efe36e44\nBuild date: 2026-06-30T05:17:15Z",
+  "scanner_version": "Your current version is: 4.0.14\nBuild commit: 031cd40cc8de696fa30a648001853443019ec97a\nBuild date: 2026-09-09T12:24:41Z",
   "artifact_type": "kubernetes_yaml",
-  "generated_at": "2026-09-17T06:12:32.773661+00:00",
+  "generated_at": "2026-09-27T11:13:34.611044+00:00",
   "source_file": "results/raw/kubescape/case-001-privileged-container.json",
   "summary": {
     "normalised_findings_count": 23,

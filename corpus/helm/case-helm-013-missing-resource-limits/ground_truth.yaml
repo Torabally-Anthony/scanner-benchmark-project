@@ -1,0 +1,26 @@
+case_id: case-helm-013-missing-resource-limits
+artifact_type: helm_chart
+
+misconfigurations:
+  - id: GT-HELM-013
+    title: Helm chart omits container resource limits
+    category: ResourceManagement
+    subcategory: MissingResourceLimits
+    severity: Medium
+
+    resource: Deployment.benchmark.missing-resource-limits-helm-demo
+    field_path: spec.template.spec.containers[0].resources.limits
+    bad_value: null
+    expected_secure_value:
+      cpu: 200m
+      memory: 256Mi
+
+    rationale: >
+      Containers without CPU and memory limits can consume excessive node
+      resources and affect neighbouring workloads. Explicit limits provide a
+      predictable upper bound for resource consumption.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

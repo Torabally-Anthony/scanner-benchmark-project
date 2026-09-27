@@ -1,0 +1,26 @@
+case_id: case-016-missing-liveness-probe
+artifact_type: kubernetes_yaml
+
+misconfigurations:
+  - id: GT-016
+    title: Container has no liveness probe
+    category: WorkloadReliability
+    subcategory: MissingLivenessProbe
+    severity: Medium
+
+    resource: Pod.benchmark.missing-liveness-probe-demo
+    container: demo-container
+
+    field_path: spec.containers[0].livenessProbe
+    bad_value: null
+    expected_secure_value: configured-probe
+
+    rationale: >
+      Without a liveness probe, Kubernetes cannot reliably identify and
+      restart a container that is running but no longer healthy, potentially
+      leaving a degraded workload active indefinitely.
+
+    applicable_scanners:
+      - checkov
+      - trivy
+      - kubescape

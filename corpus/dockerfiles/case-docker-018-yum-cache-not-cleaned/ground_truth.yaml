@@ -1,0 +1,24 @@
+case_id: case-docker-018-yum-cache-not-cleaned
+artifact_type: dockerfile
+
+misconfigurations:
+  - id: GT-DOCKER-018
+    title: yum package cache is not cleaned after installation
+    category: PackageManagement
+    subcategory: YumCacheNotCleaned
+    severity: High
+
+    resource: Dockerfile
+
+    field_path: RUN[0]
+    bad_value: "yum install -y curl"
+    expected_secure_value: "yum install -y curl && yum clean all"
+
+    rationale: >
+      Leaving yum metadata and cached packages in an image increases its size
+      and retains unnecessary files. The cache should be removed in the same
+      build layer as the package installation.
+
+    applicable_scanners:
+      - checkov
+      - trivy

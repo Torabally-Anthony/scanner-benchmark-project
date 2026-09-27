@@ -1,0 +1,60 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.74.0"
+  },
+  "ReportID": "01a0de6b-0087-7f17-8ccb-6b2d54f1d47d",
+  "CreatedAt": "2026-09-26T17:52:29.575991+02:00",
+  "ArtifactName": "corpus/dockerfiles/case-docker-015-copy-destination-no-slash/Dockerfile",
+  "ArtifactType": "filesystem",
+  "Results": [
+    {
+      "Target": "Dockerfile",
+      "Class": "config",
+      "Type": "dockerfile",
+      "MisconfSummary": {
+        "Successes": 26,
+        "Failures": 1
+      },
+      "Misconfigurations": [
+        {
+          "Type": "Dockerfile Security Check",
+          "ID": "DS-0011",
+          "Title": "COPY with more than two arguments not ending with slash",
+          "Description": "When a COPY command has more than two arguments, the last one should end with a slash.",
+          "Message": "Slash is expected at the end of COPY command argument '/app/config'",
+          "Namespace": "builtin.dockerfile.DS011",
+          "Query": "data.builtin.dockerfile.DS011.deny",
+          "Resolution": "Add slash to last COPY argument",
+          "Severity": "CRITICAL",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ds-0011",
+          "References": [
+            "https://docs.docker.com/engine/reference/builder/#copy",
+            "https://avd.aquasec.com/misconfig/ds-0011"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Dockerfile",
+            "Service": "general",
+            "StartLine": 5,
+            "EndLine": 5,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 5,
+                  "Content": "COPY app.conf settings.conf /app/config",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[38;5;64mCOPY\u001b[0m app.conf settings.conf /app/config",
+                  "FirstCause": true,
+                  "LastCause": true
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

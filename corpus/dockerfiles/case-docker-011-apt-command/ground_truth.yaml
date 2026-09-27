@@ -1,0 +1,24 @@
+case_id: case-docker-011-apt-command
+artifact_type: dockerfile
+
+misconfigurations:
+  - id: GT-DOCKER-011
+    title: Dockerfile uses apt instead of apt-get
+    category: PackageManagement
+    subcategory: AptCommandUsage
+    severity: Medium
+
+    resource: Dockerfile
+
+    field_path: RUN[0]
+    bad_value: "apt install -y curl"
+    expected_secure_value: "apt-get install -y curl"
+
+    rationale: >
+      The apt command is intended for interactive use and does not provide a
+      stable command-line interface for automated builds. Dockerfiles should
+      use apt-get for predictable, script-compatible package installation.
+
+    applicable_scanners:
+      - checkov
+      - trivy

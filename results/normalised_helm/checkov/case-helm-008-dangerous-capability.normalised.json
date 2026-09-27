@@ -4,7 +4,7 @@
   "tool": "checkov",
   "scanner_version": "3.3.10",
   "artifact_type": "helm_chart",
-  "generated_at": "2026-09-22T12:10:57.445218+00:00",
+  "generated_at": "2026-09-27T07:13:19.653829+00:00",
   "source_file": "results/raw/checkov/case-helm-008-dangerous-capability.json",
   "summary": {
     "normalised_findings_count": 14,

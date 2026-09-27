@@ -55,4 +55,4 @@ Unmapped findings count as false positives; duplicate and ambiguous matches are 
 
 - Full findings: `results/matched_helm/checkov/case-helm-008-dangerous-capability.matched.json`
 - Full metrics: `results/metrics_helm/checkov/case-helm-008-dangerous-capability.metrics.json`
-- Generated: `2026-09-22T12:10:57.589784+00:00`
+- Generated: `2026-09-27T07:13:19.804602+00:00`

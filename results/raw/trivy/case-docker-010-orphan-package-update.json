@@ -1,0 +1,60 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.74.0"
+  },
+  "ReportID": "01a0c8f5-3fa6-782d-8c5d-6b924d557861",
+  "CreatedAt": "2026-09-22T13:51:50.950537+02:00",
+  "ArtifactName": "corpus/dockerfiles/case-docker-010-orphan-package-update/Dockerfile",
+  "ArtifactType": "filesystem",
+  "Results": [
+    {
+      "Target": "Dockerfile",
+      "Class": "config",
+      "Type": "dockerfile",
+      "MisconfSummary": {
+        "Successes": 26,
+        "Failures": 1
+      },
+      "Misconfigurations": [
+        {
+          "Type": "Dockerfile Security Check",
+          "ID": "DS-0017",
+          "Title": "'RUN \u003cpackage-manager\u003e update' instruction alone",
+          "Description": "The instruction 'RUN \u003cpackage-manager\u003e update' should always be followed by '\u003cpackage-manager\u003e install' in the same RUN statement.",
+          "Message": "The instruction 'RUN \u003cpackage-manager\u003e update' should always be followed by '\u003cpackage-manager\u003e install' in the same RUN statement.",
+          "Namespace": "builtin.dockerfile.DS017",
+          "Query": "data.builtin.dockerfile.DS017.deny",
+          "Resolution": "Combine '\u003cpackage-manager\u003e update' and '\u003cpackage-manager\u003e install' instructions to single one",
+          "Severity": "HIGH",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ds-0017",
+          "References": [
+            "https://docs.docker.com/develop/develop-images/instructions/#run",
+            "https://avd.aquasec.com/misconfig/ds-0017"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Dockerfile",
+            "Service": "general",
+            "StartLine": 3,
+            "EndLine": 3,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 3,
+                  "Content": "RUN apt-get update",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[38;5;64mRUN\u001b[0m apt-get update",
+                  "FirstCause": true,
+                  "LastCause": true
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

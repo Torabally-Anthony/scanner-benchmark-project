@@ -1,0 +1,21 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.74.0"
+  },
+  "ReportID": "01a0c8f6-9935-77ef-8f78-b2fde266a50f",
+  "CreatedAt": "2026-09-22T13:53:19.413521+02:00",
+  "ArtifactName": "corpus/helm/case-helm-010-public-loadbalancer",
+  "ArtifactType": "filesystem",
+  "Results": [
+    {
+      "Target": "templates/service.yaml",
+      "Class": "config",
+      "Type": "helm",
+      "MisconfSummary": {
+        "Successes": 62,
+        "Failures": 0
+      }
+    }
+  ]
+}

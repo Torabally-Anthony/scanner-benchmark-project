@@ -1,0 +1,26 @@
+case_id: case-docker-019-multiple-cmd
+artifact_type: dockerfile
+
+misconfigurations:
+  - id: GT-DOCKER-019
+    title: Dockerfile declares multiple CMD instructions
+    category: BuildConfiguration
+    subcategory: MultipleCommands
+    severity: High
+
+    resource: Dockerfile
+
+    field_path: CMD[1]
+    bad_value:
+      - '["echo", "first command"]'
+      - '["echo", "second command"]'
+    expected_secure_value: one-effective-command
+
+    rationale: >
+      Only the final CMD in a build stage is effective. Multiple declarations
+      hide overwritten startup behaviour and make it unclear which command
+      the resulting image will execute by default.
+
+    applicable_scanners:
+      - checkov
+      - trivy

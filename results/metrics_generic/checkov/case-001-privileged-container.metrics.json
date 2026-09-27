@@ -2,10 +2,10 @@
   "schema_version": "1.0",
   "case_id": "case-001-privileged-container",
   "tool": "checkov",
-  "scanner_version": "2.5.20",
+  "scanner_version": "3.3.10",
   "artifact_type": "kubernetes_yaml",
   "matching_mode": "strict",
-  "generated_at": "2026-09-17T06:13:14.576966+00:00",
+  "generated_at": "2026-09-27T11:13:34.146655+00:00",
   "source_file": "results/matched_generic/checkov/case-001-privileged-container.matched.json",
   "evaluation_status": "complete",
   "counts": {
