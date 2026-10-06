@@ -486,6 +486,7 @@ def append_finding_preview(
         [heading for heading, _ in columns],
         [
             [extractor(finding) for _, extractor in columns]
+            #take items from the beginning up to index assignment
             for finding in findings[:FINDING_PREVIEW_LIMIT]
         ],
     )
@@ -507,7 +508,7 @@ def build_ground_truth_rows(
     """Summarise the result for each benchmark issue."""
 
     detections: dict[str, set[str]] = {}
-    for finding in true_positives + duplicate_matches:
+    for finding in true_positives + duplicate_matches: #represent same scanner rule id for same multiple detection
         ground_truth_id = clean_text(finding.get("ground_truth_id"))
         if ground_truth_id:
             rule_id = clean_text(finding.get("rule_id"))
@@ -626,6 +627,7 @@ def build_report(
         ),
     )
 
+    #use lambda because I want just the ids no need to write whole function
     finding_id = lambda item: item.get("finding_id")
     rule_id = lambda item: item.get("rule_id")
     ground_truth_id = lambda item: item.get("ground_truth_id")

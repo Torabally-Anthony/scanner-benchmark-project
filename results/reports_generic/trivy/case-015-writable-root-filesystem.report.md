@@ -43,4 +43,4 @@ Unmapped findings count as false positives; duplicate and ambiguous matches are 
 
 - Full findings: `results/matched_generic/trivy/case-015-writable-root-filesystem.matched.json`
 - Full metrics: `results/metrics_generic/trivy/case-015-writable-root-filesystem.metrics.json`
-- Generated: `2026-09-26T15:47:05.799084+00:00`
+- Generated: `2026-10-02T10:32:22.093076+00:00`

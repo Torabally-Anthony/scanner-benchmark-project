@@ -43,4 +43,4 @@ Unmapped findings count as false positives; duplicate and ambiguous matches are 
 
 - Full findings: `results/matched_helm/trivy/case-helm-010-public-loadbalancer.matched.json`
 - Full metrics: `results/metrics_helm/trivy/case-helm-010-public-loadbalancer.metrics.json`
-- Generated: `2026-09-22T12:10:59.487640+00:00`
+- Generated: `2026-10-01T15:32:44.367833+00:00`

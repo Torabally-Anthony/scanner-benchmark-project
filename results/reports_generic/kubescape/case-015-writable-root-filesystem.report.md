@@ -52,4 +52,4 @@ Unmapped findings count as false positives; duplicate and ambiguous matches are 
 
 - Full findings: `results/matched_generic/kubescape/case-015-writable-root-filesystem.matched.json`
 - Full metrics: `results/metrics_generic/kubescape/case-015-writable-root-filesystem.metrics.json`
-- Generated: `2026-09-26T15:47:06.094862+00:00`
+- Generated: `2026-10-02T10:32:22.385287+00:00`

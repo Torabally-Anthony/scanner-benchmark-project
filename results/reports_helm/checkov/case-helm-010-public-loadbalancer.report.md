@@ -49,4 +49,4 @@ Unmapped findings count as false positives; duplicate and ambiguous matches are 
 
 - Full findings: `results/matched_helm/checkov/case-helm-010-public-loadbalancer.matched.json`
 - Full metrics: `results/metrics_helm/checkov/case-helm-010-public-loadbalancer.metrics.json`
-- Generated: `2026-09-22T12:10:59.150644+00:00`
+- Generated: `2026-10-01T15:32:44.114603+00:00`

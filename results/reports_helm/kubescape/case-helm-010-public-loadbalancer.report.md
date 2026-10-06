@@ -49,4 +49,4 @@ Unmapped findings count as false positives; duplicate and ambiguous matches are 
 
 - Full findings: `results/matched_helm/kubescape/case-helm-010-public-loadbalancer.matched.json`
 - Full metrics: `results/metrics_helm/kubescape/case-helm-010-public-loadbalancer.metrics.json`
-- Generated: `2026-09-22T12:10:59.740752+00:00`
+- Generated: `2026-10-01T15:32:44.629683+00:00`

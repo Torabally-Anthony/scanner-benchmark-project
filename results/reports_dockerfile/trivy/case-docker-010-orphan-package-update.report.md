@@ -43,4 +43,4 @@ Unmapped findings count as false positives; duplicate and ambiguous matches are 
 
 - Full findings: `results/matched_dockerfile/trivy/case-docker-010-orphan-package-update.matched.json`
 - Full metrics: `results/metrics_dockerfile/trivy/case-docker-010-orphan-package-update.metrics.json`
-- Generated: `2026-09-22T12:10:38.041310+00:00`
+- Generated: `2026-10-02T12:09:14.750599+00:00`

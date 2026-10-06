@@ -52,4 +52,4 @@ Unmapped findings count as false positives; duplicate and ambiguous matches are 
 
 - Full findings: `results/matched_generic/checkov/case-006-latest-image-tag.matched.json`
 - Full metrics: `results/metrics_generic/checkov/case-006-latest-image-tag.metrics.json`
-- Generated: `2026-09-22T12:10:29.528859+00:00`
+- Generated: `2026-10-02T12:07:55.230060+00:00`

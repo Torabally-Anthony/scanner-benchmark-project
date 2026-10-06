@@ -207,7 +207,8 @@ def create_false_negative(
         "ground_truth": ground_truth_item,
     }
 
-
+#starry
+# Core functionality
 # This function classifies normalised findings.
 def match_findings_to_ground_truth(
     findings: list[dict[str, Any]],
@@ -752,6 +753,6 @@ def main() -> int:
         )
         return 1
 
-
+# Return main code then exit terminal
 if __name__ == "__main__":
     sys.exit(main())

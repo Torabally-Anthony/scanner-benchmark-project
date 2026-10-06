@@ -404,7 +404,7 @@ def parse_arguments() -> argparse.Namespace:
 # This function runs the generic metric-calculation process.
 def run() -> Path:
     """Run the generic metric-calculation process."""
-
+    #parsing and validation
     arguments = parse_arguments()
 
     case_id = arguments.case_id.strip()
@@ -433,13 +433,13 @@ def run() -> Path:
         arguments.output_root,
         "Output root",
     )
-
+    #construct input directory
     input_path = (
         input_root
         / scanner
         / f"{case_id}.matched.json"
     )
-
+    #pass input path into helper function read_json for json parsing then assign to matched_document
     matched_document = read_json(
         input_path
     )
@@ -713,6 +713,7 @@ def run() -> Path:
         },
 
         "interpretation": {
+            #dictionary unpacking
             **explanations,
 
             "strict_mode_note": (
@@ -739,6 +740,7 @@ def run() -> Path:
         output_document,
     )
 
+    #print blocked used in terminal output
     print("Generic metrics calculation completed.")
     print(f"Case: {case_id}")
     print(f"Scanner: {scanner}")

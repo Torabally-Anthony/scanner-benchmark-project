@@ -61,4 +61,4 @@ Unmapped findings count as false positives; duplicate and ambiguous matches are 
 
 - Full findings: `results/matched_generic/checkov/case-007-missing-resource-limits.matched.json`
 - Full metrics: `results/metrics_generic/checkov/case-007-missing-resource-limits.metrics.json`
-- Generated: `2026-09-22T12:10:30.355038+00:00`
+- Generated: `2026-10-01T13:51:33.382740+00:00`

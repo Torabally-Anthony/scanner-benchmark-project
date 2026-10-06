@@ -60,4 +60,4 @@ Unmapped findings count as false positives; duplicate and ambiguous matches are 
 
 - Full findings: `results/matched_helm/kubescape/case-helm-013-missing-resource-limits.matched.json`
 - Full metrics: `results/metrics_helm/kubescape/case-helm-013-missing-resource-limits.metrics.json`
-- Generated: `2026-09-26T16:07:29.884131+00:00`
+- Generated: `2026-10-02T10:34:52.993833+00:00`

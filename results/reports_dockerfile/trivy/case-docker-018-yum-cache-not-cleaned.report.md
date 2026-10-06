@@ -43,4 +43,4 @@ Unmapped findings count as false positives; duplicate and ambiguous matches are 
 
 - Full findings: `results/matched_dockerfile/trivy/case-docker-018-yum-cache-not-cleaned.matched.json`
 - Full metrics: `results/metrics_dockerfile/trivy/case-docker-018-yum-cache-not-cleaned.metrics.json`
-- Generated: `2026-09-26T15:54:13.928126+00:00`
+- Generated: `2026-10-01T07:31:36.077257+00:00`

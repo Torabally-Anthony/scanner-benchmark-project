@@ -55,4 +55,4 @@ Unmapped findings count as false positives; duplicate and ambiguous matches are 
 
 - Full findings: `results/matched_generic/trivy/case-001-privileged-container.matched.json`
 - Full metrics: `results/metrics_generic/trivy/case-001-privileged-container.metrics.json`
-- Generated: `2026-09-27T11:13:34.497099+00:00`
+- Generated: `2026-10-01T07:31:29.078769+00:00`
