@@ -276,7 +276,8 @@ The dashboard can:
 - validate case files;
 - process existing raw outputs;
 - display scanner metrics and intermediate JSON;
-- generate and open comparison reports.
+- generate and open comparison reports;
+- explore the Visualise tab for precision, recall, F1, finding counts, and case detection charts, with artifact-family and scanner filters. Charts use the saved comparison report; regenerate the report after processing new benchmark results, then use Refresh data to reload it.
 
 The dashboard's Run/Process action does **not** execute scanner CLI tools. If a scanner reports that its raw output is missing, generate the expected file under `results/raw/<scanner>/` first.
 

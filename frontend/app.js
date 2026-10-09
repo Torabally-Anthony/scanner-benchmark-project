@@ -20,6 +20,7 @@ const VIEW_TITLES = {
   matched: "Matching Results",
   metrics: "Per-Case Metrics",
   comparison: "Comparison Report",
+  visualise: "Visualise",
   reports: "Reports",
   settings: "Settings",
 };
@@ -631,7 +632,7 @@ function showView(viewName) {
     behavior: "smooth",
   });
 
-  if (viewName === "comparison") {
+  if (viewName === "comparison" || viewName === "visualise") {
     loadComparison();
   }
 }
@@ -2753,12 +2754,14 @@ function renderComparison(report) {
   renderCoverageMatrix(report);
   renderArtifactSummary(report);
   renderComparisonCases(report);
+  BenchmarkVisualise.render(report);
 }
 
 
 async function loadComparison(
   showToast = false,
 ) {
+  BenchmarkVisualise.loading();
   const status = $(
     "comparisonStatus",
   );
@@ -2796,6 +2799,8 @@ async function loadComparison(
 
     return report;
   } catch (error) {
+    state.comparison = null;
+    BenchmarkVisualise.error(errorMessage(error));
     if (status) {
       status.textContent = (
         "The comparison report has not been generated."
@@ -3496,7 +3501,7 @@ async function refresh() {
     ) {
       await loadReports();
     } else if (
-      state.view === "comparison"
+      state.view === "comparison" || state.view === "visualise"
     ) {
       await loadComparison();
     } else if (
@@ -3621,6 +3626,9 @@ function bindCaseSelectors() {
 
 
 function bindControls() {
+  on("visualiseArtifact", "change", () => BenchmarkVisualise.render(state.comparison));
+  on("visualiseScanner", "change", () => BenchmarkVisualise.render(state.comparison));
+
   on(
     "refreshBtn",
     "click",

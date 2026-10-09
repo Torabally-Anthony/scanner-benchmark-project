@@ -17,7 +17,7 @@
 
   <link
     rel="stylesheet"
-    href="/styles.css?v=formatted-reports"
+    href="/styles.css?v=visualise"
   >
 </head>
 
@@ -120,6 +120,15 @@
         >
           <span aria-hidden="true">⇄</span>
           Comparison Report
+        </button>
+
+        <button
+          class="nav"
+          type="button"
+          data-view="visualise"
+        >
+          <span aria-hidden="true">◔</span>
+          Visualise
         </button>
 
         <button
@@ -1455,6 +1464,90 @@
 
 
       <!-- ==============================================================
+           Visualise
+           ============================================================== -->
+
+      <section id="visualise" class="view">
+        <div class="heading">
+          <div>
+            <h2>The comparison, at a glance</h2>
+            <p>Explore scanner performance and detection outcomes from your comparison report.</p>
+          </div>
+          <button class="btn secondary goto" type="button" data-target="comparison">
+            Open comparison report
+          </button>
+        </div>
+
+        <div class="panel visualise-toolbar">
+          <label class="inline-field" for="visualiseArtifact">
+            Artifact family
+            <select id="visualiseArtifact" disabled>
+              <option value="all">All artifacts</option>
+            </select>
+          </label>
+          <p id="visualiseStatus" role="status" aria-live="polite">Open this page to load the comparison report.</p>
+        </div>
+
+        <div id="visualiseEmpty" class="panel visualise-empty" hidden></div>
+
+        <div id="visualiseContent" hidden>
+          <div id="visualiseSummary" class="visualise-summary"></div>
+          <p id="visualiseScope" class="visualise-note"></p>
+
+          <div class="visualise-grid">
+            <article class="panel visualise-card">
+              <div class="panel-head">
+                <div>
+                  <h3>Precision, recall &amp; F1</h3>
+                  <p>Micro scores across applicable cases. Higher is better.</p>
+                </div>
+              </div>
+              <div id="visualiseScores"></div>
+              <p class="visualise-note">Precision: how many reported findings match the labels. Recall: how many labelled issues were found. F1 balances both.</p>
+            </article>
+
+            <article class="panel visualise-card">
+              <div class="panel-head">
+                <div>
+                  <h3>Finding counts</h3>
+                  <p>Matched findings, false positives and missed labelled issues.</p>
+                </div>
+              </div>
+              <div id="visualiseFindings"></div>
+              <p class="visualise-note">Counts use a shared scale. False positives follow the report’s matching rules; unlabelled extras are listed separately.</p>
+            </article>
+
+            <article class="panel visualise-card">
+              <div class="panel-head">
+                <div>
+                  <h3>Case detection</h3>
+                  <p>How completely did a scanner detect each case’s labelled issues?</p>
+                </div>
+              </div>
+              <label class="inline-field visualise-scanner-field" for="visualiseScanner">
+                Scanner
+                <select id="visualiseScanner"></select>
+              </label>
+              <div id="visualiseDetection"></div>
+              <p class="visualise-note">Detected means all labelled issues were found; partial means some were found. False positives are shown in Finding counts.</p>
+            </article>
+
+            <article class="panel visualise-card">
+              <div class="panel-head">
+                <div>
+                  <h3>F1 by artifact family</h3>
+                  <p>Micro F1 for each scanner within the same artifact family.</p>
+                </div>
+              </div>
+              <div id="visualiseFamilies"></div>
+              <p class="visualise-note">A dash means the score is undefined in the report. Unsupported scanner–artifact combinations are marked “Not applicable”.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ==============================================================
            Reports
            ============================================================== -->
 
@@ -1946,7 +2039,11 @@
 
 
   <script
-    src="/app.js?v=comparison-f1-percent"
+    src="/visualise.js?v=1"
+    defer
+  ></script>
+  <script
+    src="/app.js?v=visualise"
     defer
   ></script>
 
