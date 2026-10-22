@@ -49,4 +49,4 @@ Unmapped findings count as false positives; duplicate and ambiguous matches are 
 
 - Full findings: `results/matched_generic/checkov/case-015-writable-root-filesystem.matched.json`
 - Full metrics: `results/metrics_generic/checkov/case-015-writable-root-filesystem.metrics.json`
-- Generated: `2026-10-02T10:32:21.840928+00:00`
+- Generated: `2026-10-21T11:14:16.217089+00:00`

@@ -5,7 +5,7 @@
   "scanner_version": "3.3.10",
   "artifact_type": "kubernetes_yaml",
   "matching_mode": "strict",
-  "generated_at": "2026-10-02T10:32:21.741279+00:00",
+  "generated_at": "2026-10-21T11:14:16.112275+00:00",
   "source_file": "results/normalised_generic/checkov/case-015-writable-root-filesystem.normalised.json",
   "ground_truth_source": "corpus/kubernetes/case-015-writable-root-filesystem/ground_truth.yaml",
   "classification_policy": {

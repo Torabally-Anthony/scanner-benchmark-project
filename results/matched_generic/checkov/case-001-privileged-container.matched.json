@@ -5,7 +5,7 @@
   "scanner_version": "3.3.10",
   "artifact_type": "kubernetes_yaml",
   "matching_mode": "strict",
-  "generated_at": "2026-10-02T11:45:47.329818+00:00",
+  "generated_at": "2026-10-21T12:11:41.588132+00:00",
   "source_file": "results/normalised_generic/checkov/case-001-privileged-container.normalised.json",
   "ground_truth_source": "corpus/kubernetes/case-001-privileged-container/ground_truth.yaml",
   "classification_policy": {

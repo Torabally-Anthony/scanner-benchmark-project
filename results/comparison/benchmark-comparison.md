@@ -1,6 +1,6 @@
 # Benchmark Comparison Report
 
-Generated: `2026-10-02T11:51:46.266856+00:00`
+Generated: `2026-10-21T11:14:52.290991+00:00`
 
 Metrics include applicable scanner and artifact combinations only. Kubescape is not applicable to Dockerfile cases. Unmapped findings count as false positives.
 

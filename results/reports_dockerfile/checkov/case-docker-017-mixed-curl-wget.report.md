@@ -43,4 +43,4 @@ Unmapped findings count as false positives; duplicate and ambiguous matches are 
 
 - Full findings: `results/matched_dockerfile/checkov/case-docker-017-mixed-curl-wget.matched.json`
 - Full metrics: `results/metrics_dockerfile/checkov/case-docker-017-mixed-curl-wget.metrics.json`
-- Generated: `2026-09-26T15:54:13.122885+00:00`
+- Generated: `2026-10-21T12:45:20.142713+00:00`

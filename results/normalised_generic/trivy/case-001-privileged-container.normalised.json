@@ -4,7 +4,7 @@
   "tool": "trivy",
   "scanner_version": "Version: 0.74.0\nCheck Bundle:\n  Digest: sha256:1583562f8b90ed2a071b99f0e5ffff6b57e4ceb6ca3e4796577b4e6a339eb74c\n  DownloadedAt: 2026-09-22 11:08:49.192012 +0000 UTC",
   "artifact_type": "kubernetes_yaml",
-  "generated_at": "2026-10-01T07:31:28.929258+00:00",
+  "generated_at": "2026-10-17T07:35:11.060394+00:00",
   "source_file": "results/raw/trivy/case-001-privileged-container.json",
   "summary": {
     "normalised_findings_count": 18,

@@ -4,7 +4,7 @@
   "tool": "checkov",
   "scanner_version": "3.3.10",
   "artifact_type": "kubernetes_yaml",
-  "generated_at": "2026-10-02T11:45:47.279884+00:00",
+  "generated_at": "2026-10-21T12:11:41.536106+00:00",
   "source_file": "results/raw/checkov/case-001-privileged-container.json",
   "summary": {
     "normalised_findings_count": 20,

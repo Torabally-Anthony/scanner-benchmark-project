@@ -55,4 +55,4 @@ Unmapped findings count as false positives; duplicate and ambiguous matches are 
 
 - Full findings: `results/matched_generic/kubescape/case-001-privileged-container.matched.json`
 - Full metrics: `results/metrics_generic/kubescape/case-001-privileged-container.metrics.json`
-- Generated: `2026-10-01T18:05:52.779384+00:00`
+- Generated: `2026-10-17T07:35:11.490236+00:00`
